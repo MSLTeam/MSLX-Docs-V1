@@ -15,12 +15,12 @@ import { VPLink } from 'vuepress-theme-plume/client'
       <span class="link-text">加入交流群</span>
       <span class="vpi-arrow-right" />
     </VPLink>
-    <VPLink class="link" no-icon href="https://github.com/MSLTeam/MSL">
+    <VPLink class="link" no-icon href="https://github.com/MSLTeam/MSLX">
       <i class="fa-regular fa-star"></i>
       <span class="link-text">在 GitHub 上 Star</span>
       <span class="vpi-arrow-right" />
     </VPLink>
-    <VPLink class="link" no-icon href="https://github.com/MSLTeam/MSL/issues/new/choose">
+    <VPLink class="link" no-icon href="https://github.com/MSLTeam/MSLX/issues/new/choose">
       <i class="fa-solid fa-circle-question"></i>
       <span class="link-text">遇到问题 ?</span>
       <span class="vpi-arrow-right" />
