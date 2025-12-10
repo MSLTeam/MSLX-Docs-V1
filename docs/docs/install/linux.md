@@ -30,52 +30,54 @@ chmod -R 755 /usr/share/dotnet
 dotnet --info
 ```
 
-```shell
+```shell :collapsed-lines=2
 # 正常安装成功输出如下
-.NET SDK:
- Version:           8.0.416
- Commit:            f9da71086e
- Workload version:  8.0.400-manifests.785fc388
- MSBuild version:   17.11.48+02bf66295
-
-Runtime Environment:
- OS Name:     ubuntu
- OS Version:  24.04
- OS Platform: Linux
- RID:         linux-x64
- Base Path:   /root/.dotnet/sdk/8.0.416/
-
-.NET workloads installed:
-Configured to use loose manifests when installing new manifests.
-There are no installed workloads to display.
-
-Host:
-  Version:      8.0.22
-  Architecture: x64
-  Commit:       a2266c728f
-
-.NET SDKs installed:
-  8.0.416 [/root/.dotnet/sdk]
-
-.NET runtimes installed:
-  Microsoft.AspNetCore.App 8.0.22 [/root/.dotnet/shared/Microsoft.AspNetCore.App]
-  Microsoft.NETCore.App 8.0.22 [/root/.dotnet/shared/Microsoft.NETCore.App]
-
-Other architectures found:
-  None
-
-Environment variables:
-  DOTNET_ROOT       [/root/.dotnet]
-
-global.json file:
-  Not found
-
-Learn more:
-  https://aka.ms/dotnet/info
-
-Download .NET:
-  https://aka.ms/dotnet/download
+	.NET SDK:
+	 Version:           8.0.416
+	 Commit:            f9da71086e
+	 Workload version:  8.0.400-manifests.785fc388
+	 MSBuild version:   17.11.48+02bf66295
+	
+	Runtime Environment:
+	 OS Name:     ubuntu
+	 OS Version:  24.04
+	 OS Platform: Linux
+	 RID:         linux-x64
+	 Base Path:   /root/.dotnet/sdk/8.0.416/
+	
+	.NET workloads installed:
+	Configured to use loose manifests when installing new manifests.
+	There are no installed workloads to display.
+	
+	Host:
+	  Version:      8.0.22
+	  Architecture: x64
+	  Commit:       a2266c728f
+	
+	.NET SDKs installed:
+	  8.0.416 [/root/.dotnet/sdk]
+	
+	.NET runtimes installed:
+	  Microsoft.AspNetCore.App 8.0.22 [/root/.dotnet/shared/Microsoft.AspNetCore.App]
+	  Microsoft.NETCore.App 8.0.22 [/root/.dotnet/shared/Microsoft.NETCore.App]
+	
+	Other architectures found:
+	  None
+	
+	Environment variables:
+	  DOTNET_ROOT       [/root/.dotnet]
+	
+	global.json file:
+	  Not found
+	
+	Learn more:
+	  https://aka.ms/dotnet/info
+	
+	Download .NET:
+	  https://aka.ms/dotnet/download
 ```
+
+
 
 :::
 
