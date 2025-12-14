@@ -9,7 +9,7 @@ icon: circle-play
 
 ![image-20251206222726867](./assets/image-20251206222726867.png)
 
-==MSLX== 是由 [**MSL**](https://www.mslmc.cn) 原班团队 **MSLTeam** 倾力打造的全新一代开服工具。基于 ==.NET Core 8.0== 环境。
+==MSLX== 是由 [**MSL**](https://www.mslmc.cn) 原班团队 **MSLTeam** 倾力打造的全新一代开服工具。基于 ==.NET Core 10.0== 环境。
 
 它传承了 MSL 经典的 UI 设计语言，旨在让操作零门槛——无论是老用户还是新伙伴，都能即刻上手，极速部署您的 MC 服务器。
 
@@ -37,9 +37,9 @@ MSLX采用的是 ==前后端分离== 的模式。
 
 ## MSLX 技术栈
 
-- ==MSLX Daemon== : ASP.NET Core (.NET Core 8.0 LTS)
+- ==MSLX Daemon== : ASP.NET Core (.NET Core 10.0 LTS)
 - ==MSLX 网页控制台=={.important} : Vue3 + Pinia + TypeScrpt
-- ==MSLX 桌面客户端=={.tip} : AvaloniaUI (.NET Core 8.0 LTS)
+- ==MSLX 桌面客户端=={.tip} : AvaloniaUI (.NET Core 10.0 LTS)
 
 ## 安装使用
 

@@ -6,7 +6,7 @@ icon: b:ubuntu
 ---
 
 ::: important 运行环境  
-运行环境: ==.NET Core 8.0 LTS=={.important}  
+运行环境: ==.NET Core 10.0 LTS=={.important}  
 
 (一般系统都不自带此环境，请确保您安装成功了)
 
@@ -15,10 +15,10 @@ icon: b:ubuntu
 apt-get update && apt-get install -y libicu-dev 
 # 如果是CentOS等系统 请使用 yum install -y libicu
 
-# 下载并安装.NET Core 8.0 SDK
+# 下载并安装.NET Core 10.0 SDK
 wget https://dot.net/v1/dotnet-install.sh -O dotnet-install.sh
 chmod +x ./dotnet-install.sh
-./dotnet-install.sh --channel 8.0 --install-dir /usr/share/dotnet
+./dotnet-install.sh --channel 10.0 --install-dir /usr/share/dotnet
 
 # 建立全局软链接
 ln -sf /usr/share/dotnet/dotnet /usr/bin/dotnet
@@ -30,51 +30,55 @@ chmod -R 755 /usr/share/dotnet
 dotnet --info
 ```
 
-```shell :collapsed-lines=2
+```shell
 # 正常安装成功输出如下
-	.NET SDK:
-	 Version:           8.0.416
-	 Commit:            f9da71086e
-	 Workload version:  8.0.400-manifests.785fc388
-	 MSBuild version:   17.11.48+02bf66295
-	
-	Runtime Environment:
-	 OS Name:     ubuntu
-	 OS Version:  24.04
-	 OS Platform: Linux
-	 RID:         linux-x64
-	 Base Path:   /root/.dotnet/sdk/8.0.416/
-	
-	.NET workloads installed:
-	Configured to use loose manifests when installing new manifests.
-	There are no installed workloads to display.
-	
-	Host:
-	  Version:      8.0.22
-	  Architecture: x64
-	  Commit:       a2266c728f
-	
-	.NET SDKs installed:
-	  8.0.416 [/root/.dotnet/sdk]
-	
-	.NET runtimes installed:
-	  Microsoft.AspNetCore.App 8.0.22 [/root/.dotnet/shared/Microsoft.AspNetCore.App]
-	  Microsoft.NETCore.App 8.0.22 [/root/.dotnet/shared/Microsoft.NETCore.App]
-	
-	Other architectures found:
-	  None
-	
-	Environment variables:
-	  DOTNET_ROOT       [/root/.dotnet]
-	
-	global.json file:
-	  Not found
-	
-	Learn more:
-	  https://aka.ms/dotnet/info
-	
-	Download .NET:
-	  https://aka.ms/dotnet/download
+.NET SDK:
+ Version:           10.0.101
+ Commit:            fad253f51b
+ Workload version:  10.0.100-manifests.c57ac48b
+ MSBuild version:   18.0.6+fad253f51
+
+Runtime Environment:
+ OS Name:     ubuntu
+ OS Version:  24.04
+ OS Platform: Linux
+ RID:         linux-x64
+ Base Path:   /root/.dotnet/sdk/10.0.101/
+
+.NET workloads installed:
+There are no installed workloads to display.
+Configured to use workload sets when installing new manifests.
+No workload sets are installed. Run "dotnet workload restore" to install a workload set.
+
+Host:
+  Version:      10.0.1
+  Architecture: x64
+  Commit:       fad253f51b
+
+.NET SDKs installed:
+  8.0.416 [/root/.dotnet/sdk]
+  10.0.101 [/root/.dotnet/sdk]
+
+.NET runtimes installed:
+  Microsoft.AspNetCore.App 8.0.22 [/root/.dotnet/shared/Microsoft.AspNetCore.App]
+  Microsoft.AspNetCore.App 10.0.1 [/root/.dotnet/shared/Microsoft.AspNetCore.App]
+  Microsoft.NETCore.App 8.0.22 [/root/.dotnet/shared/Microsoft.NETCore.App]
+  Microsoft.NETCore.App 10.0.1 [/root/.dotnet/shared/Microsoft.NETCore.App]
+
+Other architectures found:
+  None
+
+Environment variables:
+  DOTNET_ROOT                              [/root/.dotnet]
+
+global.json file:
+  Not found
+
+Learn more:
+  https://aka.ms/dotnet/info
+
+Download .NET:
+  https://aka.ms/dotnet/download
 ```
 
 

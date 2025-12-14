@@ -6,13 +6,13 @@ icon: b:apple
 ---
 
 ::: important 运行环境  
-运行环境: ==.NET Core 8.0 LTS=={.important}  
+运行环境: ==.NET Core 10.0 LTS=={.important}  
 
 (一般系统都不自带此环境，请确保您安装成功了)
 
-<LinkCard title="下载 .NET Core 8.0 (Apple Slicon)" icon="download" href="https://dotnet.microsoft.com/zh-cn/download/dotnet/thank-you/sdk-8.0.416-macos-arm64-installer" description="如果您的设备是M系列芯片的，请下载此版本。" />
+<LinkCard title="下载 .NET Core 10.0 (Apple Slicon)" icon="download" href="https://dotnet.microsoft.com/zh-cn/download/dotnet/thank-you/sdk-8.0.416-macos-arm64-installer" description="如果您的设备是M系列芯片的，请下载此版本。" />
 
-<LinkCard title="下载 .NET Core 8.0 (Intel)" icon="download" href="https://dotnet.microsoft.com/zh-cn/download/dotnet/thank-you/sdk-8.0.416-macos-x64-installer" description="如果您的设备使用的非M系列芯片，请下载此版本。" />
+<LinkCard title="下载 .NET Core 10.0 (Intel)" icon="download" href="https://dotnet.microsoft.com/zh-cn/download/dotnet/thank-you/sdk-10.0.101-macos-x64-installer" description="如果您的设备使用的非M系列芯片，请下载此版本。" />
 
 :::
 
