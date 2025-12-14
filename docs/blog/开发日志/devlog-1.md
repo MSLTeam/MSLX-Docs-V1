@@ -3,7 +3,7 @@ title: 'MSLX 开发日志 #1 - 基础功能开发'
 createTime: 2025/12/09 12:41:07
 permalink: /article/mslx/devlogs-1/
 tags:
-  - MSLX
+  - 开发日志
 ---
 
 ## 项目介绍

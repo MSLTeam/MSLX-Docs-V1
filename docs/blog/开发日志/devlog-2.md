@@ -3,7 +3,7 @@ title: 'MSLX 开发日志 #2 - 实例设置 & 文件管理'
 createTime: 2025/12/10 15:53:09
 permalink: /article/mslx/devlogs-2/
 tags:
-  - MSLX
+  - 开发日志
 ---
 
 ## 服务端实例设置
