@@ -23,7 +23,7 @@ export default defineThemeConfig({
   appearance: true,  // 配置 深色模式
 
   social: [
-    { icon: 'github', link: 'https://github.com/MSLTeam/MSL' },
+    { icon: 'github', link: 'https://github.com/MSLTeam/MSLX' },
     { icon: 'qq', link: '/article/qq/' },
   ],
   navbarSocialInclude: ['github', 'qq'], // 允许显示在导航栏的 social 社交链接
