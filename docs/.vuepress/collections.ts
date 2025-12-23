@@ -57,7 +57,7 @@ const doc = defineCollection({
   title: 'MSLX 文档',
   // 手动配置侧边栏结构
   sidebar: [
-    { text: '从这里开始', prefix: 'install', collapsed: false, icon: 'download', items: ['start', 'windows', 'macos', 'linux'] },
+    { text: '从这里开始', prefix: 'install', collapsed: false, icon: 'download', items: ['start', 'windows', 'macos', 'linux','docker'] },
     { text: '服务端配置', prefix: 'server-config', collapsed: false, icon: 'screwdriver-wrench', items: ['crons'] },
     { text: '个性化', prefix: 'style', collapsed: false, icon: 'palette', items: ['webpanel'] },
     { text: '配置', prefix: 'config', collapsed: false, icon: 'gear', items: ['remote-access'] },
