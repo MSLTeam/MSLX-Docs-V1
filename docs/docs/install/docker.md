@@ -71,7 +71,7 @@ icon: b:docker
 
    执行启动后，Docker会自动拉取镜像和启动MSLX守护进程端。
 
-   如图即为成功：（如果`Created`后没有反应，可以按下回车，然后查看`docker logs -f mslx-daemon` 查询状态）
+   如图即为成功：（如果`Created`后没有反应，可以按下回车，然后输入`docker logs -f mslx-daemon` 查询状态）
 
    ![image-20251223231853187](./assets/image-20251223231853187.png)
 

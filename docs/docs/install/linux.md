@@ -30,7 +30,7 @@ chmod -R 755 /usr/share/dotnet
 dotnet --info
 ```
 
-```shell
+```shell :collapsed-lines=3
 # 正常安装成功输出如下
 .NET SDK:
  Version:           10.0.101
