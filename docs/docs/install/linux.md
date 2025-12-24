@@ -5,6 +5,8 @@ permalink: /docs/install/linux/
 icon: b:ubuntu
 ---
 
+<LinkCard title="在 Docker 上安装使用" description="在 Linux 上，除了直接安装在本机，也可以选择使用Docker部署。" icon="b:docker" href="/docs/install/docker/" />
+
 ::: important 运行环境  
 运行环境: ==.NET Core 10.0 LTS=={.important}  
 
