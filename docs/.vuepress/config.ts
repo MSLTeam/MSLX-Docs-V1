@@ -12,6 +12,7 @@
 import { viteBundler } from '@vuepress/bundler-vite'
 import { defineUserConfig } from 'vuepress'
 import { plumeTheme } from 'vuepress-theme-plume'
+import { baiduAnalyticsPlugin } from '@vuepress/plugin-baidu-analytics'
 
 export default defineUserConfig({
   base: '/',
@@ -203,4 +204,9 @@ export default defineUserConfig({
     //   locale: '/',    // 默认仅为主语言生成 llms 友好内容
     // }
   }),
+  plugins: [
+    baiduAnalyticsPlugin({
+      id: '25ded7b33a626970aed1e92bc0f28eda'
+    }),
+  ],
 })
