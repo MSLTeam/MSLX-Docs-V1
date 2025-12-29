@@ -24,6 +24,14 @@ icon: b:docker
 
 :::
 
+::: important 系统架构支持
+
+自 MSLX-Daemon ==v0.5.3.1-beta=={.important}  版本起，会自动构建 `amd64` 和 `arm64` 架构的镜像，拉取时会自动选择。
+
+==我们不会对32位的架构做支持，其完全不适合用于开服。=={.important}
+
+:::
+
 ## 手动安装
 
 :::: steps
