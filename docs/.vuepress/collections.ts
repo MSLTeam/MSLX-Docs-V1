@@ -61,6 +61,7 @@ const doc = defineCollection({
     { text: '服务端配置', prefix: 'server-config', collapsed: false, icon: 'screwdriver-wrench', items: ['crons'] },
     { text: '个性化', prefix: 'style', collapsed: false, icon: 'palette', items: ['webpanel'] },
     { text: '配置', prefix: 'config', collapsed: false, icon: 'gear', items: ['remote-access'] },
+    { text: '错误排查', prefix: 'faq', collapsed: false, icon: 'bug-slash', items: ['faq'] },
   ],
   sidebarCollapsed: true,
 })
