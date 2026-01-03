@@ -32,6 +32,12 @@ icon: b:docker
 
 :::
 
+## 容器镜像地址
+
+Dockerhub: `xiaoyululu/mslx-daemon:latest`
+
+[备用] 腾讯云TCR (香港地域): `hkccr.ccs.tencentyun.com/xiaoyululu/mslx-daemon`
+
 ## 手动安装
 
 :::: steps
@@ -85,6 +91,7 @@ icon: b:docker
    services:
      daemon:
        image: xiaoyululu/mslx-daemon:latest
+       # image: hkccr.ccs.tencentyun.com/xiaoyululu/mslx-daemon # 备用源（使用需要取消注释这行并把上一行注释掉）
        container_name: mslx-daemon
        restart: always
        
@@ -132,6 +139,19 @@ icon: b:docker
      -v $(pwd)/mslx_data:/app/DaemonData \
      -e TZ=Asia/Shanghai \
      xiaoyululu/mslx-daemon:latest
+   ```
+
+   或者使用腾讯云镜像源: 
+
+   ```shell
+   docker run -d \
+     --name mslx-daemon \
+     --restart always \
+     -p 1027:1027 \
+     -p 25565-25585:25565-25585 \
+     -v $(pwd)/mslx_data:/app/DaemonData \
+     -e TZ=Asia/Shanghai \
+     hkccr.ccs.tencentyun.com/xiaoyululu/mslx-daemon
    ```
 
    
@@ -210,7 +230,7 @@ icon: b:docker
 
 选择 ==命令创建== ，然后输入一下指定，然后执行。（此命令中，默认把数据存在了`/www/wwwroot/mslx-daemon`，你也可以根据喜好编辑存储数据的位置）。
 
-```
+```shell
 docker run -d \
   --name mslx-daemon \
   --restart always \
@@ -220,6 +240,21 @@ docker run -d \
   -e TZ=Asia/Shanghai \
   xiaoyululu/mslx-daemon:latest
 ```
+
+或者使用腾讯云镜像源:
+
+```shell
+docker run -d \
+  --name mslx-daemon \
+  --restart always \
+  -p 1027:1027 \
+  -p 25565-25585:25565-25585 \
+  -v /www/wwwroot/mslx-daemon:/app/DaemonData \
+  -e TZ=Asia/Shanghai \
+  hkccr.ccs.tencentyun.com/xiaoyululu/mslx-daemon
+```
+
+
 
 ![image-20251224122932573](./assets/image-20251224122932573.png)
 
@@ -249,7 +284,7 @@ docker run -d \
 
 在容器页面进行新增容器，按以下配置。
 
-镜像：`xiaoyululu/mslx-daemon:latest`
+镜像：`xiaoyululu/mslx-daemon:latest` 或者使用腾讯云备用源: `hkccr.ccs.tencentyun.com/xiaoyululu/mslx-daemon`
 
 端口：`1027`是 ==必须映射== 的，这是面板默认服务端口。25565-25585是预留的MC服务器端口，可以自行修改。
 
