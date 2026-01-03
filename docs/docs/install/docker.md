@@ -36,7 +36,7 @@ icon: b:docker
 
 Dockerhub: `xiaoyululu/mslx-daemon:latest`
 
-[备用] 腾讯云TCR (香港地域): `hkccr.ccs.tencentyun.com/xiaoyululu/mslx-daemon`
+[备用] 腾讯云TCR (香港地域): `hkccr.ccs.tencentyun.com/xiaoyululu/mslx-daemon:latest`
 
 ## 手动安装
 
@@ -57,7 +57,7 @@ Dockerhub: `xiaoyululu/mslx-daemon:latest`
    ```
    ![image-20251223224019596](./assets/image-20251223224019596.png)
 
-   ::: tip 配置镜像源（可选）
+   ::: tip 配置镜像源（可选，我们也提供了备用的容器镜像源）
 
    由于默认连接dockerhub可能较慢，可以配置一下镜像源加快拉取的速度。
 
@@ -151,7 +151,7 @@ Dockerhub: `xiaoyululu/mslx-daemon:latest`
      -p 25565-25585:25565-25585 \
      -v $(pwd)/mslx_data:/app/DaemonData \
      -e TZ=Asia/Shanghai \
-     hkccr.ccs.tencentyun.com/xiaoyululu/mslx-daemon
+     hkccr.ccs.tencentyun.com/xiaoyululu/mslx-daemon:latest
    ```
 
    
@@ -251,7 +251,7 @@ docker run -d \
   -p 25565-25585:25565-25585 \
   -v /www/wwwroot/mslx-daemon:/app/DaemonData \
   -e TZ=Asia/Shanghai \
-  hkccr.ccs.tencentyun.com/xiaoyululu/mslx-daemon
+  hkccr.ccs.tencentyun.com/xiaoyululu/mslx-daemon:latest
 ```
 
 
@@ -284,7 +284,7 @@ docker run -d \
 
 在容器页面进行新增容器，按以下配置。
 
-镜像：`xiaoyululu/mslx-daemon:latest` 或者使用腾讯云备用源: `hkccr.ccs.tencentyun.com/xiaoyululu/mslx-daemon`
+镜像：`xiaoyululu/mslx-daemon:latest` 或者使用腾讯云备用源: `hkccr.ccs.tencentyun.com/xiaoyululu/mslx-daemon:latest`
 
 端口：`1027`是 ==必须映射== 的，这是面板默认服务端口。25565-25585是预留的MC服务器端口，可以自行修改。
 
