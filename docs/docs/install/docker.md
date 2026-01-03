@@ -34,7 +34,7 @@ icon: b:docker
 
 ## 容器镜像地址
 
-MSL镜像源: `docker.mslmc.cn/xiaoyululu/mslx-daemon:latest`
+MSL容器镜像源: `docker.mslmc.cn/xiaoyululu/mslx-daemon:latest`
 
 Dockerhub: `xiaoyululu/mslx-daemon:latest`
 
@@ -61,7 +61,7 @@ Dockerhub: `xiaoyululu/mslx-daemon:latest`
 
    如果您使用Dockerhub来拉取镜像，您可能需要设置加速镜像才能正常拉取。（如何配置请自行查找）
 
-   这里建议直接使用MSL的容器镜像拉取，在大陆的网络下还是比较快的。
+   这里建议直接使用 ==MSL的容器镜像== 拉取，正常情况下还是比较快的。
 
    :::
    
