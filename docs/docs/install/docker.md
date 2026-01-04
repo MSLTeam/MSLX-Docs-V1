@@ -34,9 +34,9 @@ icon: b:docker
 
 ## 容器镜像地址
 
-MSL容器镜像源: `docker.mslmc.cn/xiaoyululu/mslx-daemon:latest`
+MSL容器镜像源 (中国大陆): `docker.mslmc.cn/xiaoyululu/mslx-daemon:latest`
 
-MSL容器镜像源 (备用): `docker.mslmc.net/xiaoyululu/mslx-daemon:latest`
+MSL容器镜像源 (备用-中国香港): `docker.mslmc.net/xiaoyululu/mslx-daemon:latest`
 
 Dockerhub: `xiaoyululu/mslx-daemon:latest`
 
