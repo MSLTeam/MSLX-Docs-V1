@@ -38,6 +38,8 @@ MSL容器镜像源: `docker.mslmc.cn/xiaoyululu/mslx-daemon:latest`
 
 Dockerhub: `xiaoyululu/mslx-daemon:latest`
 
+==正常情况下建议直接拉取MSL容器镜像源，如果出现无法拉取的问题再使用Dockerhub源（可能需要配置加速镜像）==
+
 ## 手动安装
 
 :::: steps
