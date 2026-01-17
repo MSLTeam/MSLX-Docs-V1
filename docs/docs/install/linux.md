@@ -7,6 +7,24 @@ icon: b:ubuntu
 
 <LinkCard title="在 Docker 上安装使用" description="在 Linux 上，除了直接安装在本机，也可以选择使用Docker部署。" icon="b:docker" href="/docs/install/docker/" />
 
+## 一键安装
+
+```bash
+curl -sL "https://files.mslmc.cn/d/MSL/MSL%20Resources/MSLX/mslx-install.sh?sign=sB3jHWoRDSzich5R9oey2WZGN0PLFUSpaWtfwWHWnMA=:0" | sudo bash
+```
+
+::: tip 关于监听地址的选择
+
+脚本运行会询问您监听的地址，如果不知道选什么，建议选监听全部地址。
+
+若想直接使用ip+端口访问，那么就选2监听全部地址。
+
+若想frp映射端口/nginx本地反向代理，那么选1监听本机即可。
+
+:::
+
+## 手动安装
+
 ::: important 运行环境  
 运行环境: ==.NET Core 10.0 LTS=={.important}  
 
