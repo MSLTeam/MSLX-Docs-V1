@@ -5,6 +5,8 @@ permalink: /docs/install/start/
 icon: circle-play
 ---
 
+<DownloadMSLX />
+
 ## 关于 MSLX
 
 ![image-20251206222726867](./assets/image-20251206222726867.png)
