@@ -15,7 +15,7 @@ config:
         -
           theme: brand
           text: 立即下载
-          link: https://www.mslmc.cn/article/mslx/beta/
+          link: /docs/install/start/
           icon: download
         -
           theme: alt
