@@ -83,20 +83,12 @@ export default defineUserConfig({
     //   title: true,      // 是否生成标题
     // },
 
-    /* 本地搜索, 默认启用 */
-    search: { provider: 'local' },
-
-    /**
-     * Algolia DocSearch
-     * 启用此搜索需要将 本地搜索 search 设置为 false
-     * @see https://theme-plume.vuejs.press/config/plugins/search/#algolia-docsearch
-     */
-    // search: {
-    //   provider: 'algolia',
-    //   appId: '',
-    //   apiKey: '',
-    //   indices: [''],
-    // },
+    search: {
+      provider: 'algolia',
+      appId: 'GYUSSIM3DT',
+      apiKey: '6ddbddd4c1ddc5cf9debef73203835ac',
+      indexName: 'MSLX Docs',
+    },
 
     /**
      * Shiki 代码高亮
