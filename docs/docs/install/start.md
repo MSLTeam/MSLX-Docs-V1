@@ -17,6 +17,8 @@ icon: circle-play
 
 MSLX 不仅 ==完美支持跨平台== (Windows / macOS / Linux) 运行，相比前代，更引入了强大的 ==远程访问== 功能，让管理更自由。
 
+@[bilibili](BV13NkWBxEwg)
+
 <RepoCard repo="MSLTeam/MSLX" />
 
 ## 与MSL的区别？
