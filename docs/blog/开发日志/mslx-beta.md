@@ -8,6 +8,16 @@ tags:
 
 ![image-20251209135212933](./assets/image-20251209135212933.png)
 
+## 下载MSLX
+
+MSLX已于2026-01-17 发布正式版本，可以直接前往下载体验啦！
+
+[下载 MSLX](/docs/install/start/){.readmore}
+
+::: warning 以下内容已经过时
+
+:::
+
 ## 立即尝鲜！
 
 ::: warning 提醒
