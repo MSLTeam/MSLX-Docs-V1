@@ -307,7 +307,6 @@ onMounted(() => {
 .os-card.active {
   border-color: var(--vp-c-accent, #299764);
   color: var(--vp-c-accent, #299764);
-  background-color: rgba(41, 151, 100, 0.05);
   font-weight: 600;
 }
 
