@@ -10,7 +10,7 @@ icon: b:ubuntu
 ## 一键安装
 
 ```bash
-curl -sL "https://files.mslmc.cn/d/MSL/MSL%20Resources/MSLX/mslx-install.sh?sign=sB3jHWoRDSzich5R9oey2WZGN0PLFUSpaWtfwWHWnMA=:0" | sudo bash
+curl -sL "https://files.mslmc.cn/d/MSL/MSL%20Resources/MSLX/script-install-260118.sh?sign=_HHPv53-t09zfVI_fj3orNzbFEy3d-Ep0xH_g_FU_Hg=:0" | sudo bash
 ```
 
 ::: tip 关于监听地址的选择
