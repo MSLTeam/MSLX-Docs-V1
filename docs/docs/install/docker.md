@@ -205,15 +205,54 @@ Dockerhub: `xiaoyululu/mslx-daemon:latest`
      更新不会删除数据，除非你自己删了。
 
      ```shell
-     docker pull xiaoyululu/mslx-daemon:latest
+     docker pull docker.mslmc.cn/xiaoyululu/mslx-daemon:latest
      docker rm -f mslx-daemon
      # 然后重新运行启动命令 (up -d)
      ```
 
 
 
-
   ::::
+
+## 使用 fnOS (飞牛OS) Docker 管理器部署
+
+进入fnOS网页管理器的Docker管理器内，进入 ==本地镜像== 页面，然后点击 ==添加镜像== 。
+
+输入：`docker.mslmc.cn/xiaoyululu/mslx-daemon:latest` 或者上述的其他备用镜像也可以。
+
+![image-20260119181034413](./assets/image-20260119181034413.png)
+
+等待下载完成。
+
+![image-20260119181132274](./assets/image-20260119181132274.png)
+
+点击旁边的开始图标，开始创建容器。
+
+![image-20260119181211253](./assets/image-20260119181211253.png)
+
+下一步，配置端口，==1027== 端口是MSLX的管理端口，必须映射，然后映射一些开服需要的端口，如 ==25565== 。
+
+![image-20260119181327373](./assets/image-20260119181327373.png)
+
+填写存储路径，前面选择您的物理存储位置，后面填写`/app/DaemonData`。
+
+![image-20260119181519132](./assets/image-20260119181519132.png)
+
+其他设置 ==一般不需要改== 。创建容器即可。
+
+![image-20260119181601645](./assets/image-20260119181601645.png)
+
+然后找到容器页面，找到刚才新建的mslx容器，找到 ==运行日志== 。
+
+![image-20260119181653319](./assets/image-20260119181653319.png)
+
+往上找到初始的用户密码。
+
+![image-20260119181723487](./assets/image-20260119181723487.png)
+
+然后访问`你的ip地址:1027`，即可来到MSLX网页控制台。
+
+![image-20260119181837618](./assets/image-20260119181837618.png)
 
 ## 使用 宝塔 的Docker管理部署
 
