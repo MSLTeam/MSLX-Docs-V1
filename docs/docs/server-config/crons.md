@@ -1,7 +1,7 @@
 ---
 title: 定时任务
 createTime: 2025/12/20 22:23:22
-permalink: /docs/server-config/crons
+permalink: /docs/server-config/crons/
 icon: clock
 ---
 
