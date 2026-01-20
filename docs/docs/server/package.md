@@ -2,7 +2,7 @@
 icon: box
 title: 服务器导入整合包教程
 createTime: 2025/10/12 21:33:13
-permalink: /docs/mc-server/package/
+permalink: /docs/server/package/
 ---
 ::: steps
 

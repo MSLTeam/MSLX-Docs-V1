@@ -2,7 +2,7 @@
 icon: lightbulb
 title: 如何选择服务端
 createTime: 2025/10/12 21:27:21
-permalink: /docs/mc-server/choose-server-tips/
+permalink: /docs/server/choose-server-tips/
 ---
 ::: tip TIPS
 请看右边的目录选择你的需求以查看~  
