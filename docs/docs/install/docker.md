@@ -216,43 +216,98 @@ Dockerhub: `xiaoyululu/mslx-daemon:latest`
 
 ## 使用 fnOS (飞牛OS) Docker 管理器部署
 
-进入fnOS网页管理器的Docker管理器内，进入 ==本地镜像== 页面，然后点击 ==添加镜像== 。
+::: important 重要提醒
 
-输入：`docker.mslmc.cn/xiaoyululu/mslx-daemon:latest` 或者上述的其他备用镜像也可以。
+!!踩了很多坑之后得出的结论!!
 
-![image-20260119181034413](./assets/image-20260119181034413.png)
+建议完全按照本教程来部署MSLX在fnOS上，不然 ==更新会超级麻烦=={.important} 。
 
-等待下载完成。
+==切勿直接在镜像仓库安装MSLX=={.important} ，目前不知道为什么安装后无法检测更新。
 
-![image-20260119181132274](./assets/image-20260119181132274.png)
+:::
 
-点击旁边的开始图标，开始创建容器。
 
-![image-20260119181211253](./assets/image-20260119181211253.png)
 
-下一步，配置端口，==1027== 端口是MSLX的管理端口，必须映射，然后映射一些开服需要的端口，如 ==25565== 。
+:::: steps
 
-![image-20260119181327373](./assets/image-20260119181327373.png)
+1. ### 新建Compose项目
 
-填写存储路径，前面选择您的物理存储位置，后面填写`/app/DaemonData`。
+   来到飞牛管理页面的 ==Docker== 管理器内，切换到 ==Compose== 选项卡，点击 ==添加项目== 。
 
-![image-20260119181519132](./assets/image-20260119181519132.png)
+   ![image-20260123173327744](./assets/image-20260123173327744.png)
 
-其他设置 ==一般不需要改== 。创建容器即可。
+   输入项目名字（随便起），选择MSLX数据保存的位置，然后选择 ==创建docker-compose.yml== 。
 
-![image-20260119181601645](./assets/image-20260119181601645.png)
+   将以下配置文件粘贴进去。
 
-然后找到容器页面，找到刚才新建的mslx容器，找到 ==运行日志== 。
+   ```yaml
+   services:
+     daemon:
+       image: docker.mslmc.cn/xiaoyululu/mslx-daemon:latest
+       # image: xiaoyululu/mslx-daemon:latest # 这是Dockerhub的仓库，如果需要从Dockerhub拉取，请取消这行注释并注释掉上一行。
+       container_name: mslx-daemon
+       restart: always
+       
+       # 端口映射
+       ports:
+         - "1027:1027"               # 服务面板端口
+         - "25565-25585:25565-25585" # 游戏端口范围
+       
+       # 数据挂载
+       volumes:
+         - ./data:/app/DaemonData
+       
+       environment:
+         - TZ=Asia/Shanghai
+         # - host=* # 配置监听地址，默认是*，没有特殊需求不需要改
+         # - port=1027 # 配置监听端口，没有特殊需求不需要改（改了的话上面的端口映射配置需要一起修改）
+   ```
 
-![image-20260119181653319](./assets/image-20260119181653319.png)
+   ![image-20260123173541642](./assets/image-20260123173541642.png)
 
-往上找到初始的用户密码。
+   确定创建即可，创建成功后启动项目。
 
-![image-20260119181723487](./assets/image-20260119181723487.png)
+2. ### 启动MSLX
 
-然后访问`你的ip地址:1027`，即可来到MSLX网页控制台。
+   等待镜像构建成功后，进入 ==容器== 页面，查询 ==运行日志== 。
 
-![image-20260119181837618](./assets/image-20260119181837618.png)
+   ![image-20260123173741402](./assets/image-20260123173741402.png)
+
+   ![image-20260123173756927](./assets/image-20260123173756927.png)
+
+   在 ==运行日志== 中获取到初始的用户密码。
+
+   ![image-20260123173841992](./assets/image-20260123173841992.png)
+
+   然后访问 ==MSLX控制台== （如果这里`1027`端口跳转过去之后无法正常访问，请把协议头从`https`改成`http`）。
+
+   ![image-20260123173956360](./assets/image-20260123173956360.png)
+
+   使用 ==初始账号密码== 登录即可。（记得及时修改初始账户名和密码哦）。
+
+   ![image-20260123174113740](./assets/image-20260123174113740.png)
+
+3. ### 更新方法
+
+   !!由于不知道何种神秘力量影响，MSLX Docker镜像的更新在fnOS上无法检测到。!!
+
+   来到 ==Compose== 页面，停止MSLX项目。
+
+   ![image-20260123174339367](./assets/image-20260123174339367.png)
+
+   然后来到 ==容器== 页面，删除`mslx-daemon`容器。（放心删，MSLX的数据文件存储在了你挂载的数据目录，是不会被删的。还不放心就备份一下吧。）
+
+   ![image-20260123174420514](./assets/image-20260123174420514.png)
+
+   再然后来到 ==本地镜像== 页面。删掉`***/xiaoyululu/mslx-daemon`这个镜像。
+
+   ![image-20260123174611342](./assets/image-20260123174611342.png)
+
+   最后，回到 ==Compose== 页面，重新启动MSLX项目即可，会自动拉取最新版本的镜像进行构建。
+
+   ![image-20260123174709010](./assets/image-20260123174709010.png)
+
+::::
 
 ## 使用 宝塔 的Docker管理部署
 
