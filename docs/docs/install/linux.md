@@ -9,8 +9,10 @@ icon: b:ubuntu
 
 ## 一键安装
 
+==脚本支持大部分Linux系统，如果安装不成功，请自行手动安装MSLX。==
+
 ```bash
-curl -sL "https://files.mslmc.cn/d/MSL/MSL%20Resources/MSLX/script-install-20260124.sh?sign=OEMTmkVaLc0nflPwsYEqzJN7llbGzRlO-sCJysYRb8k=:0" | sudo bash
+curl -sL "https://files.mslmc.cn/d/MSL/MSL%20Resources/MSLX/scripts/install-260124.sh?sign=EGE_AbAgm8DayMUn2d_3Mo2Xz4keMZXk03kWYHluXEw=:0" | sudo bash
 ```
 
 ::: tip 关于监听地址的选择
@@ -28,8 +30,24 @@ curl -sL "https://files.mslmc.cn/d/MSL/MSL%20Resources/MSLX/script-install-20260
 ::: warning 一键卸载脚本
 
 ```bash
-curl -sL "https://files.mslmc.cn/d/MSL/MSL%20Resources/MSLX/script-uninstall-20260124.sh?sign=bWDKYKJ8jnhUrXGFXXPqXBJgy1j69DcwbDlGe-zBqxw=:0" | sudo bash
+curl -sL "https://files.mslmc.cn/d/MSL/MSL%20Resources/MSLX/scripts/uninstall-260124.sh?sign=5wB0-4t6e7Quk38r-q3M4qdKf3CgwjgZBYZAzc2FZnQ=:0" | sudo bash
 ```
+
+:::
+
+
+
+::: tip 关于Alpine Linux
+
+脚本做了对Alpine Linux的专门支持。
+
+但是可能由于系统本身比较干净，可能需要执行如下指令才能正常运行脚本。
+
+```bash
+apk add curl sudo bash
+```
+
+
 
 :::
 
