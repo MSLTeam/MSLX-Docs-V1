@@ -12,7 +12,7 @@
           :class="{ active: selectedType === 'daemon' }"
           @click="switchType('daemon')"
         >
-          <span class="tab-title"><i class="fa-solid fa-server"></i> Daemon 服务端</span>
+          <span class="tab-title"><i class="fa-solid fa-server"></i> Daemon 服务端 / Webpanel 网页控制台</span>
         </div>
         <div 
           class="type-tab" 
@@ -29,7 +29,7 @@
           <span>包含 <strong>Web 控制台</strong>，适合服务器或无人值守环境长期运行。</span>
         </template>
         <template v-else>
-          <i class="fa-solid fa-flask"></i> <span>当前为 <strong>早期开发预览版</strong>，功能尚未开发完成。</span>
+          <i class="fa-solid fa-flask"></i> <span>当前为 <strong>早期开发预览版</strong>，功能尚未开发完成。<strong><u>请勿下载使用</u></strong>。</span>
         </template>
       </div>
 
