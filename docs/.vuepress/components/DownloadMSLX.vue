@@ -29,7 +29,7 @@
           <span>包含 <strong>Web 控制台</strong>，适合服务器或无人值守环境长期运行。</span>
         </template>
         <template v-else>
-          <i class="fa-solid fa-flask"></i> <span>当前为 <strong>早期开发预览版</strong>，功能尚未开发完成。<strong><u>请勿下载使用</u></strong>。</span>
+          <i class="fa-solid fa-flask"></i> <span>当前为 <strong>早期开发预览版</strong>，功能尚未开发完成。<strong><u>请勿下载使用</u></strong>。<br> 目前MSLX可用的版本是旁边的 <strong>Daemon 服务端 / Webpanel 网页控制台</strong> 版本。</span>
         </template>
       </div>
 
@@ -123,9 +123,12 @@
               </div>
             </div>
 
-            <a :href="file.url" target="_blank" class="download-btn-sm">
+            <a :href="file.url" target="_blank" class="download-btn-sm" v-if="selectedType === 'daemon'">
               <i class="fa-solid fa-download"></i> 下载
             </a>
+            <div class="download-btn-disabled" v-else>
+              <i class="fa-solid fa-download"></i> 暂未开放下载
+            </div>
           </div>
         </div>
 
@@ -546,6 +549,22 @@ onMounted(() => {
   gap: 0.4rem;
   background-color: var(--vp-c-accent, #299764); /* 主题色背景 */
   color: white !important; /* 白字 */
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  text-decoration: none !important;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  border: none;
+}
+
+.download-btn-disabled {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background-color: var(--vp-c-default-soft);
+  color: var(--vp-c-text-2);
   padding: 0.5rem 1rem;
   border-radius: 20px;
   text-decoration: none !important;
