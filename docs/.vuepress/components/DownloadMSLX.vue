@@ -77,7 +77,7 @@
             <i class="fa-solid fa-microchip label-icon"></i> 系统架构
           </label>
           <div class="select-wrapper">
-            <select v-model="selectedArch" @change="fetchFileInfo">
+            <select v-model="selectedArch">
               <option value="x64">x64 (Intel/AMD)</option>
               <option value="arm64">arm64 (Apple Silicon/Pi)</option>
             </select>
@@ -142,7 +142,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, watch } from 'vue'; // 引入 watch
 
 const selectedType = ref('daemon');
 const loadingVersions = ref(true);
@@ -154,20 +154,28 @@ const selectedOS = ref('Windows');
 const selectedArch = ref('x64');
 const selectedVersion = ref('');
 
+const rawFileContent = ref([]); 
 const fileList = ref([]);
 
 const API_BASE = 'https://files.mslmc.cn/api/fs/list';
 const DOWNLOAD_BASE_HOST = 'https://files.mslmc.cn';
 
+// 切换类型时，只进行本地筛选
 const switchType = (type) => {
   selectedType.value = type;
-  if (versionList.value.length > 0) fetchFileInfo();
+  filterFiles(); 
 };
 
+// 切换系统时，只进行本地筛选
 const switchOS = (os) => {
   selectedOS.value = os;
-  fetchFileInfo();
+  filterFiles();
 };
+
+// 监听架构变化，只进行本地筛选
+watch(selectedArch, () => {
+  filterFiles();
+});
 
 const formatSize = (bytes) => {
   if (bytes === 0) return '0 B';
@@ -217,6 +225,7 @@ const fetchVersions = async () => {
 
       if (versionList.value.length > 0) {
         selectedVersion.value = versionList.value[0];
+        // 初始化时获取文件
         await fetchFileInfo();
       } else {
         errorMsg.value = '暂无可用版本';
@@ -232,12 +241,14 @@ const fetchVersions = async () => {
   }
 };
 
+// 从 API 拉取数据，存入 rawFileContent
 const fetchFileInfo = async () => {
   if (!selectedVersion.value) return;
 
   loadingFile.value = true;
   errorMsg.value = '';
   fileList.value = [];
+  rawFileContent.value = []; // 清空缓存
   
   try {
     const versionPath = `MSLX-Release/${selectedVersion.value}`;
@@ -245,40 +256,10 @@ const fetchFileInfo = async () => {
     const json = await res.json();
 
     if (json.code === 200 && json.data && json.data.content) {
-      let osKey = '';
-      if (selectedOS.value === 'Windows') osKey = 'win';
-      else if (selectedOS.value === 'Linux') osKey = 'linux';
-      else if (selectedOS.value === 'macOS') osKey = 'osx';
-
-      const typePrefix = selectedType.value === 'daemon' ? 'MSLX-Daemon' : 'MSLX-Desktop';
-      const archKey = selectedArch.value;
-
-      const matches = json.data.content.filter(item => {
-        if (item.is_dir) return false;
-        const name = item.name.toLowerCase();
-        
-        return item.name.startsWith(typePrefix) && 
-               name.includes(osKey) && 
-               name.includes(archKey);
-      });
-
-      fileList.value = matches.map(file => {
-        const variantInfo = getVariantInfo(file.name, selectedOS.value);
-        return {
-          name: file.name,
-          size: file.size,
-          url: `${DOWNLOAD_BASE_HOST}/d/${versionPath}/${file.name}?sign=${file.sign}`,
-          variant: variantInfo?.label,
-          variantKey: variantInfo?.key
-        };
-      });
-
-      fileList.value.sort((a, b) => {
-        if (a.variantKey === 'glibc' && b.variantKey === 'musl') return -1;
-        if (a.variantKey === 'musl' && b.variantKey === 'glibc') return 1;
-        return 0;
-      });
-
+      // 存储原始数据
+      rawFileContent.value = json.data.content;
+      // 拉取完后立即执行一次筛选
+      filterFiles();
     } else {
       errorMsg.value = '无法获取文件详情';
     }
@@ -288,6 +269,53 @@ const fetchFileInfo = async () => {
   } finally {
     loadingFile.value = false;
   }
+};
+
+// 纯本地筛选逻辑
+const filterFiles = () => {
+  // 如果没有原始数据，直接返回
+  if (!rawFileContent.value || rawFileContent.value.length === 0) {
+    fileList.value = [];
+    return;
+  }
+
+  let osKey = '';
+  if (selectedOS.value === 'Windows') osKey = 'win';
+  else if (selectedOS.value === 'Linux') osKey = 'linux';
+  else if (selectedOS.value === 'macOS') osKey = 'osx';
+
+  const typePrefix = selectedType.value === 'daemon' ? 'MSLX-Daemon' : 'MSLX-Desktop';
+  const archKey = selectedArch.value;
+  const versionPath = `MSLX-Release/${selectedVersion.value}`;
+
+  // 使用 rawFileContent 进行筛选
+  const matches = rawFileContent.value.filter(item => {
+    if (item.is_dir) return false;
+    const name = item.name.toLowerCase();
+    
+    return item.name.startsWith(typePrefix) && 
+           name.includes(osKey) && 
+           name.includes(archKey);
+  });
+
+  // 处理展示数据
+  fileList.value = matches.map(file => {
+    const variantInfo = getVariantInfo(file.name, selectedOS.value);
+    return {
+      name: file.name,
+      size: file.size,
+      url: `${DOWNLOAD_BASE_HOST}/d/${versionPath}/${file.name}?sign=${file.sign}`,
+      variant: variantInfo?.label,
+      variantKey: variantInfo?.key
+    };
+  });
+
+  // 排序
+  fileList.value.sort((a, b) => {
+    if (a.variantKey === 'glibc' && b.variantKey === 'musl') return -1;
+    if (a.variantKey === 'musl' && b.variantKey === 'glibc') return 1;
+    return 0;
+  });
 };
 
 onMounted(() => {
