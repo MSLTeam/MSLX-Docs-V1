@@ -10,7 +10,7 @@ icon: b:ubuntu
 ## 一键安装
 
 ```bash
-curl -sL "https://files.mslmc.cn/d/MSL/MSL%20Resources/MSLX/script-install-260124.sh?sign=97GPVF1nhS3yogUY3KNhlumq3rkfu8nE9I6G_ZliXD4=:0" | sudo bash
+curl -sL "https://files.mslmc.cn/d/MSL/MSL%20Resources/MSLX/script-install-20260124.sh?sign=OEMTmkVaLc0nflPwsYEqzJN7llbGzRlO-sCJysYRb8k=:0" | sudo bash
 ```
 
 ::: tip 关于监听地址的选择
@@ -28,7 +28,7 @@ curl -sL "https://files.mslmc.cn/d/MSL/MSL%20Resources/MSLX/script-install-26012
 ::: warning 一键卸载脚本
 
 ```bash
-curl -sL "https://files.mslmc.cn/d/MSL/MSL%20Resources/MSLX/script-uninstall-260124FinalVer.sh?sign=UWLUR7Qovc022x3vURWwlSOg03aN3KFnoaHHdnHTRbQ=:0" | sudo bash
+curl -sL "https://files.mslmc.cn/d/MSL/MSL%20Resources/MSLX/script-uninstall-20260124.sh?sign=bWDKYKJ8jnhUrXGFXXPqXBJgy1j69DcwbDlGe-zBqxw=:0" | sudo bash
 ```
 
 :::
