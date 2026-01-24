@@ -26,7 +26,7 @@
       <div class="info-alert" :class="selectedType">
         <template v-if="selectedType === 'daemon'">
           <i class="fa-solid fa-circle-info"></i>
-          <span>包含 <strong>Web 控制台</strong>，适合服务器或无人值守环境长期运行。</span>
+          <span>可运行在纯命令行环境/桌面环境。<br>包含 <strong>Web 控制台</strong>，适合服务器或无人值守环境长期运行。</span>
         </template>
         <template v-else>
           <i class="fa-solid fa-flask"></i> <span>当前为 <strong>早期开发预览版</strong>，功能尚未开发完成。<strong><u>请勿下载使用</u></strong>。<br> 目前MSLX可用的版本是旁边的 <strong>Daemon 服务端 / Webpanel 网页控制台</strong> 版本。</span>
