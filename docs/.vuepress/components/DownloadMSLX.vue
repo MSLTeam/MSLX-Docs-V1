@@ -3,9 +3,36 @@
     <div class="card-header">
       <h3 class="title">
         <i class="fa-solid fa-cloud-arrow-down header-icon"></i>
-        <span>下载 MSLX Daemon</span>
+        <span>获取 MSLX</span>
       </h3>
-      <p class="subtitle">选择适合您设备的版本，下载后请阅读文档进行安装。</p>
+      
+      <div class="type-switcher">
+        <div 
+          class="type-tab" 
+          :class="{ active: selectedType === 'daemon' }"
+          @click="switchType('daemon')"
+        >
+          <span class="tab-title"><i class="fa-solid fa-server"></i> Daemon 服务端</span>
+        </div>
+        <div 
+          class="type-tab" 
+          :class="{ active: selectedType === 'desktop' }"
+          @click="switchType('desktop')"
+        >
+          <span class="tab-title"><i class="fa-solid fa-desktop"></i> Desktop 桌面版</span>
+        </div>
+      </div>
+
+      <div class="info-alert" :class="selectedType">
+        <template v-if="selectedType === 'daemon'">
+          <i class="fa-solid fa-circle-info"></i>
+          <span>包含 <strong>Web 控制台</strong>，适合服务器或无人值守环境长期运行。</span>
+        </template>
+        <template v-else>
+          <i class="fa-solid fa-flask"></i> <span>当前为 <strong>早期开发预览版</strong>，功能尚未开发完成。</span>
+        </template>
+      </div>
+
       <p class="subtitle runtime-info">
         <i class="fa-brands fa-microsoft"></i> 运行环境：
         <a href="https://dotnet.microsoft.com/zh-cn/download/dotnet/10.0" target="_blank">
@@ -14,86 +41,89 @@
       </p>
     </div>
 
-    <div class="os-selector-group">
-      <div 
-        class="os-card" 
-        :class="{ active: selectedOS === 'Windows' }"
-        @click="switchOS('Windows')"
-      >
-        <i class="fa-brands fa-windows os-card-icon"></i>
-        <span class="os-name">Windows</span>
-      </div>
-      
-      <div 
-        class="os-card" 
-        :class="{ active: selectedOS === 'Linux' }"
-        @click="switchOS('Linux')"
-      >
-        <i class="fa-brands fa-linux os-card-icon"></i>
-        <span class="os-name">Linux</span>
-      </div>
+    <div class="download-controls">
+      <div class="os-selector-group">
+        <div 
+          class="os-card" 
+          :class="{ active: selectedOS === 'Windows' }"
+          @click="switchOS('Windows')"
+        >
+          <i class="fa-brands fa-windows os-card-icon"></i>
+          <span class="os-name">Windows</span>
+        </div>
+        
+        <div 
+          class="os-card" 
+          :class="{ active: selectedOS === 'Linux' }"
+          @click="switchOS('Linux')"
+        >
+          <i class="fa-brands fa-linux os-card-icon"></i>
+          <span class="os-name">Linux</span>
+        </div>
 
-      <div 
-        class="os-card" 
-        :class="{ active: selectedOS === 'macOS' }"
-        @click="switchOS('macOS')"
-      >
-        <i class="fa-brands fa-apple os-card-icon"></i>
-        <span class="os-name">macOS</span>
-      </div>
-    </div>
-
-    <div class="controls-grid">
-      <div class="control-group">
-        <label>
-          <i class="fa-solid fa-microchip label-icon"></i> 系统架构
-        </label>
-        <div class="select-wrapper">
-          <select v-model="selectedArch" @change="fetchFileInfo">
-            <option value="x64">x64 (Intel/AMD)</option>
-            <option value="arm64">arm64 (Apple Silicon/Pi)</option>
-          </select>
-          <i class="fa-solid fa-chevron-down arrow"></i>
+        <div 
+          class="os-card" 
+          :class="{ active: selectedOS === 'macOS' }"
+          @click="switchOS('macOS')"
+        >
+          <i class="fa-brands fa-apple os-card-icon"></i>
+          <span class="os-name">macOS</span>
         </div>
       </div>
 
-      <div class="control-group">
-        <label>
-          <i class="fa-solid fa-code-branch label-icon"></i> 版本
-        </label>
-        <div class="select-wrapper">
-          <select v-model="selectedVersion" :disabled="loadingVersions" @change="fetchFileInfo">
-            <option v-for="ver in versionList" :key="ver" :value="ver">{{ ver }}</option>
-          </select>
-          <i v-if="!loadingVersions" class="fa-solid fa-chevron-down arrow"></i>
-          <i v-else class="fa-solid fa-circle-notch fa-spin spinner"></i>
+      <div class="controls-grid">
+        <div class="control-group">
+          <label>
+            <i class="fa-solid fa-microchip label-icon"></i> 系统架构
+          </label>
+          <div class="select-wrapper">
+            <select v-model="selectedArch" @change="fetchFileInfo">
+              <option value="x64">x64 (Intel/AMD)</option>
+              <option value="arm64">arm64 (Apple Silicon/Pi)</option>
+            </select>
+            <i class="fa-solid fa-chevron-down arrow"></i>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label>
+            <i class="fa-solid fa-code-branch label-icon"></i> 版本
+          </label>
+          <div class="select-wrapper">
+            <select v-model="selectedVersion" :disabled="loadingVersions" @change="fetchFileInfo">
+              <option v-for="ver in versionList" :key="ver" :value="ver">{{ ver }}</option>
+            </select>
+            <i v-if="!loadingVersions" class="fa-solid fa-chevron-down arrow"></i>
+            <i v-else class="fa-solid fa-circle-notch fa-spin spinner"></i>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="action-area">
-      <div v-if="loadingFile" class="status-msg loading">
-        <i class="fa-solid fa-spinner fa-spin"></i> 正在获取下载链接...
-      </div>
-      
-      <div v-else-if="errorMsg" class="status-msg error">
-        <i class="fa-solid fa-circle-exclamation"></i> {{ errorMsg }}
-      </div>
-
-      <div v-else-if="downloadUrl" class="download-container">
-        <div class="file-info">
-          <span class="filename">
-            <i :class="fileIcon"></i> {{ fileName }}
-          </span>
-          <span class="filesize" v-if="fileSize">{{ formatSize(fileSize) }}</span>
+      <div class="action-area">
+        <div v-if="loadingFile" class="status-msg loading">
+          <i class="fa-solid fa-spinner fa-spin"></i> 正在获取下载链接...
         </div>
-        <a :href="downloadUrl" target="_blank" class="download-btn">
-          <i class="fa-solid fa-download"></i> 立即下载
-        </a>
-      </div>
+        
+        <div v-else-if="errorMsg" class="status-msg error">
+          <i class="fa-solid fa-circle-exclamation"></i> {{ errorMsg }}
+        </div>
 
-      <div v-else class="status-msg warning">
-        <i class="fa-solid fa-triangle-exclamation"></i> 未找到匹配该配置的文件
+        <div v-else-if="downloadUrl" class="download-container">
+          <div class="file-info">
+            <span class="filename">
+              <i :class="fileIcon"></i> {{ fileName }}
+            </span>
+            <span class="filesize" v-if="fileSize">{{ formatSize(fileSize) }}</span>
+          </div>
+          <a :href="downloadUrl" target="_blank" class="download-btn">
+            <i class="fa-solid fa-download"></i> 立即下载
+          </a>
+        </div>
+
+        <div v-else class="status-msg warning">
+          <i class="fa-solid fa-triangle-exclamation"></i> 
+          {{ selectedType === 'desktop' ? '该版本暂无桌面端构建' : '该版本暂无构建' }}
+        </div>
       </div>
     </div>
   </div>
@@ -103,6 +133,7 @@
 import { ref, onMounted, computed } from 'vue';
 
 // --- 状态定义 ---
+const selectedType = ref('daemon'); // 'daemon' | 'desktop'
 const loadingVersions = ref(true);
 const loadingFile = ref(false);
 const versionList = ref([]);
@@ -123,8 +154,11 @@ const DOWNLOAD_BASE_HOST = 'https://files.mslmc.cn';
 
 // --- 计算属性 ---
 
-// 动态文件图标 (Zip vs Tar.gz)
+// 动态文件图标
 const fileIcon = computed(() => {
+  if (selectedType.value === 'desktop' && selectedOS.value === 'Windows') {
+    return 'fa-brands fa-windows'; // 如果是桌面版exe，可以用windows图标
+  }
   switch (selectedOS.value) {
     case 'Windows': return 'fa-regular fa-file-zipper'; 
     default: return 'fa-regular fa-file-code'; 
@@ -132,6 +166,14 @@ const fileIcon = computed(() => {
 });
 
 // --- 方法 ---
+
+const switchType = (type) => {
+  selectedType.value = type;
+  // 切换类型时，如果有选中的版本，立即重新匹配文件
+  if (versionList.value.length > 0) {
+    fetchFileInfo();
+  }
+};
 
 const switchOS = (os) => {
   selectedOS.value = os;
@@ -152,10 +194,6 @@ const detectEnv = () => {
   if (ua.indexOf('Win') !== -1) selectedOS.value = 'Windows';
   else if (ua.indexOf('Mac') !== -1) selectedOS.value = 'macOS';
   else if (ua.indexOf('Linux') !== -1) selectedOS.value = 'Linux';
-  
-  if (ua.indexOf('Mac') !== -1 && ua.indexOf('Intel') === -1) {
-    // Mac M1/M2...
-  }
 };
 
 const fetchVersions = async () => {
@@ -187,6 +225,7 @@ const fetchVersions = async () => {
 
 const fetchFileInfo = async () => {
   if (!selectedVersion.value) return;
+
   loadingFile.value = true;
   errorMsg.value = '';
   downloadUrl.value = '';
@@ -197,15 +236,23 @@ const fetchFileInfo = async () => {
     const json = await res.json();
 
     if (json.code === 200 && json.data && json.data.content) {
+      // 确定 OS 关键字
       let osKey = '';
       if (selectedOS.value === 'Windows') osKey = 'win';
       else if (selectedOS.value === 'Linux') osKey = 'linux';
       else if (selectedOS.value === 'macOS') osKey = 'osx';
 
-      const targetKey = `${osKey}-${selectedArch.value}`;
-      const file = json.data.content.find(item => 
-        !item.is_dir && item.name.toLowerCase().includes(targetKey.toLowerCase())
-      );
+      // 根据 selectedType 决定前缀
+      const typePrefix = selectedType.value === 'daemon' ? 'MSLX-Daemon' : 'MSLX-Desktop';
+      const targetArch = `${osKey}-${selectedArch.value}`;
+
+      const file = json.data.content.find(item => {
+        if (item.is_dir) return false;
+        const name = item.name;
+        // 匹配规则：以 Type 开头 (e.g. MSLX-Desktop) 且包含 os-arch (e.g. win-x64)
+        return name.startsWith(typePrefix) && 
+               name.toLowerCase().includes(targetArch.toLowerCase());
+      });
 
       if (file) {
         fileName.value = file.name;
@@ -237,7 +284,7 @@ onMounted(() => {
   padding: 1.5rem;
   margin: 1rem 0;
   transition: box-shadow 0.3s ease;
-  background-color: transparent;
+  background-color: var(--vp-c-bg-soft);
 }
 .msl-download-card:hover {
   box-shadow: 0 4px 12px rgba(0,0,0,0.05);
@@ -246,11 +293,9 @@ onMounted(() => {
 /* 头部 */
 .card-header {
   margin-bottom: 1.5rem;
-  border-bottom: 1px solid var(--vp-c-divider);
-  padding-bottom: 1rem;
 }
 .title {
-  margin: 0;
+  margin: 0 0 1rem 0;
   font-size: 1.4rem;
   font-weight: 600;
   color: var(--vp-c-text-1);
@@ -260,16 +305,71 @@ onMounted(() => {
 }
 .header-icon {
   color: var(--vp-c-accent, #299764);
-  font-size: 1.1em;
 }
-.subtitle {
-  margin: 0.5rem 0 0 0;
-  font-size: 0.9rem;
+
+/* Tab 切换器 */
+.type-switcher {
+  display: flex;
+  background-color: var(--vp-c-bg-mute);
+  padding: 4px;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+.type-tab {
+  flex: 1;
+  text-align: center;
+  padding: 0.6rem;
+  font-size: 0.95rem;
+  cursor: pointer;
+  border-radius: 6px;
   color: var(--vp-c-text-2);
+  transition: all 0.2s ease;
+  font-weight: 500;
 }
+.type-tab:hover {
+  color: var(--vp-c-text-1);
+}
+.type-tab.active {
+  background-color: var(--vp-c-bg);
+  color: var(--vp-c-accent, #299764);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  font-weight: 600;
+}
+.tab-title i { margin-right: 6px; }
+
+/* 提示条 */
+.info-alert {
+  font-size: 0.9rem;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  background-color: var(--vp-c-default-soft);
+  color: var(--vp-c-text-2);
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+.info-alert.daemon {
+  color: var(--vp-c-text-1);
+}
+.info-alert.desktop {
+  background-color: rgba(234, 179, 8, 0.1); /* 琥珀色/黄色警告背景 */
+  color: var(--vp-c-warning-text, #d97706);
+}
+
+.info-alert i {
+  margin-top: 3px;
+  color: var(--vp-c-accent, #299764);
+}
+.info-alert.desktop i {
+  color: var(--vp-c-warning-1, #f59e0b);
+}
+
 .runtime-info {
-  margin-top: 0.4rem;
+  margin-top: 0.5rem;
   font-size: 0.85rem;
+  color: var(--vp-c-text-2);
 }
 .runtime-info a {
   color: var(--vp-c-accent, #299764);
@@ -294,13 +394,12 @@ onMounted(() => {
   border: 1px solid var(--vp-c-divider);
   border-radius: 8px;
   cursor: pointer;
-  background-color: var(--vp-c-bg-soft);
+  background-color: var(--vp-c-bg);
   transition: all 0.2s ease;
   color: var(--vp-c-text-2);
 }
 
 .os-card:hover {
-  background-color: var(--vp-c-bg-mute);
   border-color: var(--vp-c-text-3);
 }
 
@@ -319,16 +418,7 @@ onMounted(() => {
   font-size: 0.9rem;
 }
 
-@media (max-width: 480px) {
-  .os-selector-group {
-    gap: 0.5rem;
-  }
-  .os-card-icon {
-    font-size: 1.4rem;
-  }
-}
-
-/* 下拉框布局 */
+/* 控件网格 */
 .controls-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -336,9 +426,7 @@ onMounted(() => {
   margin-bottom: 1.5rem;
 }
 @media (max-width: 640px) {
-  .controls-grid {
-    grid-template-columns: 1fr;
-  }
+  .controls-grid { grid-template-columns: 1fr; }
 }
 
 .control-group label {
@@ -357,7 +445,7 @@ onMounted(() => {
 .select-wrapper select {
   width: 100%;
   appearance: none;
-  background-color: var(--vp-c-bg-soft);
+  background-color: var(--vp-c-bg);
   border: 1px solid var(--vp-c-divider);
   border-radius: 6px;
   padding: 0.6rem 2rem 0.6rem 0.8rem;
@@ -370,7 +458,6 @@ onMounted(() => {
 }
 .select-wrapper select:focus {
   border-color: var(--vp-c-accent, #299764);
-  box-shadow: 0 0 0 2px rgba(41, 151, 100, 0.1);
 }
 .select-wrapper .arrow, .select-wrapper .spinner {
   position: absolute;
@@ -391,6 +478,7 @@ onMounted(() => {
   background-color: var(--vp-c-bg-alt);
   border-radius: 8px;
   padding: 1rem;
+  border: 1px solid var(--vp-c-divider);
 }
 .status-msg {
   font-size: 0.9rem;
@@ -400,6 +488,7 @@ onMounted(() => {
   gap: 0.5rem;
 }
 .status-msg.error { color: var(--vp-c-danger, #dc2626); }
+.status-msg.warning { color: var(--vp-c-warning-1, #f59e0b); }
 
 .download-container {
   display: flex;
