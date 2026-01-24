@@ -108,16 +108,25 @@
           <i class="fa-solid fa-circle-exclamation"></i> {{ errorMsg }}
         </div>
 
-        <div v-else-if="downloadUrl" class="download-container">
-          <div class="file-info">
-            <span class="filename">
-              <i :class="fileIcon"></i> {{ fileName }}
-            </span>
-            <span class="filesize" v-if="fileSize">{{ formatSize(fileSize) }}</span>
+        <div v-else-if="fileList.length > 0" class="download-list">
+          <div v-for="(file, index) in fileList" :key="index" class="download-item">
+            <div class="file-info-group">
+              <div class="file-main">
+                <i :class="getFileIcon(file.name)"></i>
+                <span class="filename">{{ file.name }}</span>
+                <span v-if="file.variant" class="variant-tag" :class="file.variantKey">
+                  {{ file.variant }}
+                </span>
+              </div>
+              <div class="file-meta">
+                <span class="filesize">{{ formatSize(file.size) }}</span>
+              </div>
+            </div>
+
+            <a :href="file.url" target="_blank" class="download-btn-sm">
+              <i class="fa-solid fa-download"></i> 下载
+            </a>
           </div>
-          <a :href="downloadUrl" target="_blank" class="download-btn">
-            <i class="fa-solid fa-download"></i> 立即下载
-          </a>
         </div>
 
         <div v-else class="status-msg warning">
@@ -130,49 +139,26 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from 'vue';
+import { ref, onMounted } from 'vue';
 
-// --- 状态定义 ---
-const selectedType = ref('daemon'); // 'daemon' | 'desktop'
+const selectedType = ref('daemon');
 const loadingVersions = ref(true);
 const loadingFile = ref(false);
 const versionList = ref([]);
 const errorMsg = ref('');
 
-// 选中的项
 const selectedOS = ref('Windows');
 const selectedArch = ref('x64');
 const selectedVersion = ref('');
 
-// 下载相关信息
-const downloadUrl = ref('');
-const fileName = ref('');
-const fileSize = ref(0);
+const fileList = ref([]);
 
 const API_BASE = 'https://files.mslmc.cn/api/fs/list';
 const DOWNLOAD_BASE_HOST = 'https://files.mslmc.cn';
 
-// --- 计算属性 ---
-
-// 动态文件图标
-const fileIcon = computed(() => {
-  if (selectedType.value === 'desktop' && selectedOS.value === 'Windows') {
-    return 'fa-brands fa-windows'; // 如果是桌面版exe，可以用windows图标
-  }
-  switch (selectedOS.value) {
-    case 'Windows': return 'fa-regular fa-file-zipper'; 
-    default: return 'fa-regular fa-file-code'; 
-  }
-});
-
-// --- 方法 ---
-
 const switchType = (type) => {
   selectedType.value = type;
-  // 切换类型时，如果有选中的版本，立即重新匹配文件
-  if (versionList.value.length > 0) {
-    fetchFileInfo();
-  }
+  if (versionList.value.length > 0) fetchFileInfo();
 };
 
 const switchOS = (os) => {
@@ -186,6 +172,26 @@ const formatSize = (bytes) => {
   const sizes = ['B', 'KB', 'MB', 'GB'];
   const i = Math.floor(Math.log(bytes) / Math.log(k));
   return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+};
+
+const getVariantInfo = (filename, os) => {
+  if (os !== 'Linux') return null;
+  const lowerName = filename.toLowerCase();
+  if (lowerName.includes('musl')) {
+    return { label: 'Alpine / Musl', key: 'musl' };
+  }
+  return { label: 'Standard / Glibc', key: 'glibc' };
+};
+
+const getFileIcon = (name) => {
+  const lower = name.toLowerCase();
+  if (selectedType.value === 'desktop' && lower.includes('win')) {
+    return 'fa-brands fa-windows';
+  }
+  if (lower.endsWith('.zip') || lower.endsWith('.tar.gz') || lower.endsWith('.7z')) {
+    return 'fa-regular fa-file-zipper';
+  }
+  return 'fa-regular fa-file-code';
 };
 
 const detectEnv = () => {
@@ -228,7 +234,7 @@ const fetchFileInfo = async () => {
 
   loadingFile.value = true;
   errorMsg.value = '';
-  downloadUrl.value = '';
+  fileList.value = [];
   
   try {
     const versionPath = `MSLX-Release/${selectedVersion.value}`;
@@ -236,29 +242,40 @@ const fetchFileInfo = async () => {
     const json = await res.json();
 
     if (json.code === 200 && json.data && json.data.content) {
-      // 确定 OS 关键字
       let osKey = '';
       if (selectedOS.value === 'Windows') osKey = 'win';
       else if (selectedOS.value === 'Linux') osKey = 'linux';
       else if (selectedOS.value === 'macOS') osKey = 'osx';
 
-      // 根据 selectedType 决定前缀
       const typePrefix = selectedType.value === 'daemon' ? 'MSLX-Daemon' : 'MSLX-Desktop';
-      const targetArch = `${osKey}-${selectedArch.value}`;
+      const archKey = selectedArch.value;
 
-      const file = json.data.content.find(item => {
+      const matches = json.data.content.filter(item => {
         if (item.is_dir) return false;
-        const name = item.name;
-        // 匹配规则：以 Type 开头 (e.g. MSLX-Desktop) 且包含 os-arch (e.g. win-x64)
-        return name.startsWith(typePrefix) && 
-               name.toLowerCase().includes(targetArch.toLowerCase());
+        const name = item.name.toLowerCase();
+        
+        return item.name.startsWith(typePrefix) && 
+               name.includes(osKey) && 
+               name.includes(archKey);
       });
 
-      if (file) {
-        fileName.value = file.name;
-        fileSize.value = file.size;
-        downloadUrl.value = `${DOWNLOAD_BASE_HOST}/d/${versionPath}/${file.name}?sign=${file.sign}`;
-      }
+      fileList.value = matches.map(file => {
+        const variantInfo = getVariantInfo(file.name, selectedOS.value);
+        return {
+          name: file.name,
+          size: file.size,
+          url: `${DOWNLOAD_BASE_HOST}/d/${versionPath}/${file.name}?sign=${file.sign}`,
+          variant: variantInfo?.label,
+          variantKey: variantInfo?.key
+        };
+      });
+
+      fileList.value.sort((a, b) => {
+        if (a.variantKey === 'glibc' && b.variantKey === 'musl') return -1;
+        if (a.variantKey === 'musl' && b.variantKey === 'glibc') return 1;
+        return 0;
+      });
+
     } else {
       errorMsg.value = '无法获取文件详情';
     }
@@ -277,7 +294,6 @@ onMounted(() => {
 </script>
 
 <style scoped>
-/* 容器 */
 .msl-download-card {
   border: 1px solid var(--vp-c-divider);
   border-radius: 12px;
@@ -290,10 +306,7 @@ onMounted(() => {
   box-shadow: 0 4px 12px rgba(0,0,0,0.05);
 }
 
-/* 头部 */
-.card-header {
-  margin-bottom: 1.5rem;
-}
+.card-header { margin-bottom: 1.5rem; }
 .title {
   margin: 0 0 1rem 0;
   font-size: 1.4rem;
@@ -303,11 +316,8 @@ onMounted(() => {
   align-items: center;
   gap: 0.6rem;
 }
-.header-icon {
-  color: var(--vp-c-accent, #299764);
-}
+.header-icon { color: var(--vp-c-accent, #299764); }
 
-/* Tab 切换器 */
 .type-switcher {
   display: flex;
   background-color: var(--vp-c-bg-mute);
@@ -326,9 +336,7 @@ onMounted(() => {
   transition: all 0.2s ease;
   font-weight: 500;
 }
-.type-tab:hover {
-  color: var(--vp-c-text-1);
-}
+.type-tab:hover { color: var(--vp-c-text-1); }
 .type-tab.active {
   background-color: var(--vp-c-bg);
   color: var(--vp-c-accent, #299764);
@@ -337,7 +345,6 @@ onMounted(() => {
 }
 .tab-title i { margin-right: 6px; }
 
-/* 提示条 */
 .info-alert {
   font-size: 0.9rem;
   padding: 0.75rem 1rem;
@@ -350,21 +357,13 @@ onMounted(() => {
   line-height: 1.5;
   margin-bottom: 1rem;
 }
-.info-alert.daemon {
-  color: var(--vp-c-text-1);
-}
+.info-alert.daemon { color: var(--vp-c-text-1); }
 .info-alert.desktop {
-  background-color: rgba(234, 179, 8, 0.1); /* 琥珀色/黄色警告背景 */
+  background-color: rgba(234, 179, 8, 0.1);
   color: var(--vp-c-warning-text, #d97706);
 }
-
-.info-alert i {
-  margin-top: 3px;
-  color: var(--vp-c-accent, #299764);
-}
-.info-alert.desktop i {
-  color: var(--vp-c-warning-1, #f59e0b);
-}
+.info-alert i { margin-top: 3px; color: var(--vp-c-accent, #299764); }
+.info-alert.desktop i { color: var(--vp-c-warning-1, #f59e0b); }
 
 .runtime-info {
   margin-top: 0.5rem;
@@ -377,14 +376,12 @@ onMounted(() => {
   font-weight: 500;
 }
 
-/* OS 卡片选择器 */
 .os-selector-group {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
   margin-bottom: 1.5rem;
 }
-
 .os-card {
   display: flex;
   flex-direction: column;
@@ -398,27 +395,15 @@ onMounted(() => {
   transition: all 0.2s ease;
   color: var(--vp-c-text-2);
 }
-
-.os-card:hover {
-  border-color: var(--vp-c-text-3);
-}
-
+.os-card:hover { border-color: var(--vp-c-text-3); }
 .os-card.active {
   border-color: var(--vp-c-accent, #299764);
   color: var(--vp-c-accent, #299764);
   font-weight: 600;
 }
+.os-card-icon { font-size: 1.8rem; margin-bottom: 0.4rem; }
+.os-name { font-size: 0.9rem; }
 
-.os-card-icon {
-  font-size: 1.8rem;
-  margin-bottom: 0.4rem;
-}
-
-.os-name {
-  font-size: 0.9rem;
-}
-
-/* 控件网格 */
 .controls-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -428,7 +413,6 @@ onMounted(() => {
 @media (max-width: 640px) {
   .controls-grid { grid-template-columns: 1fr; }
 }
-
 .control-group label {
   display: block;
   font-size: 0.85rem;
@@ -437,11 +421,7 @@ onMounted(() => {
   font-weight: 500;
 }
 .label-icon { margin-right: 4px; }
-
-.select-wrapper {
-  position: relative;
-  width: 100%;
-}
+.select-wrapper { position: relative; width: 100%; }
 .select-wrapper select {
   width: 100%;
   appearance: none;
@@ -456,89 +436,143 @@ onMounted(() => {
   transition: border-color 0.2s;
   font-family: inherit;
 }
-.select-wrapper select:focus {
-  border-color: var(--vp-c-accent, #299764);
-}
+.select-wrapper select:focus { border-color: var(--vp-c-accent, #299764); }
 .select-wrapper .arrow, .select-wrapper .spinner {
-  position: absolute;
-  right: 12px;
-  top: 50%;
+  position: absolute; right: 12px; top: 50%;
   transform: translateY(-50%);
   pointer-events: none;
   font-size: 0.75rem;
   color: var(--vp-c-text-3);
 }
 
-/* 动作区域 */
 .action-area {
   min-height: 84px;
+  background-color: var(--vp-c-bg-alt);
+  border-radius: 8px;
+  border: 1px solid var(--vp-c-divider);
+  overflow: hidden;
+}
+
+.status-msg {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--vp-c-bg-alt);
-  border-radius: 8px;
+  min-height: 84px;
   padding: 1rem;
-  border: 1px solid var(--vp-c-divider);
-}
-.status-msg {
   font-size: 0.9rem;
   color: var(--vp-c-text-2);
-  display: flex;
-  align-items: center;
   gap: 0.5rem;
 }
 .status-msg.error { color: var(--vp-c-danger, #dc2626); }
 .status-msg.warning { color: var(--vp-c-warning-1, #f59e0b); }
 
-.download-container {
+.download-list {
   display: flex;
   flex-direction: column;
+}
+
+.download-item {
+  display: flex;
   align-items: center;
-  width: 100%;
+  justify-content: space-between;
+  padding: 1rem 1.2rem;
+  border-bottom: 1px solid var(--vp-c-divider);
   gap: 1rem;
+  transition: background-color 0.2s;
 }
-@media (min-width: 640px) {
-  .download-container {
-    flex-direction: row;
-    justify-content: space-between;
-  }
-}
-.file-info {
+
+.download-item:last-child { border-bottom: none; }
+.download-item:hover { background-color: var(--vp-c-bg-soft); }
+
+.file-info-group {
   display: flex;
   flex-direction: column;
-  gap: 0.2rem;
+  gap: 0.3rem;
+  flex: 1;
+  min-width: 0;
 }
+
+.file-main {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.file-main i {
+  color: var(--vp-c-text-2);
+  font-size: 1.1rem;
+}
+
 .filename {
   font-weight: 500;
   color: var(--vp-c-text-1);
   word-break: break-all;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+  font-size: 0.95rem;
 }
-.filesize {
+
+.file-meta {
   font-size: 0.8rem;
-  color: var(--vp-c-text-2);
-  margin-left: 1.5rem;
+  color: var(--vp-c-text-3);
+  margin-left: 1.7rem;
 }
-.download-btn {
+
+/* 标签样式调整 */
+.variant-tag {
+  font-size: 0.7rem;
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  line-height: 1.4;
+}
+
+/* Glibc (Standard) - 主题色 */
+.variant-tag.glibc {
+  background-color: var(--vp-c-accent, #10b981);;
+}
+
+/* Musl - 现在是灰色 */
+.variant-tag.musl {
+  background-color: var(--vp-c-default-soft);
+  color: var(--vp-c-text-2);
+  border: 1px solid var(--vp-c-divider);
+}
+
+.download-btn-sm {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  background-color: var(--vp-c-accent, #299764);
-  color: white !important;
-  padding: 0.7rem 1.8rem;
-  border-radius: 24px;
+  gap: 0.4rem;
+  background-color: var(--vp-c-accent, #299764); /* 主题色背景 */
+  color: white !important; /* 白字 */
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
   text-decoration: none !important;
-  font-weight: 600;
+  font-size: 0.85rem;
+  font-weight: 500;
   transition: all 0.2s ease;
   white-space: nowrap;
+  border: none;
 }
-.download-btn:hover {
+
+.download-btn-sm:hover {
   opacity: 0.9;
   transform: translateY(-1px);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+}
+
+@media (max-width: 640px) {
+  .download-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.8rem;
+  }
+  .download-btn-sm {
+    width: 100%;
+    justify-content: center;
+    padding: 0.6rem;
+  }
 }
 .text-xs { font-size: 0.7em; margin-left: 2px; }
 </style>
