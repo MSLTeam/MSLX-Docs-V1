@@ -10,7 +10,7 @@ icon: b:ubuntu
 ## 一键安装
 
 ```bash
-curl -sL "https://files.mslmc.cn/d/MSL/MSL%20Resources/MSLX/script-install-260118.sh?sign=_HHPv53-t09zfVI_fj3orNzbFEy3d-Ep0xH_g_FU_Hg=:0" | sudo bash
+curl -sL "https://files.mslmc.cn/d/MSL/MSL%20Resources/MSLX/script-install-260124.sh?sign=97GPVF1nhS3yogUY3KNhlumq3rkfu8nE9I6G_ZliXD4=:0" | sudo bash
 ```
 
 ::: tip 关于监听地址的选择
@@ -20,6 +20,16 @@ curl -sL "https://files.mslmc.cn/d/MSL/MSL%20Resources/MSLX/script-install-26011
 若想直接使用ip+端口访问，那么就选2监听全部地址。
 
 若想frp映射端口/nginx本地反向代理，那么选1监听本机即可。
+
+:::
+
+
+
+::: warning 一键卸载脚本
+
+```bash
+curl -sL "https://files.mslmc.cn/d/MSL/MSL%20Resources/MSLX/script-uninstall-260124FinalVer.sh?sign=UWLUR7Qovc022x3vURWwlSOg03aN3KFnoaHHdnHTRbQ=:0" | sudo bash
+```
 
 :::
 
