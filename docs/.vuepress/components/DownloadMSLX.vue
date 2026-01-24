@@ -530,7 +530,7 @@ onMounted(() => {
 
 /* Glibc (Standard) - 主题色 */
 .variant-tag.glibc {
-  background-color: var(--vp-c-accent, #10b981);;
+  background-color: var(--vp-c-accent, #10b981);
 }
 
 /* Musl - 现在是灰色 */
