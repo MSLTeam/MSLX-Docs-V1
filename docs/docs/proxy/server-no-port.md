@@ -1,7 +1,7 @@
 ---
 title: Frp映射地址隐藏端口
 createTime: 2026/01/29 16:28:56
-permalink: /docs/proxy/frp-no-port/
+permalink: /docs/proxy/server-no-port/
 icon: rocket
 ---
 
