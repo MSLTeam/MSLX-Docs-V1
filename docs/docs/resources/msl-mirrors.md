@@ -6,7 +6,7 @@ permalink: /docs/resources/msl-mirrors/
 ---
 <CardGrid>
 <LinkCard title="在线下载" href="https://dl.mslmc.cn" icon="cloud" description="前往MSL服务端镜像独立站下载资源。" />
-<LinkCard title="在线下载(用户中心)" href="https://user.mslmc.net/download/serverCore" icon="cloud" description="前往MSL用户中心的服务端镜像下载页面下载资源。" />
+<LinkCard title="在线下载(用户中心)" href="https://user.mslmc.net/mc-tools/download-server-core" icon="cloud" description="前往MSL用户中心的服务端镜像下载页面下载资源。" />
 <LinkCard title="API文档" href="https://apidoc-v3.mslmc.cn/api-191469704" icon="book" description="基于Apifox的MSL-API-V3的服务端镜像下载API。" />
 
 <Card title="QWQ?" icon="heart"> 
