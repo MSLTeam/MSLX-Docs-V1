@@ -226,6 +226,8 @@ Dockerhub: `xiaoyululu/mslx-daemon:latest`
 
 :::
 
+@[bilibili](BV1zfFBz4E6A)
+
 
 
 :::: steps
