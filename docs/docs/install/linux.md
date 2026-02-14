@@ -12,7 +12,7 @@ icon: b:ubuntu
 ==脚本支持大部分Linux系统，如果安装不成功，请自行手动安装MSLX。==
 
 ```bash
-curl -sL "https://files.mslmc.cn/d/MSL/MSL%20Resources/MSLX/scripts/install-260124.sh?sign=EGE_AbAgm8DayMUn2d_3Mo2Xz4keMZXk03kWYHluXEw=:0" | sudo bash
+curl -sL "https://files.mslmc.cn/d/MSL/MSL%20Resources/MSLX/scripts/20260114-a/install.sh?sign=3Uv-tBES_UXNgItTVHgDngnHD0bYWUmCbp5ym2-eJd8=:0" | sudo bash
 ```
 
 ::: tip 关于监听地址的选择
@@ -30,7 +30,7 @@ curl -sL "https://files.mslmc.cn/d/MSL/MSL%20Resources/MSLX/scripts/install-2601
 ::: warning 一键卸载脚本
 
 ```bash
-curl -sL "https://files.mslmc.cn/d/MSL/MSL%20Resources/MSLX/scripts/uninstall-260124.sh?sign=5wB0-4t6e7Quk38r-q3M4qdKf3CgwjgZBYZAzc2FZnQ=:0" | sudo bash
+curl -sL "https://files.mslmc.cn/d/MSL/MSL%20Resources/MSLX/scripts/20260114-a/uninstall.sh?sign=0HUoU4lnL3srGxVai_IPP5I-5QhQ5XwjlJUaxifJ69Y=:0" | sudo bash
 ```
 
 :::
