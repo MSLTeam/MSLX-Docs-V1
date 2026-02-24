@@ -11,8 +11,16 @@ icon: b:ubuntu
 
 ==脚本支持大部分Linux系统，如果安装不成功，请自行手动安装MSLX。==
 
+Linux 通用版本（Ubuntu/Debian/CentOs系 等等）：
+
 ```bash
-curl -sL "https://files.mslmc.cn/d/MSL/MSL%20Resources/MSLX/scripts/20260114-a/install.sh?sign=3Uv-tBES_UXNgItTVHgDngnHD0bYWUmCbp5ym2-eJd8=:0" | sudo bash
+curl -sL "https://files.mslmc.cn/d/MSL/MSL%20Resources/MSLX/scripts/20260114-a/install_common.sh?sign=swyHXyZlsBV-BcXqRjQ-RqCbAuYoTmTjPKNhpMd_6Bo=:0" | sudo bash
+```
+
+Alpine Linux 版本：
+
+```bash
+curl -sL "https://files.mslmc.cn/d/MSL/MSL%20Resources/MSLX/scripts/20260114-a/install_alpine.sh?sign=CGn1Z5O1vCH8L58Z5xsGZez4oXQbJZ65o5ATVLZz5b4=:0" | sudo bash
 ```
 
 ::: tip 关于监听地址的选择
