@@ -20,6 +20,7 @@ curl -sL "https://files.mslmc.cn/d/MSL/MSL%20Resources/MSLX/scripts/20260114-a/i
 Alpine Linux 版本：
 
 ```bash
+apk add curl sudo bash # 安装必要软件包
 curl -sL "https://files.mslmc.cn/d/MSL/MSL%20Resources/MSLX/scripts/20260114-a/install_alpine.sh?sign=CGn1Z5O1vCH8L58Z5xsGZez4oXQbJZ65o5ATVLZz5b4=:0" | sudo bash
 ```
 
@@ -40,22 +41,6 @@ curl -sL "https://files.mslmc.cn/d/MSL/MSL%20Resources/MSLX/scripts/20260114-a/i
 ```bash
 curl -sL "https://files.mslmc.cn/d/MSL/MSL%20Resources/MSLX/scripts/20260114-a/uninstall.sh?sign=0HUoU4lnL3srGxVai_IPP5I-5QhQ5XwjlJUaxifJ69Y=:0" | sudo bash
 ```
-
-:::
-
-
-
-::: tip 关于Alpine Linux
-
-脚本做了对Alpine Linux的专门支持。
-
-但是可能由于系统本身比较干净，可能需要执行如下指令才能正常运行脚本。
-
-```bash
-apk add curl sudo bash
-```
-
-
 
 :::
 
