@@ -28,7 +28,7 @@ permalink: /docs/resources/oauth2/
 
 如果你只是需要调用MSL用户中心进行登录，那么选择 ==用户信息== 是完全足够的。
 
-==所有权限== 是提供MSL账号的完全访问权限，仅适用于对接我们的其他服务（如MSLFrp），若您有这方面的需求，可以在Q群或者邮件联系我们商讨后为您开通相关权限并提供此授权模式的两种方法的文档（App/网页）。[support@mslmc.cn](mailto:support@mslmc.cn)
+==所有权限== 是提供MSL账号的完全访问权限，仅适用于对接我们的其他服务（如MSLFrp），若您有这方面的需求，可以在Q群或者邮件联系我们商讨后为您开通相关权限并提供此授权模式的两种方法的文档（App/网页）。[support@mslmc.net](mailto:support@mslmc.net)
 
 :::
 
