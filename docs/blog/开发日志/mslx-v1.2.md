@@ -1,6 +1,6 @@
 ---
 title: MSLX v1.2 版本开发结束
-createTime: 2026/02/08 10:27:00
+createTime: 2026/03/06 10:27:00
 permalink: /article/mslx/v1.2/
 tags:
   - 开发日志
