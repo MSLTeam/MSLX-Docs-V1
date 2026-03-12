@@ -57,7 +57,7 @@ const doc = defineCollection({
   title: 'MSLX 文档',
   // 手动配置侧边栏结构
   sidebar: [
-    { text: '从这里开始', prefix: 'install', collapsed: false, icon: 'download', items: ['start', 'windows', 'macos', 'linux','docker'] },
+    { text: '从这里开始', prefix: 'install', collapsed: false, icon: 'download', items: ['start', 'windows', 'macos', 'linux','docker','fnos'] },
     { text: '开服指南', prefix: 'server', collapsed: false, icon: 'circle-play', items: ['java','bedrock','package','choose-server-tips'] },
     { text: '映射/联机', prefix: 'proxy', collapsed: false, icon: 'rocket', items: ['frp', 'p2p','frp-real-ip','server-no-port'] },
     { text: '服务端配置', prefix: 'server-config', collapsed: false, icon: 'screwdriver-wrench', items: ['crons','yggdrasil'] },

@@ -216,7 +216,9 @@ Dockerhub: `xiaoyululu/mslx-daemon:latest`
 
 ## 使用 fnOS (飞牛OS) Docker 管理器部署
 
-::: important 重要提醒
+<LinkCard title="(推荐) 安装飞牛应用商店版本MSLX" description="MSLX已上架FnOS的应用商店！可以更快捷的安装使用啦！" icon="b:debian" href="/docs/install/fnos/" />
+
+::: important 手动安装的重要提醒
 
 !!踩了很多坑之后得出的结论!!
 
