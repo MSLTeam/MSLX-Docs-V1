@@ -19,7 +19,7 @@ icon: b:debian
 
 ## 视频安装教程
 
-@[bilibili](BV1zfFBz4E6A)
+@[bilibili](BV1krcSzaE34)
 
 ## 文本安装教程
 
