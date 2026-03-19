@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 import type { ThemeHomeConfigBase } from 'vuepress-theme-plume'
 import { VPHomeBox } from 'vuepress-theme-plume/client'
 
@@ -7,8 +8,6 @@ interface HeroAction {
   text: string
   link: string
   icon?: string
-  index: number
-  full: boolean
 }
 
 interface HeroData {
@@ -18,19 +17,33 @@ interface HeroData {
   actions?: HeroAction[]
 }
 
-defineProps<ThemeHomeConfigBase & {
+const props = defineProps<ThemeHomeConfigBase & {
   hero: HeroData
+  index?: number
 }>()
+
+const bgVars = computed(() => {
+  if (!props.backgroundImage) return {}
+  if (typeof props.backgroundImage === 'string') {
+    return {
+      '--hero-bg-light': `url(${props.backgroundImage})`,
+      '--hero-bg-dark': `url(${props.backgroundImage})`
+    }
+  }
+  return {
+    '--hero-bg-light': `url(${props.backgroundImage.light})`,
+    '--hero-bg-dark': `url(${props.backgroundImage.dark})`
+  }
+})
 </script>
 
 <template>
   <VPHomeBox
     :type="type"
     :full="full"
-    :index="index"
-    :background-image="backgroundImage"
-    :background-attachment="backgroundAttachment"
+    :index="index || 0"
     class="modern-hero-wrapper"
+    :style="bgVars"
   >
     <div class="hero-content">
       <div class="hero-tagline-wrap" v-if="hero.tagline">
@@ -44,7 +57,7 @@ defineProps<ThemeHomeConfigBase & {
       <p class="hero-desc" v-if="hero.text">{{ hero.text }}</p>
 
       <div class="hero-actions" v-if="hero.actions && hero.actions.length">
-        <template v-for="(action, index) in hero.actions" :key="index">
+        <template v-for="(action, actIndex) in hero.actions" :key="actIndex">
           
           <a 
             v-if="action.link.startsWith('http')"
@@ -74,8 +87,15 @@ defineProps<ThemeHomeConfigBase & {
 </template>
 
 <style scoped>
+/* ==================== 基础容器 ==================== */
 .modern-hero-wrapper {
   color: var(--vp-c-text-1); 
+  min-height: calc(100vh - var(--vp-nav-height, 64px));
+
+  background-image: var(--hero-bg-light);
+  background-size: cover;
+  background-position: center;
+  background-attachment: inherit;
 }
 
 .modern-hero-wrapper :deep(.container) {
@@ -83,7 +103,7 @@ defineProps<ThemeHomeConfigBase & {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100%;
+  flex: 1;
   padding: 0 1.5rem;
 }
 
@@ -102,7 +122,6 @@ defineProps<ThemeHomeConfigBase & {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
-
 
 .hero-tagline-wrap {
   margin-bottom: 1.5rem;
@@ -123,13 +142,6 @@ defineProps<ThemeHomeConfigBase & {
   background: var(--vp-c-brand-soft);
   border: 1px solid transparent;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-}
-
-[data-theme="dark"] .hero-tagline {
-  background: rgba(0, 0, 0, 0.4) !important;
-  border: 1px solid var(--vp-c-brand-1) !important;
-  box-shadow: 0 0 16px var(--vp-c-brand-1), inset 0 0 8px var(--vp-c-brand-1) !important;
-  text-shadow: 0 0 10px var(--vp-c-brand-1) !important;
 }
 
 .hero-name {
@@ -213,5 +225,20 @@ defineProps<ThemeHomeConfigBase & {
     width: 100%;
     padding: 0.9rem;
   }
+}
+</style>
+
+<style>
+html[data-theme="dark"] .modern-hero-wrapper,
+html.dark .modern-hero-wrapper {
+  background-image: var(--hero-bg-dark) !important;
+}
+
+html[data-theme="dark"] .hero-tagline,
+html.dark .hero-tagline {
+  background: rgba(0, 0, 0, 0.4) !important;
+  border: 1px solid var(--vp-c-brand-1) !important;
+  box-shadow: 0 0 16px var(--vp-c-brand-1), inset 0 0 8px var(--vp-c-brand-1) !important;
+  text-shadow: 0 0 10px var(--vp-c-brand-1) !important;
 }
 </style>
