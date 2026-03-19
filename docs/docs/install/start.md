@@ -51,4 +51,6 @@ MSLX采用的是 ==前后端分离== 的模式。
 
 <LinkCard title="在 Linux 上安装使用" icon="b:ubuntu" href="/docs/install/linux/" />
 
+<LinkCard title="在 fnOS (飞牛系统) 上安装使用" icon="b:debian" href="/docs/install/fnos/" />
+
 <LinkCard title="在 Docker 上安装使用" icon="b:docker" href="/docs/install/docker/" />

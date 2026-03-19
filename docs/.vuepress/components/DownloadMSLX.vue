@@ -5,20 +5,12 @@
         <i class="fa-solid fa-cloud-arrow-down header-icon"></i>
         <span>获取 MSLX</span>
       </h3>
-      
+
       <div class="type-switcher">
-        <div 
-          class="type-tab" 
-          :class="{ active: selectedType === 'daemon' }"
-          @click="switchType('daemon')"
-        >
+        <div class="type-tab" :class="{ active: selectedType === 'daemon' }" @click="switchType('daemon')">
           <span class="tab-title"><i class="fa-solid fa-server"></i> Daemon 服务端 / Webpanel 网页控制台</span>
         </div>
-        <div 
-          class="type-tab" 
-          :class="{ active: selectedType === 'desktop' }"
-          @click="switchType('desktop')"
-        >
+        <div class="type-tab" :class="{ active: selectedType === 'desktop' }" @click="switchType('desktop')">
           <span class="tab-title"><i class="fa-solid fa-desktop"></i> Desktop 桌面版</span>
         </div>
       </div>
@@ -29,7 +21,9 @@
           <span>可运行在纯命令行环境/桌面环境。<br>包含 <strong>Web 控制台</strong>，适合服务器或无人值守环境长期运行。</span>
         </template>
         <template v-else>
-          <i class="fa-solid fa-flask"></i> <span>当前为 <strong>早期开发预览版</strong>，功能尚未开发完成。<strong><u>请勿下载使用</u></strong>。<br> 目前MSLX可用的版本是旁边的 <strong>Daemon 服务端 / Webpanel 网页控制台</strong> 版本。</span>
+          <i class="fa-solid fa-flask"></i> <span>当前为
+            <strong>早期开发预览版</strong>，功能尚未开发完成。<strong><u>请勿下载使用</u></strong>。<br> 目前MSLX可用的版本是旁边的 <strong>Daemon 服务端 /
+              Webpanel 网页控制台</strong> 版本。</span>
         </template>
       </div>
 
@@ -43,29 +37,17 @@
 
     <div class="download-controls">
       <div class="os-selector-group">
-        <div 
-          class="os-card" 
-          :class="{ active: selectedOS === 'Windows' }"
-          @click="switchOS('Windows')"
-        >
+        <div class="os-card" :class="{ active: selectedOS === 'Windows' }" @click="switchOS('Windows')">
           <i class="fa-brands fa-windows os-card-icon"></i>
           <span class="os-name">Windows</span>
         </div>
-        
-        <div 
-          class="os-card" 
-          :class="{ active: selectedOS === 'Linux' }"
-          @click="switchOS('Linux')"
-        >
+
+        <div class="os-card" :class="{ active: selectedOS === 'Linux' }" @click="switchOS('Linux')">
           <i class="fa-brands fa-linux os-card-icon"></i>
           <span class="os-name">Linux</span>
         </div>
 
-        <div 
-          class="os-card" 
-          :class="{ active: selectedOS === 'macOS' }"
-          @click="switchOS('macOS')"
-        >
+        <div class="os-card" :class="{ active: selectedOS === 'macOS' }" @click="switchOS('macOS')">
           <i class="fa-brands fa-apple os-card-icon"></i>
           <span class="os-name">macOS</span>
         </div>
@@ -103,7 +85,7 @@
         <div v-if="loadingFile" class="status-msg loading">
           <i class="fa-solid fa-spinner fa-spin"></i> 正在获取下载链接...
         </div>
-        
+
         <div v-else-if="errorMsg" class="status-msg error">
           <i class="fa-solid fa-circle-exclamation"></i> {{ errorMsg }}
         </div>
@@ -133,10 +115,32 @@
         </div>
 
         <div v-else class="status-msg warning">
-          <i class="fa-solid fa-triangle-exclamation"></i> 
+          <i class="fa-solid fa-triangle-exclamation"></i>
           {{ selectedType === 'desktop' ? '该版本暂无桌面端构建' : '该版本暂无构建' }}
         </div>
+
+
       </div>
+
+      <div class="linux-extra-methods" v-if="selectedOS === 'Linux' && selectedType === 'daemon'">
+        <div class="method-list">
+          <a href="/docs/install/docker/" class="method-item">
+            <div class="method-info">
+              <i class="fa-brands fa-docker method-icon docker"></i>
+              <span>Docker 安装</span>
+            </div>
+            <i class="fa-solid fa-arrow-right arrow-icon"></i>
+          </a>
+          <a href="/docs/install/fnos/" class="method-item">
+            <div class="method-info">
+              <i class="fa-brands fa-debian method-icon debian"></i>
+              <span>在 fnOS (飞牛系统) 应用商店安装</span>
+            </div>
+            <i class="fa-solid fa-arrow-right arrow-icon"></i>
+          </a>
+        </div>
+      </div>
+
     </div>
   </div>
 </template>
@@ -154,7 +158,7 @@ const selectedOS = ref('Windows');
 const selectedArch = ref('x64');
 const selectedVersion = ref('');
 
-const rawFileContent = ref([]); 
+const rawFileContent = ref([]);
 const fileList = ref([]);
 
 const API_BASE = 'https://files.mslmc.cn/api/fs/list';
@@ -163,7 +167,7 @@ const DOWNLOAD_BASE_HOST = 'https://files.mslmc.cn';
 // 切换类型时，只进行本地筛选
 const switchType = (type) => {
   selectedType.value = type;
-  filterFiles(); 
+  filterFiles();
 };
 
 // 切换系统时，只进行本地筛选
@@ -249,7 +253,7 @@ const fetchFileInfo = async () => {
   errorMsg.value = '';
   fileList.value = [];
   rawFileContent.value = []; // 清空缓存
-  
+
   try {
     const versionPath = `MSLX-Release/${selectedVersion.value}`;
     const res = await fetch(`${API_BASE}?path=${versionPath}`);
@@ -292,10 +296,10 @@ const filterFiles = () => {
   const matches = rawFileContent.value.filter(item => {
     if (item.is_dir) return false;
     const name = item.name.toLowerCase();
-    
-    return item.name.startsWith(typePrefix) && 
-           name.includes(osKey) && 
-           name.includes(archKey);
+
+    return item.name.startsWith(typePrefix) &&
+      name.includes(osKey) &&
+      name.includes(archKey);
   });
 
   // 处理展示数据
@@ -333,11 +337,15 @@ onMounted(() => {
   transition: box-shadow 0.3s ease;
   background-color: var(--vp-c-bg-soft);
 }
+
 .msl-download-card:hover {
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
-.card-header { margin-bottom: 1.5rem; }
+.card-header {
+  margin-bottom: 1.5rem;
+}
+
 .title {
   margin: 0 0 1rem 0;
   font-size: 1.4rem;
@@ -347,7 +355,10 @@ onMounted(() => {
   align-items: center;
   gap: 0.6rem;
 }
-.header-icon { color: var(--vp-c-accent, #299764); }
+
+.header-icon {
+  color: var(--vp-c-accent, #299764);
+}
 
 .type-switcher {
   display: flex;
@@ -356,6 +367,7 @@ onMounted(() => {
   border-radius: 8px;
   margin-bottom: 1rem;
 }
+
 .type-tab {
   flex: 1;
   text-align: center;
@@ -367,14 +379,21 @@ onMounted(() => {
   transition: all 0.2s ease;
   font-weight: 500;
 }
-.type-tab:hover { color: var(--vp-c-text-1); }
+
+.type-tab:hover {
+  color: var(--vp-c-text-1);
+}
+
 .type-tab.active {
   background-color: var(--vp-c-bg);
   color: var(--vp-c-accent, #299764);
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
   font-weight: 600;
 }
-.tab-title i { margin-right: 6px; }
+
+.tab-title i {
+  margin-right: 6px;
+}
 
 .info-alert {
   font-size: 0.9rem;
@@ -388,19 +407,31 @@ onMounted(() => {
   line-height: 1.5;
   margin-bottom: 1rem;
 }
-.info-alert.daemon { color: var(--vp-c-text-1); }
+
+.info-alert.daemon {
+  color: var(--vp-c-text-1);
+}
+
 .info-alert.desktop {
   background-color: rgba(234, 179, 8, 0.1);
   color: var(--vp-c-warning-text, #d97706);
 }
-.info-alert i { margin-top: 3px; color: var(--vp-c-accent, #299764); }
-.info-alert.desktop i { color: var(--vp-c-warning-1, #f59e0b); }
+
+.info-alert i {
+  margin-top: 3px;
+  color: var(--vp-c-accent, #299764);
+}
+
+.info-alert.desktop i {
+  color: var(--vp-c-warning-1, #f59e0b);
+}
 
 .runtime-info {
   margin-top: 0.5rem;
   font-size: 0.85rem;
   color: var(--vp-c-text-2);
 }
+
 .runtime-info a {
   color: var(--vp-c-accent, #299764);
   text-decoration: none;
@@ -413,6 +444,7 @@ onMounted(() => {
   gap: 1rem;
   margin-bottom: 1.5rem;
 }
+
 .os-card {
   display: flex;
   flex-direction: column;
@@ -426,14 +458,25 @@ onMounted(() => {
   transition: all 0.2s ease;
   color: var(--vp-c-text-2);
 }
-.os-card:hover { border-color: var(--vp-c-text-3); }
+
+.os-card:hover {
+  border-color: var(--vp-c-text-3);
+}
+
 .os-card.active {
   border-color: var(--vp-c-accent, #299764);
   color: var(--vp-c-accent, #299764);
   font-weight: 600;
 }
-.os-card-icon { font-size: 1.8rem; margin-bottom: 0.4rem; }
-.os-name { font-size: 0.9rem; }
+
+.os-card-icon {
+  font-size: 1.8rem;
+  margin-bottom: 0.4rem;
+}
+
+.os-name {
+  font-size: 0.9rem;
+}
 
 .controls-grid {
   display: grid;
@@ -441,9 +484,13 @@ onMounted(() => {
   gap: 1rem;
   margin-bottom: 1.5rem;
 }
+
 @media (max-width: 640px) {
-  .controls-grid { grid-template-columns: 1fr; }
+  .controls-grid {
+    grid-template-columns: 1fr;
+  }
 }
+
 .control-group label {
   display: block;
   font-size: 0.85rem;
@@ -451,8 +498,16 @@ onMounted(() => {
   margin-bottom: 0.5rem;
   font-weight: 500;
 }
-.label-icon { margin-right: 4px; }
-.select-wrapper { position: relative; width: 100%; }
+
+.label-icon {
+  margin-right: 4px;
+}
+
+.select-wrapper {
+  position: relative;
+  width: 100%;
+}
+
 .select-wrapper select {
   width: 100%;
   appearance: none;
@@ -467,9 +522,16 @@ onMounted(() => {
   transition: border-color 0.2s;
   font-family: inherit;
 }
-.select-wrapper select:focus { border-color: var(--vp-c-accent, #299764); }
-.select-wrapper .arrow, .select-wrapper .spinner {
-  position: absolute; right: 12px; top: 50%;
+
+.select-wrapper select:focus {
+  border-color: var(--vp-c-accent, #299764);
+}
+
+.select-wrapper .arrow,
+.select-wrapper .spinner {
+  position: absolute;
+  right: 12px;
+  top: 50%;
   transform: translateY(-50%);
   pointer-events: none;
   font-size: 0.75rem;
@@ -494,8 +556,14 @@ onMounted(() => {
   color: var(--vp-c-text-2);
   gap: 0.5rem;
 }
-.status-msg.error { color: var(--vp-c-danger, #dc2626); }
-.status-msg.warning { color: var(--vp-c-warning-1, #f59e0b); }
+
+.status-msg.error {
+  color: var(--vp-c-danger, #dc2626);
+}
+
+.status-msg.warning {
+  color: var(--vp-c-warning-1, #f59e0b);
+}
 
 .download-list {
   display: flex;
@@ -512,8 +580,13 @@ onMounted(() => {
   transition: background-color 0.2s;
 }
 
-.download-item:last-child { border-bottom: none; }
-.download-item:hover { background-color: var(--vp-c-bg-soft); }
+.download-item:last-child {
+  border-bottom: none;
+}
+
+.download-item:hover {
+  background-color: var(--vp-c-bg-soft);
+}
 
 .file-info-group {
   display: flex;
@@ -575,8 +648,10 @@ onMounted(() => {
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  background-color: var(--vp-c-accent, #299764); /* 主题色背景 */
-  color: white !important; /* 白字 */
+  background-color: var(--vp-c-accent, #299764);
+  /* 主题色背景 */
+  color: white !important;
+  /* 白字 */
   padding: 0.5rem 1rem;
   border-radius: 20px;
   text-decoration: none !important;
@@ -606,7 +681,7 @@ onMounted(() => {
 .download-btn-sm:hover {
   opacity: 0.9;
   transform: translateY(-1px);
-  box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
 }
 
 @media (max-width: 640px) {
@@ -615,11 +690,81 @@ onMounted(() => {
     align-items: flex-start;
     gap: 0.8rem;
   }
+
   .download-btn-sm {
     width: 100%;
     justify-content: center;
     padding: 0.6rem;
   }
 }
-.text-xs { font-size: 0.7em; margin-left: 2px; }
+
+.text-xs {
+  font-size: 0.7em;
+  margin-left: 2px;
+}
+
+
+.linux-extra-methods {
+  margin-top: 1rem;
+  background-color: var(--vp-c-bg-alt);
+  border-radius: 8px;
+  border: 1px solid var(--vp-c-divider);
+  overflow: hidden;
+}
+
+.method-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.method-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.2rem;
+  border-bottom: 1px solid var(--vp-c-divider);
+  text-decoration: none !important;
+  color: var(--vp-c-text-1);
+  transition: background-color 0.2s;
+}
+
+.method-item:last-child {
+  border-bottom: none;
+}
+
+.method-item:hover {
+  background-color: var(--vp-c-bg-soft);
+}
+
+.method-info {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.method-icon {
+  font-size: 1.2rem;
+}
+
+/* 图标品牌色（可根据你的主题自由调整） */
+.method-icon.docker {
+  color: #2496ed;
+}
+
+.method-icon.debian {
+  color: #d70a53;
+}
+
+.arrow-icon {
+  color: var(--vp-c-text-3);
+  font-size: 0.9rem;
+  transition: transform 0.2s ease;
+}
+
+.method-item:hover .arrow-icon {
+  transform: translateX(4px);
+  color: var(--vp-c-text-2);
+}
 </style>

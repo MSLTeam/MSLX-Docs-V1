@@ -7,6 +7,8 @@ icon: b:ubuntu
 
 <LinkCard title="在 Docker 上安装使用" description="在 Linux 上，除了直接安装在本机，也可以选择使用Docker部署。" icon="b:docker" href="/docs/install/docker/" />
 
+<LinkCard title="在 fnOS (飞牛系统) 上安装使用" description="如果您使用的是飞牛系统，可以直接在应用商店安装哦。" icon="b:debian" href="/docs/install/fnos/" />
+
 ## 一键安装
 
 ==脚本支持大部分Linux系统，如果安装不成功，请自行手动安装MSLX。==
