@@ -7,11 +7,11 @@ interface Author {
   role: string
   motto: string
   avatar: string
-  index?: number
 }
 
 defineProps<ThemeHomeConfigBase & {
   authors?: Author[]
+  index?: number
 }>()
 </script>
 
