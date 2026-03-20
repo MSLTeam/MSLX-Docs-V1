@@ -84,6 +84,19 @@ config:
         description: 完美支持 Windows、Linux (Docker/一键脚本) 及 macOS，架构灵活。
       - title: Web 管理面板
         description: 采用现代 Web 前端技术，界面美观，操作流畅，支持远程管理。
+  -
+    type: testimonials
+    title: 听听服主们怎么说
+    description: 来自 MSLX 社区的真实反馈，无论是公开服还是三五好友的联机游玩，MSLX 都能完美胜任。
+    items:
+      - name: 波罗布多
+        role: 奶爸玩家
+        avatar: /home/user_pic/user_波罗布多.jpg
+        content: 我最喜欢MSLX的简洁易用，灰常支持MSLX越做越好！
+      - name: 淡定
+        role: 服主
+        avatar: /home/user_pic/user_淡定.jpg
+        content: 很不错！简单易上手，界面美观，响应迅速，自定义丰富！
   - 
     type: github-stars
     repo: MSLTeam/MSLX
