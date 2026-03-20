@@ -49,20 +49,15 @@ defineProps<ThemeHomeConfigBase & {
 }
 
 .authors-container {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: 2rem;
-  justify-content: center;
-  max-width: 1100px;
+  max-width: 900px;
   margin: 0 auto;
   padding: 0 1.5rem;
 }
 
-/* 横向卡片布局 */
 .author-card {
-  flex: 1;
-  min-width: 320px;
-  max-width: 480px;
   display: flex;
   align-items: center;
   gap: 1.5rem;
@@ -77,7 +72,6 @@ defineProps<ThemeHomeConfigBase & {
   text-align: left;
 }
 
-/* 悬浮时卡片特效 */
 .author-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
@@ -85,7 +79,6 @@ defineProps<ThemeHomeConfigBase & {
   background: linear-gradient(145deg, var(--vp-c-bg-soft), var(--vp-c-bg-alt));
 }
 
-/* 头像容器 */
 .avatar-wrap {
   position: relative;
   width: 90px;
@@ -95,7 +88,6 @@ defineProps<ThemeHomeConfigBase & {
   z-index: 1;
 }
 
-/* 炫酷流光发光层 */
 .avatar-glow {
   position: absolute;
   inset: -4px;
@@ -107,7 +99,6 @@ defineProps<ThemeHomeConfigBase & {
   opacity: 0.8;
 }
 
-/* 悬浮时触发发光和流光动画 */
 .author-card:hover .avatar-glow {
   filter: blur(8px);
   opacity: 1;
@@ -120,7 +111,6 @@ defineProps<ThemeHomeConfigBase & {
   100% { background-position: 0% 50%; }
 }
 
-/* 头像图片 */
 .avatar-img {
   width: 100%;
   height: 100%;
@@ -135,7 +125,6 @@ defineProps<ThemeHomeConfigBase & {
   transform: scale(1.08) rotate(3deg);
 }
 
-/* 右侧文本信息 */
 .author-info {
   display: flex;
   flex-direction: column;
@@ -150,11 +139,11 @@ defineProps<ThemeHomeConfigBase & {
   margin: 0 0 0.4rem 0;
   background: linear-gradient(120deg, var(--vp-c-brand-1), var(--vp-c-brand-3));
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   line-height: 1.2;
 }
 
-/* role标签 */
 .author-role {
   margin-bottom: 0.6rem;
 }
@@ -172,6 +161,7 @@ defineProps<ThemeHomeConfigBase & {
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 100%;
+  transition: all 0.3s ease;
 }
 
 .author-card:hover .role-badge {
@@ -180,7 +170,6 @@ defineProps<ThemeHomeConfigBase & {
   border-color: var(--vp-c-brand-soft);
 }
 
-/* 一言 */
 .author-motto {
   font-size: 0.9rem;
   color: var(--vp-c-text-2);
@@ -193,7 +182,13 @@ defineProps<ThemeHomeConfigBase & {
   overflow: hidden;
 }
 
-/* 移动端适配 */
+@media (max-width: 800px) {
+  .authors-container {
+    grid-template-columns: 1fr;
+    max-width: 500px;
+  }
+}
+
 @media (max-width: 640px) {
   .authors-container {
     gap: 1.2rem;
@@ -201,7 +196,6 @@ defineProps<ThemeHomeConfigBase & {
   .author-card {
     padding: 1.2rem;
     gap: 1rem;
-    min-width: 100%;
   }
   .avatar-wrap {
     width: 70px;
