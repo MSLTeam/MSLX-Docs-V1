@@ -55,6 +55,7 @@ defineProps<ThemeHomeConfigBase & {
   justify-content: center;
   max-width: 1100px;
   margin: 0 auto;
+  padding: 0 1.5rem;
 }
 
 /* 横向卡片布局 */
