@@ -93,6 +93,10 @@ config:
         role: 奶爸玩家
         avatar: /home/user_pic/user_波罗布多.jpg
         content: 我最喜欢MSLX的简洁易用，灰常支持MSLX越做越好！
+      - name: 阿巴In
+        role: 服主 / 玩家
+        avatar: /home/user_pic/user_阿巴In.jpg
+        content: MSLX真的很方便！开服小白也能学会用，之前用过翼龙面板开服有点麻烦，直到看到MSLX，不仅开服方便，服务端选择多，同时还支持绑定其他Frp映射使用！希望MSLX更带来更好的体验！
       - name: 淡定
         role: 服主
         avatar: /home/user_pic/user_淡定.jpg
