@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import type { ThemeHomeConfigBase } from 'vuepress-theme-plume'
 import { VPHomeBox } from 'vuepress-theme-plume/client'
 
@@ -18,6 +18,30 @@ const props = defineProps<ThemeHomeConfigBase & {
 }>()
 
 const currentIndex = ref(0)
+let autoPlayTimer: ReturnType<typeof setInterval> | null = null
+
+const startAutoPlay = () => {
+  if (props.items && props.items.length >= 3) {
+    autoPlayTimer = setInterval(() => {
+      currentIndex.value = (currentIndex.value + 1) % props.items!.length
+    }, 5000)
+  }
+}
+
+const stopAutoPlay = () => {
+  if (autoPlayTimer) {
+    clearInterval(autoPlayTimer)
+    autoPlayTimer = null
+  }
+}
+
+onMounted(() => {
+  startAutoPlay()
+})
+
+onUnmounted(() => {
+  stopAutoPlay()
+})
 
 const getOffset = (index: number, total: number) => {
   let offset = index - currentIndex.value
@@ -28,18 +52,21 @@ const getOffset = (index: number, total: number) => {
 }
 
 const next = () => {
+  stopAutoPlay()
   if (props.items) {
     currentIndex.value = (currentIndex.value + 1) % props.items.length
   }
 }
 
 const prev = () => {
+  stopAutoPlay()
   if (props.items) {
     currentIndex.value = (currentIndex.value - 1 + props.items.length) % props.items.length
   }
 }
 
 const setIndex = (index: number) => {
+  stopAutoPlay()
   currentIndex.value = index
 }
 
