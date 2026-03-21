@@ -101,6 +101,10 @@ config:
         role: 不知道哇
         avatar: /home/user_pic/user_邱息.jpg
         content: 你怎么知道我在MSLX控制台/关于面板的鸣谢里(bushi
+      - name: 墨白白白
+        role: 服主
+        avatar: /home/user_pic/user_墨白白白.jpg
+        content: 界面美观，实用小功能很多，很好用，赞👍🏻
       - name: 淡定
         role: 服主
         avatar: /home/user_pic/user_淡定.jpg
