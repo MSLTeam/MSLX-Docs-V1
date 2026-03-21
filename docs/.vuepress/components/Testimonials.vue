@@ -124,7 +124,7 @@ const handleSwipe = () => {
               </div>
               <div class="quote-icon"><i class="fa-solid fa-quote-right"></i></div>
             </div>
-            <p class="quote-content">{{ item.content }}</p>
+            <p class="quote-content" v-html="item.content"></p>
           </div>
         </div>
 
@@ -155,7 +155,7 @@ const handleSwipe = () => {
                 </div>
                 <div class="quote-icon"><i class="fa-solid fa-quote-right"></i></div>
               </div>
-              <p class="quote-content">{{ item.content }}</p>
+              <p class="quote-content" v-html="item.content"></p>
             </div>
           </div>
 
@@ -381,5 +381,18 @@ const handleSwipe = () => {
   .carousel-controls {
     margin-top: 2rem;
   }
+}
+
+:deep(.quote-content a) {
+  color: var(--vp-c-brand-1); 
+  text-decoration: underline; 
+  text-decoration-color: var(--vp-c-brand-1); 
+  text-underline-offset: 4px; 
+  transition: all 0.25s ease;
+}
+
+:deep(.quote-content a:hover) {
+  color: var(--vp-c-brand-2);
+  text-decoration-color: var(--vp-c-brand-2);
 }
 </style>
