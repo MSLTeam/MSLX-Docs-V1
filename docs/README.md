@@ -110,6 +110,21 @@ config:
         avatar: /home/user_pic/user_淡定.jpg
         content: 很不错！简单易上手，界面美观，响应迅速，自定义丰富！
   - 
+    type: modern-faq
+    title: 解答您的顾虑
+    description: 如果您对 MSLX 有任何疑问，可以在这里寻找答案。
+    items:
+      - question: MSLX 支持什么系统平台？
+        answer: MSLX 守护进程端支持Linux / MacOS / Windows系统 (支持无桌面环境)，使用网页控制台进行管理。MSLX 桌面客户端版本同样支持Linux / MacOS / Windows系统 (需要桌面环境)。
+      - question: 支持哪些服务端核心？能装 Mod 和插件吗？
+        answer: 完美支持！内置的高速镜像源提供 Vanilla、Paper、Spigot 等主流插件核心秒速下载。同时原生兼容 Forge、Fabric、NeoForge 等 Mod 核心下载和一键安装，您可以自由定制您的服务器。
+      - question: MSLX 面板只能在电脑上用吗？
+        answer: MSLX 采用现代的前后端分离技术。您只需在服务器（或本地电脑）运行守护进程端 (Daemon)，即可在<b>手机、平板、任何电脑</b>的浏览器上随时随地管理您的服务器，查看运行状态。
+      - question: 能开基岩版服务器吗？
+        answer: 从V1.3.3版本开始支持一键部署基岩版服务端，可以参考 →  <a href="/docs/server/bedrock/">官方文档</a>。
+      - question: 开服遇到了问题？
+        answer: 可查阅文档的错误排查部分 → <a href="/docs/faq/main/">常见问题</a>。<br>也可以加群一起交流 → <a href="/article/qq/">QQ群</a>。
+  - 
     type: github-stars
     repo: MSLTeam/MSLX
 ---
