@@ -18,7 +18,6 @@ defineProps<ThemeHomeConfigBase & {
   groups?: GroupItem[]
 }>()
 
-// 🎨 智能 Tag 颜色分配器
 const tagColors = [
   { c: '#3b82f6', bg: 'rgba(59, 130, 246, 0.12)' }, // 蓝
   { c: '#8b5cf6', bg: 'rgba(139, 92, 246, 0.12)' }, // 紫
@@ -88,9 +87,8 @@ const getTagStyle = (tag: string) => {
 </template>
 
 <style scoped>
-/* ==================== 基础容器 ==================== */
 .community-groups-wrapper {
-  padding: 5rem 0; /* 🌟 恢复和 FAQ 一致的 5rem 上下边距 */
+  padding: 5rem 0;
 }
 
 .community-container {
@@ -99,29 +97,27 @@ const getTagStyle = (tag: string) => {
   padding: 0 1.5rem;
 }
 
-/* ==================== 头部标题 (和 FAQ 100% 同步) ==================== */
 .section-header {
   text-align: center;
-  margin-bottom: 3.5rem; /* 🌟 恢复 3.5rem 的标题下方间距 */
+  margin-bottom: 3.5rem;
 }
 
 .section-title {
-  font-size: 2.2rem; /* 🌟 恢复 2.2rem 大标题 */
+  font-size: 2.2rem;
   font-weight: 800;
-  margin: 0 0 1rem 0; /* 🌟 恢复标题和描述之间 1rem 的间距 */
+  margin: 0 0 1rem 0;
   color: var(--vp-c-text-1);
   line-height: 1.4;
 }
 
 .section-desc {
-  font-size: 1.1rem; /* 🌟 恢复 1.1rem 描述文字 */
+  font-size: 1.1rem; 
   color: var(--vp-c-text-2);
   margin: 0 auto;
   max-width: 600px;
   line-height: 1.6;
 }
 
-/* ==================== 卡片网格 ==================== */
 .groups-grid {
   display: flex;
   flex-wrap: wrap;
@@ -129,7 +125,6 @@ const getTagStyle = (tag: string) => {
   gap: 1.5rem;
 }
 
-/* ==================== 极简紧凑卡片 (保持紧凑不变) ==================== */
 .simple-card {
   width: 300px;
   display: flex;
@@ -151,7 +146,6 @@ const getTagStyle = (tag: string) => {
   transform: translateY(-3px);
 }
 
-/* ==================== 内部元素样式 ==================== */
 .card-icon {
   width: 44px;
   height: 44px;
