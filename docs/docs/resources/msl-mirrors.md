@@ -7,7 +7,7 @@ permalink: /docs/resources/msl-mirrors/
 <CardGrid>
 <LinkCard title="在线下载" href="https://dl.mslmc.cn" icon="cloud" description="前往MSL服务端镜像独立站下载资源。" />
 <LinkCard title="在线下载(用户中心)" href="https://user.mslmc.net/mc-tools/download-server-core" icon="cloud" description="前往MSL用户中心的服务端镜像下载页面下载资源。" />
-<LinkCard title="API文档" href="https://apidoc-v3.mslmc.cn/api-191469704" icon="book" description="基于Apifox的MSL-API-V3的服务端镜像下载API。" />
+<LinkCard title="API文档" href="https://apidoc-v4.mslmc.cn/api-429587266" icon="book" description="基于Apifox的MSL-API-V4的服务端镜像下载API。" />
 
 <Card title="QWQ?" icon="heart"> 
 
@@ -42,9 +42,9 @@ MSL 服务端镜像源大部分采用了 ==自建加速镜像源=={.important}�
 API端点地址：
 
 ```
-https://api.mslmc.cn/v3
+https://api.mslmc.cn/v4
 ```
-MSL-API-V3 通用返回格式:
+MSL-API-V4 通用返回格式:
 ```json
 {
   "code": 200,
@@ -64,21 +64,110 @@ MSL-API-V3 通用返回格式:
 <Badge type="tip" text="方法: GET"  />
 
 ```
-/query/available_server_types
+/mirrors
 ```
 
-返回服务端列表（数组），示例:
+返回服务端列表（分类显示），示例:
 
 ```json
 {
   "code": 200,
   "message": "",
   "data": {
-    "types": [
+    "pluginsCore": [
       "paper",
-      "purpur"
+      "purpur",
+      "leaf",
+      "spigot",
+      "bukkit",
+      "folia",
+      "leaves",
+      "pufferfish",
+      "pufferfish_purpur",
+      "spongevanilla"
+    ],
+    "pluginsAndModsCore_Forge": [
+      "arclight-forge",
+      "arclight-neoforge",
+      "youer",
+      "mohist",
+      "catserver",
+      "spongeforge"
+    ],
+    "pluginsAndModsCore_Fabric": [
+      "arclight-fabric",
+      "banner"
+    ],
+    "modsCore_Forge": [
+      "neoforge",
+      "forge"
+    ],
+    "modsCore_Fabric": [
+      "fabric",
+      "quilt"
+    ],
+    "vanillaCore": [
+      "vanilla",
+      "vanilla-snapshot"
+    ],
+    "bedrockCore": [
+      "bedrock-server",
+      "nukkitx"
+    ],
+    "proxyCore": [
+      "velocity",
+      "bungeecord",
+      "lightfall",
+      "travertine"
     ]
   }
+}
+```
+
+<Badge type="tip" text="方法: GET"  />
+
+```
+/mirrors?view=list
+```
+
+返回服务端列表（无分类），示例:
+
+```json
+{
+  "code": 200,
+  "message": "",
+  "data": [
+    "paper",
+    "purpur",
+    "leaf",
+    "leaves",
+    "spigot",
+    "arclight-forge",
+    "arclight-fabric",
+    "arclight-neoforge",
+    "spongevanilla",
+    "youer",
+    "mohist",
+    "catserver",
+    "banner",
+    "spongeforge",
+    "neoforge",
+    "forge",
+    "fabric",
+    "bukkit",
+    "vanilla",
+    "vanilla-snapshot",
+    "folia",
+    "lightfall",
+    "pufferfish",
+    "pufferfish_purpur",
+    "travertine",
+    "bungeecord",
+    "velocity",
+    "bedrock-server",
+    "nukkitx",
+    "quilt"
+  ]
 }
 ```
 
@@ -94,7 +183,7 @@ MSL-API-V3 通用返回格式:
 ::::
 
 ```
-/query/available_versions/{server}
+/mirrors/{server}
 ```
 
 返回支持的MC版本列表（数组），示例:
@@ -104,9 +193,12 @@ MSL-API-V3 通用返回格式:
   "code": 200,
   "message": "",
   "data": {
-    "versionList": [
-      "1.21.5",
-      "1.21.4"
+    "description": "[原版端推荐]Paper是基于Spigot的高性能Fork,仅支持插件",
+    "versions": [
+      "26.1.1",
+      "1.21.11",
+      "1.21.10",
+      "1.21.9"
     ]
   }
 }
@@ -173,4 +265,4 @@ MC版本号
 
 我们还支持获取各服务端的简介，服务端分类，部分服务端支持下载不同的构建版本的api接口，这些请参考Apifox文档啦~
 
-<LinkCard title="API文档" href="https://apidoc-v3.mslmc.cn/api-191469704" icon="book" description="基于Apifox的MSL-API-V3的服务端镜像下载API。" />
+<LinkCard title="API文档" href="https://apidoc-v4.mslmc.cn/api-429587266" icon="book" description="基于Apifox的MSL-API-V4的服务端镜像下载API。" />
