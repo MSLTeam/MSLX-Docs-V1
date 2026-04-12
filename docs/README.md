@@ -12,7 +12,7 @@ config:
       name: MSLX 开服器
       tagline: Minecraft Server Launcher X
       text: 新一代跨平台服务器管理/联机工具
-      logo: /logo.png # 你的 Logo 路径
+      logo: /logo.png
       floatingTags:
         - text: 极速镜像源
           icon: bolt
