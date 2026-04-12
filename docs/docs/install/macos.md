@@ -37,3 +37,13 @@ MSLX.Daemon是一个控制台应用，所以暂时没有封装成APP。
 故目前默认数据目录位于：`/Users/用户名/Library/Application Support/MSLX`
 
 :::
+
+::: warning 关于SIP (系统完整性保护)
+
+如果您在新版本macOS系统中启动MSLX守护进程端遇到错误：`Failed to create CoreCLR, HRESULT: 0x8007000C`。
+
+若您曾关闭过SIP功能，请尝试重新打开SIP以运行MSLX。
+
+[相关内容请见 → **#110 · MSLTeam/MSLX**](https://github.com/MSLTeam/MSLX/issues/110#issuecomment-4231051520){.readmore}
+
+:::
