@@ -6,12 +6,30 @@ config:
     type: modern-hero
     full: true
     backgroundImage:
-      light: /bg_light.png 
+      light: /bg_light_new.jpg
       dark: /bg_night.jpg
     hero:
       name: MSLX 开服器
       tagline: Minecraft Server Launcher X
       text: 新一代跨平台服务器管理/联机工具
+      logo: /logo.png # 你的 Logo 路径
+      floatingTags:
+        - text: 极速镜像源
+          icon: bolt
+        - text: P2P 联机
+          icon: network-wired
+        - text: 100% 开源
+          icon: code
+        - text: Web 面板
+          icon: globe
+        - text: 一键部署
+          icon: rocket
+        - text: 可视化管理
+          icon: coffee
+        - text: 多家穿透支持
+          icon: gauge-high
+        - text: 跨平台支持
+          icon: b:apple
       actions:
         -
           theme: brand
