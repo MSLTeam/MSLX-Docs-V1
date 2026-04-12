@@ -200,15 +200,6 @@ function getIconClass(name: string): string {
   border: 1px solid rgba(59, 130, 246, 0.15);
 }
 
-.hero-tagline::before {
-  content: '';
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--vp-c-brand-1, #3b82f6);
-  animation: pulse 2s ease-in-out infinite;
-}
-
 @keyframes pulse {
   0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4); }
   50% { opacity: 0.6; box-shadow: 0 0 0 4px rgba(59, 130, 246, 0); }
@@ -556,12 +547,41 @@ html.dark .cloud-tag i { color: #7aa2f7 !important; }
     max-width: 320px;
   }
   .hero-btn { width: 100%; }
-  .hero-name { font-size: clamp(2rem, 8vw, 2.8rem); }
+  .hero-name { font-size: clamp(1.8rem, 8vw, 2.4rem); } 
   
   .hero-visual { 
-    transform: scale(0.75); 
-    height: 320px; 
-    margin-top: 1rem; 
+    height: 450px;
+    transform: scale(0.9); 
+    margin-top: 0.5rem; 
+  }
+
+  .tag-wrapper:nth-child(1)  { top: 5%;  left: 5%; }
+  .tag-wrapper:nth-child(3)  { top: 25%; left: 0%; }
+  .tag-wrapper:nth-child(5)  { top: 45%; left: 5%; }
+  .tag-wrapper:nth-child(7)  { top: 65%; left: 0%; }
+  .tag-wrapper:nth-child(9)  { top: 85%; left: 8%; }
+  .tag-wrapper:nth-child(2)  { top: 12%; left: 50%; }
+  .tag-wrapper:nth-child(4)  { top: 35%; left: 55%; }
+  .tag-wrapper:nth-child(6)  { top: 55%; left: 45%; }
+  .tag-wrapper:nth-child(8)  { top: 75%; left: 52%; }
+  .tag-wrapper:nth-child(10) { top: 20%; left: 30%; }
+
+  .cloud-tag {
+    padding: 0.45rem 0.9rem !important;
+  }
+
+  .tag-wrapper:nth-child(odd) .cloud-tag { 
+    font-size: 0.85rem; 
+  }
+  .tag-wrapper:nth-child(even) .cloud-tag { 
+    font-size: 0.75rem; 
+    opacity: 0.9;
+  }
+
+  .ambient-glow {
+    width: 150px;
+    height: 150px;
+    filter: blur(40px);
   }
 }
 </style>

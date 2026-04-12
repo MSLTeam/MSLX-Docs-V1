@@ -30,6 +30,8 @@ config:
           icon: gauge-high
         - text: 跨平台支持
           icon: b:apple
+        - text: 超多个性化支持
+          icon: paintbrush
       actions:
         -
           theme: brand
