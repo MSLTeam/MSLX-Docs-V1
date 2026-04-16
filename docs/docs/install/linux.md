@@ -38,6 +38,14 @@ curl -sL "https://files.mslmc.cn/d/MSL/MSL%20Resources/MSLX/scripts/20260114-a/i
 
 
 
+::: tip 关于远程访问
+
+守护进程端默认监听`1027`端口，若您配置监听`0.0.0.0`地址后仍无法访问，请检查系统防火墙配置防火墙 (ufw/iptables)，以及服务商防火墙配置（如果是带额外防火墙功能的云服务器）。
+
+:::
+
+
+
 ::: warning 一键卸载脚本
 
 ```bash
