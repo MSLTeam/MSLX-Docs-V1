@@ -31,7 +31,7 @@
         <i class="fa-brands fa-microsoft"></i> 运行环境：
         <a href="https://dotnet.microsoft.com/zh-cn/download/dotnet/10.0" target="_blank">
           .NET 10.0 <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
-        </a>(建议安装SDK版本)
+        </a> (建议安装SDK版本)
       </p>
     </div>
 
@@ -161,8 +161,22 @@ const selectedVersion = ref('');
 const rawFileContent = ref([]);
 const fileList = ref([]);
 
-const API_BASE = 'https://files.mslmc.cn/api/fs/list';
-const DOWNLOAD_BASE_HOST = 'https://files.mslmc.cn';
+const apiBase = ref('https://files.mslmc.cn/api/fs/list');
+const downloadBaseHost = ref('https://files.mslmc.cn');
+
+const fetchApiConfig = async () => {
+  try {
+    const res = await fetch('https://api.mslmc.cn/v4/download/update?software=MSLX');
+    const json = await res.json();
+    if (json.code === 200 && json.data && json.data.file) {
+      const fileUrl = new URL(json.data.file);
+      downloadBaseHost.value = fileUrl.origin;
+      apiBase.value = `${fileUrl.origin}/api/fs/list`;
+    }
+  } catch (e) {
+    console.error('获取动态域名配置失败，将继续使用默认域名', e);
+  }
+};
 
 // 切换类型时，只进行本地筛选
 const switchType = (type) => {
@@ -220,7 +234,7 @@ const detectEnv = () => {
 const fetchVersions = async () => {
   loadingVersions.value = true;
   try {
-    const res = await fetch(`${API_BASE}?path=MSLX-Release`);
+    const res = await fetch(`${apiBase.value}?path=MSLX-Release`);
     const json = await res.json();
     if (json.code === 200 && json.data && json.data.content) {
       versionList.value = json.data.content
@@ -256,7 +270,7 @@ const fetchFileInfo = async () => {
 
   try {
     const versionPath = `MSLX-Release/${selectedVersion.value}`;
-    const res = await fetch(`${API_BASE}?path=${versionPath}`);
+    const res = await fetch(`${apiBase.value}?path=${versionPath}`);
     const json = await res.json();
 
     if (json.code === 200 && json.data && json.data.content) {
@@ -275,7 +289,7 @@ const fetchFileInfo = async () => {
   }
 };
 
-// 纯本地筛选逻辑
+// 纯本地筛选
 const filterFiles = () => {
   // 如果没有原始数据，直接返回
   if (!rawFileContent.value || rawFileContent.value.length === 0) {
@@ -308,7 +322,8 @@ const filterFiles = () => {
     return {
       name: file.name,
       size: file.size,
-      url: `${DOWNLOAD_BASE_HOST}/d/${versionPath}/${file.name}?sign=${file.sign}`,
+      // 使用动态的 downloadBaseHost
+      url: `${downloadBaseHost.value}/d/${versionPath}/${file.name}?sign=${file.sign}`,
       variant: variantInfo?.label,
       variantKey: variantInfo?.key
     };
@@ -322,8 +337,9 @@ const filterFiles = () => {
   });
 };
 
-onMounted(() => {
+onMounted(async () => {
   detectEnv();
+  await fetchApiConfig();
   fetchVersions();
 });
 </script>
