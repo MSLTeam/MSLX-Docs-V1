@@ -31,7 +31,7 @@
         <i class="fa-brands fa-microsoft"></i> 运行环境：
         <a href="https://dotnet.microsoft.com/zh-cn/download/dotnet/10.0" target="_blank">
           .NET 10.0 <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
-        </a>
+        </a>(建议安装SDK版本)
       </p>
     </div>
 
@@ -146,7 +146,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watch } from 'vue'; // 引入 watch
+import { ref, onMounted, watch } from 'vue';
 
 const selectedType = ref('daemon');
 const loadingVersions = ref(true);
