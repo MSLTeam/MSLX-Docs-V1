@@ -249,8 +249,12 @@ const fetchVersions = async () => {
         .map(item => item.name);
 
       if (versionList.value.length > 0) {
-        selectedVersion.value = versionList.value[0];
-        // 初始化时获取文件
+        if (recommendedVersion.value && versionList.value.includes(recommendedVersion.value)) {
+          selectedVersion.value = recommendedVersion.value;
+        } else {
+          selectedVersion.value = versionList.value[0];
+        }
+        
         await fetchFileInfo();
       } else {
         errorMsg.value = '暂无可用版本';
