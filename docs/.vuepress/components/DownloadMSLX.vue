@@ -153,6 +153,7 @@ const loadingVersions = ref(true);
 const loadingFile = ref(false);
 const versionList = ref([]);
 const errorMsg = ref('');
+const recommendedVersion = ref('');
 
 const selectedOS = ref('Windows');
 const selectedArch = ref('x64');
@@ -168,13 +169,19 @@ const fetchApiConfig = async () => {
   try {
     const res = await fetch('https://api.mslmc.cn/v4/download/update?software=MSLX');
     const json = await res.json();
-    if (json.code === 200 && json.data && json.data.file) {
-      const fileUrl = new URL(json.data.file);
-      downloadBaseHost.value = fileUrl.origin;
-      apiBase.value = `${fileUrl.origin}/api/fs/list`;
+    if (json.code === 200 && json.data) {
+      if (json.data.version) {
+        recommendedVersion.value = `v${json.data.version}`;
+      }
+
+      if (json.data.file) {
+        const fileUrl = new URL(json.data.file);
+        downloadBaseHost.value = fileUrl.origin;
+        apiBase.value = `${fileUrl.origin}/api/fs/list`;
+      }
     }
   } catch (e) {
-    console.error('获取动态域名配置失败，将继续使用默认域名', e);
+    console.error('获取动态域名配置失败', e);
   }
 };
 
