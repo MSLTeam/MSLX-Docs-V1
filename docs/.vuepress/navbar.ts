@@ -9,6 +9,7 @@ import { defineNavbarConfig } from 'vuepress-theme-plume'
 export default defineNavbarConfig([
   { text: '首页', link: '/' ,icon: 'home'},
   { text: '文档', link: '/docs/install/start/' ,activeMatch: '^/docs/',icon: 'book'},
+  { text: '插件开发', link: '/plugin-dev/init/template/' ,activeMatch: '^/plugin-dev/',icon: 'code'},
   { text: '博客', link: '/article/',activeMatch: '^/article/',icon:'blog' },
   { text: '社区资源', link: '/community-resources/',icon:'diagram-project' },
   { text: '使用协议', link: '/eula/',icon:'file-lines' },
