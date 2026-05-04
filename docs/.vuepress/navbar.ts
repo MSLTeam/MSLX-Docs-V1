@@ -7,12 +7,19 @@
 import { defineNavbarConfig } from 'vuepress-theme-plume'
 
 export default defineNavbarConfig([
-  { text: '首页', link: '/' ,icon: 'home'},
-  { text: '文档', link: '/docs/install/start/' ,activeMatch: '^/docs/',icon: 'book'},
-  { text: '插件开发', link: '/plugin-dev/init/template/' ,activeMatch: '^/plugin-dev/',icon: 'code'},
-  { text: '博客', link: '/article/',activeMatch: '^/article/',icon:'blog' },
-  { text: '社区资源', link: '/community-resources/',icon:'diagram-project' },
-  { text: '使用协议', link: '/eula/',icon:'file-lines' },
-  { text: '更新日志', link: '/msl-changelogs/',icon:'paper-plane' },
-  { text: '友情链接', link: '/friends/',icon:'link' },
+  { text: '首页', link: '/', icon: 'home' },
+  { text: '文档', link: '/docs/install/start/', activeMatch: '^/docs/', icon: 'book' },
+  { text: '插件开发', link: '/plugin-dev/init/start/', activeMatch: '^/plugin-dev/', icon: 'code' },
+  { text: '插件市场', link: 'https://mslx-plugins.mslmc.net', icon: 'shop' }, // 新增插件市场
+  { text: '社区资源', link: '/community-resources/', icon: 'diagram-project' },
+  {
+    text: '更多',
+    icon: 'circle-info',
+    items: [
+      { text: '博客', link: '/article/', activeMatch: '^/article/', icon: 'blog' },
+      { text: '使用协议', link: '/eula/', icon: 'file-lines' },
+      { text: '更新日志', link: '/msl-changelogs/', icon: 'paper-plane' },
+    ]
+  },
+  { text: '友情链接', link: '/friends/', icon: 'link' },
 ])
