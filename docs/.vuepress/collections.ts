@@ -83,6 +83,7 @@ const plugin_dev_doc = defineCollection({
   // 手动配置侧边栏结构
   sidebar: [
     { text: '启程插件开发之旅', prefix: 'init', collapsed: false, icon: 'plug', items: ['start','template','publish'] },
+    { text: '插件网页前端设计', prefix: 'frontend', collapsed: false, icon: 'b:vuejs', items: ['routes','components'] },
   ],
   sidebarCollapsed: true,
 })

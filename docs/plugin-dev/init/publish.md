@@ -1,7 +1,7 @@
 ---
 title: 发布插件到MSLX插件市场
 createTime: 2026/05/04 23:04:31
-permalink: /plugin-dev/publish/
+permalink: /plugin-dev/init/publish/
 icon: shop
 ---
 
