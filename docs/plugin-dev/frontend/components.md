@@ -96,6 +96,16 @@ defineExpose({
 });
 ```
 
+可接收props：
+
+```ts
+const props = defineProps({
+  serverId: Number
+});
+```
+
+
+
 简单的弹窗组件示例在这里：[mslx-plugin-demo/Frontend/src/views/InstanceDropDownItemInject.vue at main · MSLTeam/mslx-plugin-demo](https://github.com/MSLTeam/mslx-plugin-demo/blob/main/Frontend/src/views/InstanceDropDownItemInject.vue)
 
 ## 服务端管理-实例控制台-左侧控制栏下方插槽
@@ -104,5 +114,52 @@ defineExpose({
 
 ![image-20260513155124444](./assets/image-20260513155124444.png)
 
+可接收props：
+
+```ts
+const props = defineProps({
+  serverId: {
+    type: Number,
+    required: true
+  },
+  status: {
+    type: Number,
+    default: 0
+  }
+});
+```
+
 示例插入组件：[mslx-plugin-demo/Frontend/src/views/InstanceCardInject.vue at main · MSLTeam/mslx-plugin-demo](https://github.com/MSLTeam/mslx-plugin-demo/blob/main/Frontend/src/views/InstanceCardInject.vue)
 
+## 仪表盘-系统状态监控卡片下方插槽
+
+插槽名：`dashboard-index-after-system-status` <Badge type="tip" text="v1.4.3" />
+
+![image-20260514下午43253129](./assets/image-20260514下午43253129.png)
+
+## 隧道管理-隧道控制台-隧道信息下方插槽
+
+插槽名：`frp-console-control-panel-bottom` <Badge type="tip" text="v1.4.3" />
+
+![image-20260514下午45837192](./assets/image-20260514下午45837192.png)
+
+可接收props：
+
+```ts
+const props = defineProps({
+  frpId: {
+    type: Number,
+    required: true
+  },
+  isRunning: {
+    type: Boolean,
+    default: false
+  }
+});
+```
+
+## 设置-基础设置下方卡片插槽
+
+插槽名：`settings-profile-bottom` <Badge type="tip" text="v1.4.3" />
+
+![image-20260514下午50108242](./assets/image-20260514下午50108242.png)
