@@ -8,7 +8,7 @@ badge:
   type: tip
 ---
 
-## 日志方法 v1.4.3 <Badge type="tip" text="v1.4.3" />
+## 日志方法 <Badge type="tip" text="v1.4.3" />
 
 统一使用SDK提供的ASP.NET的Logger。
 
