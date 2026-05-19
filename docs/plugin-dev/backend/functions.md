@@ -43,3 +43,25 @@ MSLX SDK映射了守护进程中的下载管理器，可以按照示例进行调
         }
 ```
 
+## GET/POST请求
+
+```c#
+        // get请求示例
+        var response = await SDK.MSLX.Http.GetAsync("https://api.mslmc.cn/v3/query/notice?query=id");
+        
+        if (response.IsSuccessStatusCode)
+        {
+            JObject jobj = JObject.Parse(response.Content ?? "{}");
+            string content = jobj["data"]?["noticeID"]?.ToString() ?? "";
+            
+            SDK.MSLX.Logger.Info($"获取到的MSL公告编号: {content}");
+        }
+
+        // post
+        var postResponse = await SDK.MSLX.Http.PostAsync(
+            "https://example.cn/post-api",
+            PluginHttpContentType.Json,
+            new { username = "admin", action = "start" }
+        ); 
+```
+
