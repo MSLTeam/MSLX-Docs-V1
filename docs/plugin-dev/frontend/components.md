@@ -162,6 +162,30 @@ const props = defineProps({
 });
 ```
 
+## 隧道管理-创建隧道-隧道服务商插槽
+
+插槽名：`frp-create-provider` <Badge type="tip" text="v1.4.4" />
+
+此插槽需要新增以下配置项：
+
+:::: field-group
+
+::: field name="extensions[i].label" type="string" required
+新增的隧道服务商名字（会显示在切换按钮）
+:::
+
+::::
+
+```ts
+        {
+            slot: 'frp-create-provider', // 注入到创建Frp的选项卡
+            component: DemoPage, // 组件,
+            label: '插件扩展服务', // 选项卡名字
+        }
+```
+
+![image-20260519下午92156975](./assets/image-20260519下午92156975.png)
+
 ## 设置-基础设置下方卡片插槽
 
 插槽名：`settings-profile-bottom` <Badge type="tip" text="v1.4.3" />
