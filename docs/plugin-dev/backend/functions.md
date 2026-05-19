@@ -4,11 +4,11 @@ createTime: 2026/05/19 21:41:11
 permalink: /plugin-dev/backend/functions/
 icon: laptop-code
 badge:
-  text: v1.4.4+
+  text: v1.4.3+
   type: tip
 ---
 
-## 日志方法
+## 日志方法 v1.4.3 <Badge type="tip" text="Badge" />
 
 统一使用SDK提供的ASP.NET的Logger。
 
@@ -16,7 +16,7 @@ badge:
 SDK.MSLX.Logger.Info("mslx-plugin-demo 载入成功~");
 ```
 
-## 文件下载
+## 文件下载 v1.4.4 <Badge type="tip" text="Badge" />
 
 MSLX SDK映射了守护进程中的下载管理器，可以按照示例进行调用。
 
@@ -43,7 +43,7 @@ MSLX SDK映射了守护进程中的下载管理器，可以按照示例进行调
         }
 ```
 
-## GET/POST请求
+## GET/POST请求 v1.4.4 <Badge type="tip" text="Badge" />
 
 ```c#
         // get请求示例
