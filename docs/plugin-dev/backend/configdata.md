@@ -22,12 +22,33 @@ MSLX SDK为插件的数据存储提供了一套方便使用的方法进行简单
 using MSLX.SDK;
 ```
 
+## 插件入口类暴露全局实例
+
+在您的插件主类（实现 `IPlugin` 的类）中，新增一个公开的静态属性 `Instance`，并在插件的 `OnLoad` 生命周期中将当前实例（`this`）挂载给它。
+
+```c#
+public static MSLXPluginEntry Instance { get; private set; }
+```
+
+```c#
+public void OnLoad()
+{
+   Instance = this;
+}
+```
+
+完整实例请查看：[MSLXPluginEntry.cs](https://github.com/MSLTeam/mslx-plugin-demo/blob/main/MSLXPluginEntry.cs)
+
+::: important 以下文档均以主类为`MSLXPluginEntry`，静态属性为`Instance`作为示例。若您挂在的位置/名字不同，请自行同步更改即可。
+
+:::
+
 ## 获取插件的数据目录
 
 插件的所有数据均应该存储在此目录下，并且建议使用`Path.Combine();`函数进行拼接路径。
 
 ```c#
-this.Config().GetDataPath();
+MSLXPluginEntry.Instance.Config().GetDataPath();
 ```
 
 ## 简易读写插件配置文件
@@ -35,10 +56,10 @@ this.Config().GetDataPath();
 快速读取写入键值。
 
 ```c#
-this.Config().WriteConfigKey("author", "xiaoyu");
-this.Config().WriteConfigKey("magicNumber", 1027);
+MSLXPluginEntry.Instance.Config().WriteConfigKey("author", "xiaoyu");
+MSLXPluginEntry.Instance.Config().WriteConfigKey("magicNumber", 1027);
         
-int count = (int?)this.Config().ReadConfigKey("magicNumber") ?? 0;
+int count = (int?)MSLXPluginEntry.Instance.Config().ReadConfigKey("magicNumber") ?? 0;
 ```
 
 ## 完整读取配置文件
@@ -46,7 +67,7 @@ int count = (int?)this.Config().ReadConfigKey("magicNumber") ?? 0;
 读取和写入配置的类型均为 [Newtonsoft.Json](https://www.nuget.org/packages/Newtonsoft.Json/) 的`JObject`类型。
 
 ```c#
-var allConfig = this.Config().ReadConfig();
-this.Config().WriteConfig(allConfig);
+var allConfig = MSLXPluginEntry.Instance.Config().ReadConfig();
+MSLXPluginEntry.Instance.Config().WriteConfig(allConfig);
 ```
 
