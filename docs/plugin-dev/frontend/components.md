@@ -139,13 +139,13 @@ const props = defineProps({
 
 插槽名：`dashboard-index-after-system-status` <Badge type="tip" text="v1.4.3" />
 
-![image-20260514下午43253129](./assets/image-20260514下午43253129.png)
+![image-20260514-43253129](./assets/image-20260514下午43253129.png)
 
 ## 隧道管理-隧道控制台-隧道信息下方插槽
 
 插槽名：`frp-console-control-panel-bottom` <Badge type="tip" text="v1.4.3" />
 
-![image-20260514下午45837192](./assets/image-20260514下午45837192.png)
+![image-2026051-45837192](./assets/image-20260514下午45837192.png)
 
 可接收props：
 
