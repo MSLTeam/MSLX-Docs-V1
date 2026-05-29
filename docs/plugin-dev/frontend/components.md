@@ -184,16 +184,16 @@ const props = defineProps({
         }
 ```
 
-![image-20260519下午92156975](./assets/image-20260519下午92156975.png)
+![image-20260519-92156975](./assets/image-20260519下午92156975.png)
 
 ## 设置-基础设置下方卡片插槽
 
 插槽名：`settings-profile-bottom` <Badge type="tip" text="v1.4.3" />
 
-![image-20260514下午50108242](./assets/image-20260514下午50108242.png)
+![image-20260514-50108242](./assets/image-20260514下午50108242.png)
 
 ## 设置-系统设置下方卡片插槽
 
 插槽名：`settings-daemon-bottom` <Badge type="tip" text="v1.4.5" />
 
-![image-20260529下午43417893](./assets/image-20260529下午43417893.png)
+![image-20260529-43417893](./assets/image-20260529下午43417893.png)
