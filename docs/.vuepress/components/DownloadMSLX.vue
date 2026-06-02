@@ -124,6 +124,13 @@
 
       <div class="linux-extra-methods" v-if="selectedOS === 'Linux' && selectedType === 'daemon'">
         <div class="method-list">
+          <a href="/docs/install/linux/" class="method-item">
+            <div class="method-info">
+              <i class="fa-brands fa-linux method-icon linux"></i>
+              <span>Linux 脚本一键安装</span>
+            </div>
+            <i class="fa-solid fa-arrow-right arrow-icon"></i>
+          </a>
           <a href="/docs/install/docker/" class="method-item">
             <div class="method-info">
               <i class="fa-brands fa-docker method-icon docker"></i>

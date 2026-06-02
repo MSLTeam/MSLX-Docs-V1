@@ -16,14 +16,14 @@ icon: b:ubuntu
 Linux 通用版本（Ubuntu/Debian/CentOs系 等等）：
 
 ```bash
-curl -sL "https://files.mslmc.cn/d/MSL/MSL%20Resources/MSLX/scripts/20260114-a/install_common.sh?sign=swyHXyZlsBV-BcXqRjQ-RqCbAuYoTmTjPKNhpMd_6Bo=:0" | sudo bash
+curl -sL "https://files.mslmc.cn/d/MSL/MSL%20Resources/MSLX/scripts/20260602/install_common.sh?sign=m15W077SBRQy35EvPNQeM6Z_CUgdGb7hIxXYNhpp444=:0" | sudo bash
 ```
 
 Alpine Linux 版本：
 
 ```bash
 apk add curl sudo bash # 安装必要软件包
-curl -sL "https://files.mslmc.cn/d/MSL/MSL%20Resources/MSLX/scripts/20260114-a/install_alpine.sh?sign=CGn1Z5O1vCH8L58Z5xsGZez4oXQbJZ65o5ATVLZz5b4=:0" | sudo bash
+curl -sL "https://files.mslmc.cn/d/MSL/MSL%20Resources/MSLX/scripts/20260602/install_alpine.sh?sign=ww1Ob-6-4NFoVBXeIpBqGk5iVgsmfiU83nh1VUoRX9c=:0" | sudo bash
 ```
 
 ::: tip 关于监听地址的选择
