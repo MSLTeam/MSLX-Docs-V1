@@ -49,7 +49,7 @@ curl -sL "https://files.mslmc.cn/d/MSL/MSL%20Resources/MSLX/scripts/20260602/ins
 ::: warning 一键卸载脚本
 
 ```bash
-curl -sL "https://files.mslmc.cn/d/MSL/MSL%20Resources/MSLX/scripts/20260114-a/uninstall.sh?sign=0HUoU4lnL3srGxVai_IPP5I-5QhQ5XwjlJUaxifJ69Y=:0" | sudo bash
+curl -sL "https://files.mslmc.cn/d/MSL/MSL%20Resources/MSLX/scripts/20260602/uninstall.sh?sign=zszl-PsquG6OiksKl3Qa1qW1UDmREPWpIyKQCpXbNjA=:0" | sudo bash
 ```
 
 :::
