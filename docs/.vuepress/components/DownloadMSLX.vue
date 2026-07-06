@@ -171,6 +171,7 @@ const fileList = ref([]);
 
 const apiBase = ref('https://files.mslmc.cn/api/fs/list');
 const downloadBaseHost = ref('https://files.mslmc.cn');
+const rootPath = ref("MSLX-Releases-CN");
 
 const fetchApiConfig = async () => {
   try {
@@ -245,7 +246,6 @@ const detectEnv = () => {
   else if (ua.indexOf('Linux') !== -1) selectedOS.value = 'Linux';
 };
 
-const rootPath = "MSLX-Releases-CN"
 const fetchVersions = async () => {
   loadingVersions.value = true;
   try {
