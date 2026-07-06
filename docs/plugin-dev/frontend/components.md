@@ -135,6 +135,23 @@ const props = defineProps({
 
 示例插入组件：[mslx-plugin-demo/Frontend/src/views/InstanceCardInject.vue at main · MSLTeam/mslx-plugin-demo](https://github.com/MSLTeam/mslx-plugin-demo/blob/main/Frontend/src/views/InstanceCardInject.vue)
 
+## 服务端管理-实例控制台-实例设置-更多功能插槽
+
+插槽名：`instance-setting-more` <Badge type="tip" text="v1.4.8" />
+
+![image-20260706上午105026003](./assets/image-20260706105026003.png)
+
+可接收props：
+
+```ts
+const props = defineProps({
+  serverId: {
+    type: Number,
+    required: true
+  }
+});
+```
+
 ## 仪表盘-系统状态监控卡片下方插槽
 
 插槽名：`dashboard-index-after-system-status` <Badge type="tip" text="v1.4.3" />
