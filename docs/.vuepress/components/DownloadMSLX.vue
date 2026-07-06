@@ -323,7 +323,7 @@ const filterFiles = () => {
 
   const typePrefix = selectedType.value === 'daemon' ? 'MSLX-Daemon' : 'MSLX-Desktop';
   const archKey = selectedArch.value;
-  const versionPath = `MSLX-Release/${selectedVersion.value}`;
+  const versionPath = `${versionPath}/${selectedVersion.value}`;
 
   // 使用 rawFileContent 进行筛选
   const matches = rawFileContent.value.filter(item => {
