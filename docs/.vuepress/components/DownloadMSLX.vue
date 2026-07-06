@@ -186,6 +186,13 @@ const fetchApiConfig = async () => {
         const fileUrl = new URL(json.data.file);
         downloadBaseHost.value = fileUrl.origin;
         apiBase.value = `${fileUrl.origin}/api/fs/list`;
+
+        const pathParts = fileUrl.pathname.split('/').filter(p => p !== '');
+        const dIndex = pathParts.indexOf('d');
+
+        if (dIndex !== -1 && pathParts[dIndex + 1]) {
+          rootPath.value = pathParts[dIndex + 1];
+        }
       }
     }
   } catch (e) {
