@@ -171,7 +171,7 @@ const fileList = ref([]);
 
 const apiBase = ref('https://files.mslmc.cn/api/fs/list');
 const downloadBaseHost = ref('https://files.mslmc.cn');
-const rootPath = ref('MSLX-Releases-CN');
+const rootPath = ref('MSLX-Release-CN');
 
 const fetchApiConfig = async () => {
   try {
