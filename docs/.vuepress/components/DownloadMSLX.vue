@@ -248,7 +248,7 @@ const detectEnv = () => {
 const fetchVersions = async () => {
   loadingVersions.value = true;
   try {
-    const res = await fetch(`${apiBase.value}?path=MSLX-Release`);
+    const res = await fetch(`${apiBase.value}?path=MSLX-Release-CN`);
     const json = await res.json();
     if (json.code === 200 && json.data && json.data.content) {
       versionList.value = json.data.content
