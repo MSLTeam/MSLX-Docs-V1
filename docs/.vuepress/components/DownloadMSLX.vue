@@ -245,10 +245,11 @@ const detectEnv = () => {
   else if (ua.indexOf('Linux') !== -1) selectedOS.value = 'Linux';
 };
 
+const rootPath = "MSLX-Releases-CN"
 const fetchVersions = async () => {
   loadingVersions.value = true;
   try {
-    const res = await fetch(`${apiBase.value}?path=MSLX-Release-CN`);
+    const res = await fetch(`${apiBase.value}?path=${rootPath.value}`);
     const json = await res.json();
     if (json.code === 200 && json.data && json.data.content) {
       versionList.value = json.data.content
@@ -287,7 +288,7 @@ const fetchFileInfo = async () => {
   rawFileContent.value = []; // 清空缓存
 
   try {
-    const versionPath = `MSLX-Release/${selectedVersion.value}`;
+    const versionPath = `${rootPath.value}/${selectedVersion.value}`;
     const res = await fetch(`${apiBase.value}?path=${versionPath}`);
     const json = await res.json();
 
