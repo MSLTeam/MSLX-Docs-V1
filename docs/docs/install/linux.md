@@ -13,17 +13,17 @@ icon: b:ubuntu
 
 ==脚本支持大部分Linux系统，如果安装不成功，请自行手动安装MSLX。==
 
-Linux 通用版本（Ubuntu/Debian/CentOs系 等等）：
+Linux 通用版本（Ubuntu/Debian/CentOs/Arch系 等等）：
 
 ```bash
-curl -sL "https://files.mslmc.cn/d/MSL/MSL%20Resources/MSLX/scripts/20260602/install_common.sh?sign=m15W077SBRQy35EvPNQeM6Z_CUgdGb7hIxXYNhpp444=:0" | sudo bash
+curl -sL "https://files.mslmc.cn/d/MSL/MSL%20Resources/MSLX/scripts/20260708/install_common.sh?sign=S4vPlcS2dhdrSEFr4vkOmiCgfp_E6UMxwb7l-kTpmKo=:0" | sudo bash
 ```
 
 Alpine Linux 版本：
 
 ```bash
 apk add curl sudo bash # 安装必要软件包
-curl -sL "https://files.mslmc.cn/d/MSL/MSL%20Resources/MSLX/scripts/20260602/install_alpine.sh?sign=ww1Ob-6-4NFoVBXeIpBqGk5iVgsmfiU83nh1VUoRX9c=:0" | sudo bash
+curl -sL "https://files.mslmc.cn/d/MSL/MSL%20Resources/MSLX/scripts/20260708/install_alpine.sh?sign=i31UvXEqfNAzJ_YemSGnpLKS7JILQPqEa4rmx9SEXyk=:0" | sudo bash
 ```
 
 ::: tip 关于监听地址的选择
@@ -49,7 +49,7 @@ curl -sL "https://files.mslmc.cn/d/MSL/MSL%20Resources/MSLX/scripts/20260602/ins
 ::: warning 一键卸载脚本
 
 ```bash
-curl -sL "https://files.mslmc.cn/d/MSL/MSL%20Resources/MSLX/scripts/20260602/uninstall.sh?sign=zszl-PsquG6OiksKl3Qa1qW1UDmREPWpIyKQCpXbNjA=:0" | sudo bash
+curl -sL "https://files.mslmc.cn/d/MSL/MSL%20Resources/MSLX/scripts/20260708/uninstall.sh?sign=FFmB7MaL5FZXohXRQ7vslfcQ6gIO_Opx1-wG7tmuRjw=:0" | sudo bash
 ```
 
 :::
