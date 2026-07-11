@@ -133,7 +133,7 @@ Dockerhub: `xiaoyululu/mslx-daemon:latest`
      -p 1027:1027 \
      -p 25565-25585:25565-25585 \
      -v $(pwd)/mslx_data:/app/DaemonData \
-     -v /www/wwwroot/mslx-daemon:/app/DaemonData \
+     -v /var/run/docker.sock:/var/run/docker.sock \
      -e TZ=Asia/Shanghai \
      docker.mslmc.cn/xiaoyululu/mslx-daemon:latest
    ```
@@ -147,7 +147,7 @@ Dockerhub: `xiaoyululu/mslx-daemon:latest`
      -p 1027:1027 \
      -p 25565-25585:25565-25585 \
      -v $(pwd)/mslx_data:/app/DaemonData \
-     -v /www/wwwroot/mslx-daemon:/app/DaemonData \
+     -v /var/run/docker.sock:/var/run/docker.sock \
      -e TZ=Asia/Shanghai \
      xiaoyululu/mslx-daemon:latest
    ```
@@ -335,7 +335,7 @@ docker run -d \
   --restart always \
   -p 1027:1027 \
   -p 25565-25585:25565-25585 \
-  -v /www/wwwroot/mslx-daemon:/app/DaemonData \
+  -v /var/run/docker.sock:/var/run/docker.sock \
   -v /www/wwwroot/mslx-daemon:/app/DaemonData \
   -e TZ=Asia/Shanghai \
   docker.mslmc.cn/xiaoyululu/mslx-daemon:latest
@@ -349,7 +349,7 @@ docker run -d \
   --restart always \
   -p 1027:1027 \
   -p 25565-25585:25565-25585 \
-  -v /www/wwwroot/mslx-daemon:/app/DaemonData \
+  -v /var/run/docker.sock:/var/run/docker.sock \
   -v /www/wwwroot/mslx-daemon:/app/DaemonData \
   -e TZ=Asia/Shanghai \
   xiaoyululu/mslx-daemon:latest
