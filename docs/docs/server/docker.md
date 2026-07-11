@@ -93,3 +93,9 @@ Docker为虚拟化容器，可以将服务端 ==运行在完全隔离宿主机==
 [在 Docker 中部署 MSLX](/docs/install/docker/){.readmore}
 
 配置后，即可正常在MSLX中部署Docker服务端实例了。
+
+### 挂载额外数据目录
+
+如果您的服务端文件不在MSLX的默认数据目录，需要挂载的话，请保证 ==文件夹路径与挂载进Docker的路径一致==。
+
+例如我的数据文件在`/game`，那么需要这样挂载：`/game:/game`。否则将无法在Docker容器中正常启动！
