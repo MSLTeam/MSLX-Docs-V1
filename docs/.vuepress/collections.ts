@@ -62,7 +62,7 @@ const doc = defineCollection({
     { text: '映射/联机', prefix: 'proxy', collapsed: false, icon: 'rocket', items: ['frp', 'p2p','frp-real-ip','server-no-port'] },
     { text: '服务端配置', prefix: 'server-config', collapsed: false, icon: 'screwdriver-wrench', items: ['crons','yggdrasil'] },
     { text: '个性化', prefix: 'style', collapsed: false, icon: 'palette', items: ['webpanel'] },
-    { text: '配置', prefix: 'config', collapsed: false, icon: 'gear', items: ['remote-access','msl-oauth'] },
+    { text: '配置', prefix: 'config', collapsed: false, icon: 'gear', items: ['remote-access','msl-oauth','multi-nodes'] },
     { text: 'MSL资源', prefix: 'resources', collapsed: false,icon:'bookmark', items: ['msl-skin', 'oauth2', 'msl-mirrors'] },
     { text: '错误排查', prefix: 'faq', collapsed: false, icon: 'bug-slash', items: ['faq'] },
   ],
