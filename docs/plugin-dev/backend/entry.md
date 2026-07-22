@@ -180,7 +180,15 @@ public class MSLXPluginEntry : IPlugin
 
 <Badge text="SDK v1.5.2+"  />
 
-插件向宿主注册依赖注入服务的生命周期
+插件向宿主注册依赖注入（DI）服务的生命周期。宿主会自动将 `IMCServerService`、`IFrpProcessService` 等系统级服务注入全局容器，插件注册的服务或 Controller 可直接在构造函数中声明并使用这些宿主服务：
+
+```c#
+public void OnRegisterServices(IServiceCollection services)
+{
+    // 注册插件自己的服务
+    services.AddSingleton<MyPluginManager>();
+}
+```
 :::
 
 ::::

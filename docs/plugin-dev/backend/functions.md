@@ -65,3 +65,19 @@ MSLX SDK映射了守护进程中的下载管理器，可以按照示例进行调
         ); 
 ```
 
+## 系统与路径助手 <Badge type="tip" text="v1.4.3" />
+
+SDK 提供了访问宿主数据目录及当前插件独立存储目录的工具方法。
+
+```c#
+// 获取 MSLX 宿主全局 AppData 数据目录路径
+string appDataPath = SDK.MSLX.Config.GetAppDataPath();
+
+// 获取 MSLX 宿主主配置文件路径
+string appConfigPath = SDK.MSLX.Config.GetAppConfigPath();
+
+// 获取当前插件专属的独立数据存储目录 (插件实例扩展方法)
+string pluginDataPath = this.Config().GetDataPath();
+```
+
+
