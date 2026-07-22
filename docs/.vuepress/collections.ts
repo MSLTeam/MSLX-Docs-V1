@@ -84,7 +84,7 @@ const plugin_dev_doc = defineCollection({
   sidebar: [
     { text: '启程插件开发之旅', prefix: 'init', collapsed: false, icon: 'plug', items: ['start','template','publish'] },
     { text: '插件后端设计', prefix: 'backend', collapsed: false, icon: 'code', items: ['entry','configdata','functions','api'] },
-    { text: '插件网页前端设计', prefix: 'frontend', collapsed: false, icon: 'b:vuejs', items: ['routes','components'] },
+    { text: '插件网页前端设计', prefix: 'frontend', collapsed: false, icon: 'b:vuejs', items: ['routes','components','host-api'] },
   ],
   sidebarCollapsed: true,
 })
