@@ -1,18 +1,35 @@
 <script setup lang="ts">
 import type { ThemeHomeConfigBase } from 'vuepress-theme-plume'
 import { VPHomeBox } from 'vuepress-theme-plume/client'
+import { withBase } from 'vuepress/client'
 
 interface Author {
   name: string
-  role: string
-  motto: string
+  role?: string
+  motto?: string
   avatar: string
+  link?: string
 }
 
-defineProps<ThemeHomeConfigBase & {
-  authors?: Author[]
-  index?: number
-}>()
+const props = withDefaults(
+  defineProps<ThemeHomeConfigBase & {
+    title?: string       // 标题（例如："核心团队" / "作者"）
+    authors?: Author[]
+    index?: number
+  }>(),
+  {
+    title: '核心团队',   // 默认标题，传空字符串 '' 则不显示
+  }
+)
+
+// 处理图片地址：兼容绝对路径、网络图片和 VuePress 本地静态资源 (public 目录)
+function resolveAvatar(url: string) {
+  if (!url) return ''
+  if (/^(https?:)?\/\//.test(url) || url.startsWith('data:')) {
+    return url
+  }
+  return withBase(url)
+}
 </script>
 
 <template>
@@ -25,19 +42,47 @@ defineProps<ThemeHomeConfigBase & {
     class="custom-authors-wrapper"
   >
     <div class="authors-container">
-      <div v-for="(author, index) in authors" :key="index" class="author-card">
-        <div class="avatar-wrap">
-          <div class="avatar-glow"></div>
-          <img :src="author.avatar" :alt="author.name" class="avatar-img" />
-        </div>
-        
-        <div class="author-info">
-          <h3 class="author-name">{{ author.name }}</h3>
-          <div class="author-role" v-if="author.role">
-            <span class="role-badge">🌟 {{ author.role }}</span>
+      <!-- 统一风格的区域标题 -->
+      <div v-if="title" class="section-header">
+        <span class="header-line"></span>
+        <h2 class="section-title">
+          <span v-if="icon" class="title-icon">{{ icon }}</span>
+          <span class="title-text">{{ title }}</span>
+        </h2>
+        <span class="header-line"></span>
+      </div>
+
+      <div class="authors-grid">
+        <component
+          :is="author.link ? 'a' : 'div'"
+          v-for="(author, idx) in authors"
+          :key="idx"
+          :href="author.link"
+          :target="author.link ? '_blank' : undefined"
+          :rel="author.link ? 'noopener noreferrer' : undefined"
+          class="author-card"
+          :class="{ 'is-link': !!author.link }"
+        >
+          <div class="avatar-wrap">
+            <div class="avatar-glow"></div>
+            <img 
+              :src="resolveAvatar(author.avatar)" 
+              :alt="author.name" 
+              class="avatar-img" 
+              loading="lazy"
+            />
           </div>
-          <p class="author-motto" v-if="author.motto">{{ author.motto }}</p>
-        </div>
+          
+          <div class="author-info">
+            <h3 class="author-name">{{ author.name }}</h3>
+            <div class="author-role" v-if="author.role">
+              <span class="role-badge">🌟 {{ author.role }}</span>
+            </div>
+            <p class="author-motto" v-if="author.motto" :title="author.motto">
+              {{ author.motto }}
+            </p>
+          </div>
+        </component>
       </div>
     </div>
   </VPHomeBox>
@@ -45,16 +90,60 @@ defineProps<ThemeHomeConfigBase & {
 
 <style scoped>
 .custom-authors-wrapper {
-  padding: 1.5rem 0 3rem;
+  padding: 1.5rem 0 2.5rem;
 }
 
 .authors-container {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 2rem;
   max-width: 900px;
   margin: 0 auto;
   padding: 0 1.5rem;
+}
+
+/* --- 标题区域（相比贡献者组件，字号更大、线段更显眼） --- */
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+.header-line {
+  flex: 1;
+  max-width: 160px;
+  height: 1px;
+  background: linear-gradient(
+    90deg, 
+    transparent, 
+    var(--vp-c-brand-1), 
+    transparent
+  );
+  opacity: 0.6;
+}
+
+.section-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--vp-c-text-1);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  letter-spacing: 0.5px;
+  border: none; /* 清除 VuePress 默认标题边框 */
+  padding: 0;
+}
+
+.title-icon {
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+/* --- 作者卡片 Grid 布局 --- */
+.authors-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
 }
 
 .author-card {
@@ -70,6 +159,12 @@ defineProps<ThemeHomeConfigBase & {
   position: relative;
   overflow: hidden;
   text-align: left;
+  text-decoration: none !important;
+  color: inherit;
+}
+
+.author-card.is-link {
+  cursor: pointer;
 }
 
 .author-card:hover {
@@ -183,14 +278,15 @@ defineProps<ThemeHomeConfigBase & {
 }
 
 @media (max-width: 800px) {
-  .authors-container {
+  .authors-grid {
     grid-template-columns: 1fr;
     max-width: 500px;
+    margin: 0 auto;
   }
 }
 
 @media (max-width: 640px) {
-  .authors-container {
+  .authors-grid {
     gap: 1.2rem;
   }
   .author-card {

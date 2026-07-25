@@ -50,6 +50,7 @@ config:
           icon: user
   - 
     type: custom-authors
+    title: "✨ MSLTeam"
     authors:
       - name: Weheal
         role: MSLX 开发者 / 后端 / 前端
@@ -59,6 +60,26 @@ config:
         role: MSLX 开发者 / 后端 / 前端
         motto: 饮茶先啦~ 🍵
         avatar: https://q.qlogo.cn/headimg_dl?dst_uin=1791123970&spec=640&img_type=jpg
+  - 
+    type: contributors
+    title: "✨ 感谢以下贡献者对项目的付出~"
+    contributors:
+      - name: chaoji233
+        role: 优化了一些功能
+        link: https://github.com/chaoji233
+        avatar: https://hk-gh.mslmc.cn/https://avatars.githubusercontent.com/u/126066634?s=60&v=4
+      - name: Hongbro886
+        role: 修复了一些小问题
+        link: https://github.com/Hongbro886
+        avatar: https://hk-gh.mslmc.cn/https://avatars.githubusercontent.com/u/185684679?s=60&v=4
+      - name: alright-qwq
+        role: 适配了MCDR
+        link: https://github.com/alright-qwq
+        avatar: https://hk-gh.mslmc.cn/https://avatars.githubusercontent.com/u/151932943?s=60&v=4
+      - name: LegendarySHT
+        role: 修复了一些小问题
+        link: https://github.com/LegendarySHT
+        avatar: https://hk-gh.mslmc.cn/https://avatars.githubusercontent.com/u/198100090?s=60&v=4
   - 
     type: feature-grid
     title: 极速开服与管理
