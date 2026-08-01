@@ -22,7 +22,7 @@
         </template>
         <template v-else>
           <i class="fa-solid fa-flask"></i> <span>当前为
-            <strong>早期开发预览版</strong>，功能尚未开发完成。<strong><u>请勿下载使用</u></strong>。<br> 目前MSLX可用的版本是旁边的 <strong>Daemon 服务端 /
+            <strong>开发预览版</strong>，功能尚未完全完成。<strong><u>仅限体验</u></strong>。<br> 目前MSLX成熟可用的版本是旁边的 <strong>Daemon 服务端 /
               Webpanel 网页控制台</strong> 版本。</span>
         </template>
       </div>
@@ -108,9 +108,9 @@
             <a :href="file.url" target="_blank" class="download-btn-sm" v-if="selectedType === 'daemon'">
               <i class="fa-solid fa-download"></i> 下载
             </a>
-            <div class="download-btn-disabled" v-else>
-              <i class="fa-solid fa-download"></i> 暂未开放下载
-            </div>
+            <a :href="file.url" target="_blank" class="download-btn-sm" v-else>
+              <i class="fa-solid fa-download"></i> 下载测试版
+            </a>
           </div>
         </div>
 
