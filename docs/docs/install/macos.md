@@ -5,6 +5,34 @@ permalink: /docs/install/macos/
 icon: b:apple
 ---
 
+## 一键安装
+
+==需确保已拥有Homebrew环境。请自行查找配置Homebrew环境的教程。==
+
+安装命令：
+
+```bash
+brew tap MSLTeam/tap && brew install mslx-daemon && brew services start mslx-daemon
+```
+
+安装完成后会自动打开登录页面，并且会自动打开初始账号密码。
+
+更新命令：
+
+```bash
+brew upgrade mslx-daemon && brew services restart mslx-daemon
+```
+
+::: warning 完全卸载命令（完全清除用户数据）：
+
+```bash
+brew services stop mslx-daemon && brew zap mslx-daemon && brew untap MSLTeam/tap
+```
+
+:::
+
+## 手动安装
+
 ::: important 运行环境  
 运行环境: ==.NET Core 10.0 LTS=={.important}  
 
