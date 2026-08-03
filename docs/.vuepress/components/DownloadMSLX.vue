@@ -148,6 +148,18 @@
         </div>
       </div>
 
+      <div class="macos-extra-methods" v-if="selectedOS === 'macOS' && selectedType === 'daemon'">
+        <div class="method-list">
+          <a href="/docs/install/macos/#一键安装" class="method-item">
+            <div class="method-info">
+              <i class="fa-solid fa-beer-mug-empty method-icon homebrew"></i>
+              <span>Homebrew 一键安装</span>
+            </div>
+            <i class="fa-solid fa-arrow-right arrow-icon"></i>
+          </a>
+        </div>
+      </div>
+
     </div>
   </div>
 </template>
@@ -746,7 +758,8 @@ onMounted(async () => {
 }
 
 
-.linux-extra-methods {
+.linux-extra-methods,
+.macos-extra-methods {
   margin-top: 1rem;
   background-color: var(--vp-c-bg-alt);
   border-radius: 8px;
