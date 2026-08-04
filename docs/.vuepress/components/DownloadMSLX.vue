@@ -160,6 +160,26 @@
         </div>
       </div>
 
+      <div class="macos-extra-methods" v-if="selectedOS === 'macOS' && selectedType === 'desktop'">
+        <div class="info-alert" style="margin-bottom: 0; border: 1px solid var(--vp-c-divider);">
+          <i class="fa-brands fa-apple"></i>
+          <div style="flex: 1;">
+            <strong style="display: block; margin-bottom: 6px; color: var(--vp-c-text-1);">macOS 运行须知（必读）</strong>
+            <div style="font-size: 0.85rem; line-height: 1.6; color: var(--vp-c-text-2);">
+              <p style="margin: 0 0 6px 0;">由于应用尚未签名 (没有99刀一年的苹果开发者)，若安装后提示<strong>“应用已损坏”</strong>或被拦截：</p>
+              <ol style="margin: 0; padding-left: 1.2rem; display: flex; flex-direction: column; gap: 6px;">
+                <li>打开终端，执行以下命令解除隔离状态（注意确认 <code>MSLX.app</code> 路径是否正确）：<br>
+                  <code style="user-select: all; background: var(--vp-c-bg-soft); padding: 2px 6px; border-radius: 4px; font-size: 0.8rem; margin-top: 4px; display: inline-block; color: var(--vp-c-text-1);">sudo xattr -r -d com.apple.quarantine /Applications/MSLX.app</code>
+                </li>
+                <li><strong>针对 macOS 15 (Sequoia) 及以上版本：</strong>如果上述命令无效，可尝试在终端执行以下命令，临时允许任意来源应用运行：<br>
+                  <code style="user-select: all; background: var(--vp-c-bg-soft); padding: 2px 6px; border-radius: 4px; font-size: 0.8rem; margin-top: 4px; display: inline-block; color: var(--vp-c-text-1);">sudo spctl --master-disable</code>
+                </li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </template>
@@ -250,6 +270,9 @@ const getFileIcon = (name) => {
   const lower = name.toLowerCase();
   if (selectedType.value === 'desktop' && lower.includes('win')) {
     return 'fa-brands fa-windows';
+  }
+  if (lower.endsWith('.dmg') || lower.endsWith('.pkg')) {
+    return 'fa-brands fa-apple';
   }
   if (lower.endsWith('.zip') || lower.endsWith('.tar.gz') || lower.endsWith('.7z')) {
     return 'fa-regular fa-file-zipper';
@@ -349,9 +372,22 @@ const filterFiles = () => {
     if (item.is_dir) return false;
     const name = item.name.toLowerCase();
 
-    return item.name.startsWith(typePrefix) &&
-      name.includes(osKey) &&
-      name.includes(archKey);
+    let isOsMatch = false;
+    if (selectedOS.value === 'macOS') {
+      isOsMatch = name.includes('osx') || name.includes('mac') || name.includes('darwin');
+    } else {
+      isOsMatch = name.includes(osKey);
+    }
+
+    let isArchMatch = name.includes(archKey);
+    if (archKey === 'arm64' && (name.includes('aarch64') || name.includes('apple-silicon') || name.includes('universal'))) {
+      isArchMatch = true;
+    }
+    if (archKey === 'x64' && (name.includes('amd64') || name.includes('universal'))) {
+      isArchMatch = true;
+    }
+
+    return item.name.startsWith(typePrefix) && isOsMatch && isArchMatch;
   });
 
   // 处理展示数据
