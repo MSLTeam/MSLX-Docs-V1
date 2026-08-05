@@ -20,7 +20,7 @@ brew tap MSLTeam/tap && brew install mslx-daemon && brew services start mslx-dae
 更新命令：
 
 ```bash
-brew upgrade mslx-daemon && brew services restart mslx-daemon
+brew update && brew upgrade mslx-daemon && brew services restart mslx-daemon
 ```
 
 ::: warning 完全卸载命令（完全清除用户数据）：
