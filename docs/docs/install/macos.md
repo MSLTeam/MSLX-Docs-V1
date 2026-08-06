@@ -12,7 +12,7 @@ icon: b:apple
 安装命令：
 
 ```bash
-brew tap MSLTeam/tap && brew install mslx-daemon && brew services start mslx-daemon
+brew tap MSLTeam/tap && brew trust mslteam/tap && brew install mslx-daemon && brew services start mslx-daemon
 ```
 
 安装完成后会自动打开登录页面，并且会自动打开初始账号密码。
@@ -20,7 +20,7 @@ brew tap MSLTeam/tap && brew install mslx-daemon && brew services start mslx-dae
 更新命令：
 
 ```bash
-brew upgrade mslx-daemon && brew services restart mslx-daemon
+brew update && brew upgrade mslx-daemon && brew services restart mslx-daemon
 ```
 
 ::: warning 完全卸载命令（完全清除用户数据）：
