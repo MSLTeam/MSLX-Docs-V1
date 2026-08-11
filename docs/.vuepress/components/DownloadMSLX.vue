@@ -164,17 +164,9 @@
         <div class="info-alert" style="margin-bottom: 0; border: 1px solid var(--vp-c-divider);">
           <i class="fa-brands fa-apple"></i>
           <div style="flex: 1;">
-            <strong style="display: block; margin-bottom: 6px; color: var(--vp-c-text-1);">macOS 运行须知（必读）</strong>
+            <strong style="display: block; margin-bottom: 6px; color: var(--vp-c-text-1);">macOS 运行须知</strong>
             <div style="font-size: 0.85rem; line-height: 1.6; color: var(--vp-c-text-2);">
-              <p style="margin: 0 0 6px 0;">由于应用尚未签名 (没有99刀一年的苹果开发者)，若安装后提示<strong>“应用已损坏”</strong>或被拦截：</p>
-              <ol style="margin: 0; padding-left: 1.2rem; display: flex; flex-direction: column; gap: 6px;">
-                <li>打开终端，执行以下命令解除隔离状态（注意确认 <code>MSLX.app</code> 路径是否正确）：<br>
-                  <code style="user-select: all; background: var(--vp-c-bg-soft); padding: 2px 6px; border-radius: 4px; font-size: 0.8rem; margin-top: 4px; display: inline-block; color: var(--vp-c-text-1);">sudo xattr -r -d com.apple.quarantine /Applications/MSLX.app</code>
-                </li>
-                <li><strong>针对 macOS 15 (Sequoia) 及以上版本：</strong>如果上述命令无效，可尝试在终端执行以下命令，临时允许任意来源应用运行：<br>
-                  <code style="user-select: all; background: var(--vp-c-bg-soft); padding: 2px 6px; border-radius: 4px; font-size: 0.8rem; margin-top: 4px; display: inline-block; color: var(--vp-c-text-1);">sudo spctl --master-disable</code>
-                </li>
-              </ol>
+              <p style="margin: 0;"><strong>版本说明：</strong><code>.dmg</code> 安装包已包含完整的 .NET 运行环境；<code>.tar.gz</code> 压缩包版需要自行安装 .NET 10.0 环境。</p>
             </div>
           </div>
         </div>
