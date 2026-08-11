@@ -64,6 +64,10 @@ config:
     type: contributors
     title: "✨ 感谢以下贡献者对项目的付出~"
     contributors:
+      - name: CoZooo
+        role: 对macos做了深度的适配
+        link: https://github.com/CoZooo
+        avatar: https://hk-gh.mslmc.cn/https://avatars.githubusercontent.com/u/57851661?v=4
       - name: chaoji233
         role: 优化了一些功能
         link: https://github.com/chaoji233
@@ -76,10 +80,6 @@ config:
         role: 适配了MCDR
         link: https://github.com/alright-qwq
         avatar: https://hk-gh.mslmc.cn/https://avatars.githubusercontent.com/u/151932943?s=60&v=4
-      - name: CoZooo
-        role: 完成了Homebrew安装适配
-        link: https://github.com/CoZooo
-        avatar: https://hk-gh.mslmc.cn/https://avatars.githubusercontent.com/u/57851661?v=4
       - name: LegendarySHT
         role: 修复了一些小问题
         link: https://github.com/LegendarySHT
