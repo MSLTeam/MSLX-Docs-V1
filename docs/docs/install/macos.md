@@ -50,14 +50,6 @@ brew services stop mslx-daemon && brew zap mslx-daemon && brew untap MSLTeam/tap
 
 注意：MSLX.Daemon 并非标准的mac app格式，==请不要把他放进去application目录== ！
 
-::: tip 关于标准APP
-
-MSLX.Daemon是一个控制台应用，所以暂时没有封装成APP。
-
-后续客户端版本会封装成标准APP，并自动管理MSLX.Daemon。（但是我们买不起苹果的签名qwq，仍需要手动放行程序）
-
-:::
-
 ::: tip 文件存储位置
 
 由于macOS的安全机制，通常不应该在软件的目录存储数据。
