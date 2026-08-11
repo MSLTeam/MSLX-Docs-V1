@@ -275,9 +275,43 @@ const getFileIcon = (name) => {
 const detectEnv = () => {
   if (typeof navigator === 'undefined') return;
   const ua = navigator.userAgent;
+  const platform = navigator.userAgentData?.platform || navigator.platform || '';
+
+  // 检测 OS
   if (ua.indexOf('Win') !== -1) selectedOS.value = 'Windows';
   else if (ua.indexOf('Mac') !== -1) selectedOS.value = 'macOS';
   else if (ua.indexOf('Linux') !== -1) selectedOS.value = 'Linux';
+
+  // 检测 Arch (支持 M芯片/ARM64)
+  // Apple Silicon 在 WebGL 渲染器中通常显示为 Apple M1/M2/M3...
+  let isArm = false;
+  try {
+    const canvas = document.createElement('canvas');
+    const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+    if (gl) {
+      const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
+      if (debugInfo) {
+        const renderer = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL) || '';
+        if (renderer.includes('Apple') || renderer.includes('M1') || renderer.includes('M2') || renderer.includes('M3') || renderer.includes('M4')) {
+          isArm = true;
+        }
+      }
+    }
+  } catch (e) {
+    // 忽略 WebGL 获取失败的情况
+  }
+
+  // 补充基于 UserAgent/Platform 的兜底检测
+  if (
+    isArm ||
+    ua.includes('arm64') ||
+    ua.includes('aarch64') ||
+    platform.includes('MacIntel') && navigator.maxTouchPoints > 0 // iPad/新 Mac 的特征
+  ) {
+    selectedArch.value = 'arm64';
+  } else {
+    selectedArch.value = 'x64';
+  }
 };
 
 const fetchVersions = async () => {
