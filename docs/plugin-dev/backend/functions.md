@@ -80,4 +80,49 @@ string appConfigPath = SDK.MSLX.Config.GetAppConfigPath();
 string pluginDataPath = this.Config().GetDataPath();
 ```
 
+## 全局后台任务与进度条 <Badge type="tip" text="v1.6.0" />
+
+MSLX 提供了全局的后台任务池，插件可以通过 `SDK.MSLX.Tasks` 接口将耗时操作扔进全局任务池，从而在 WebPanel 右上角的“后台任务”抽屉里展示带进度条的任务。
+
+```c#
+// 1. 创建任务 (用户ID可以通过上下文或保留为空，实例ID通常填0，TaskType.Plugin 代表插件任务)
+var (task, token) = SDK.MSLX.Tasks.CreateTask(
+    userId: "", 
+    instanceId: 0, 
+    type: MSLX.SDK.Models.Files.TaskType.Plugin, 
+    title: "正在备份插件数据", 
+    targetName: "my-plugin-backup.zip"
+);
+
+Task.Run(async () => 
+{
+    try 
+    {
+        for (int i = 0; i <= 100; i += 10)
+        {
+            // 响应用户在前端点击的“取消”操作
+            if (token.IsCancellationRequested)
+            {
+                // 收到取消信号后，清理垃圾并退出
+                SDK.MSLX.Tasks.SetFailed(task.Id, "用户已取消");
+                return;
+            }
+
+            // 2. 更新任务进度
+            SDK.MSLX.Tasks.UpdateProgress(task.Id, i, $"正在处理第 {i}% 的数据...");
+            await Task.Delay(500); // 模拟耗时
+        }
+
+        // 3. 标记任务完成
+        SDK.MSLX.Tasks.SetSuccess(task.Id, "备份完成！");
+    }
+    catch (Exception ex)
+    {
+        // 标记任务失败
+        SDK.MSLX.Tasks.SetFailed(task.Id, ex.Message);
+    }
+});
+```
+
+
 
