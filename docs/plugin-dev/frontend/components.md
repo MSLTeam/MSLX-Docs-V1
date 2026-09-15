@@ -152,6 +152,59 @@ const props = defineProps({
 });
 ```
 
+## 服务端管理-实例控制台-实例设置-自定义选项卡插槽
+
+插槽名：`instance-settings-tab` <Badge type="tip" text="v1.6.4" />
+
+在实例配置侧边栏最底部新增一个选项卡（Tab），点击后右侧展示对应的组件内容。
+
+此插槽需要新增以下配置项：
+
+:::: field-group
+
+::: field name="extensions[i].label" type="string" required
+新增选项卡的名称（显示在左侧菜单栏）
+:::
+
+::: field name="extensions[i].icon" type="component | string" required
+选项卡的图标，支持传入 TDesign 的图标组件（如 `SettingIcon`）或 Emoji / 文本字符串（如 `'🧩'`）
+:::
+
+::::
+
+```ts
+        {
+            slot: 'instance-settings-tab', // 注入到实例配置侧边栏选项卡
+            component: InstanceSettingsPluginTab, // 选项卡内容组件
+            label: '插件配置', // 选项卡名字
+            icon: SettingIcon, // 选项卡图标，可使用 TDesign 图标组件或 Emoji 字符串
+        },
+```
+
+可接收props：
+
+```ts
+const props = defineProps({
+  serverId: {
+    type: Number,
+    required: true
+  },
+  instanceId: {
+    type: Number,
+    required: true
+  }
+});
+```
+
+支持触发的事件（Emits）：
+
+```ts
+const emits = defineEmits<{
+  (e: 'success'): void;
+  (e: 'saved'): void;
+}>();
+```
+
 ## 仪表盘-系统状态监控卡片下方插槽
 
 插槽名：`dashboard-index-after-system-status` <Badge type="tip" text="v1.4.3" />
