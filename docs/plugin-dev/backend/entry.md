@@ -12,9 +12,12 @@ icon: arrow-right-to-bracket
 入口文件主要是从 `MSLX.SDK` 导出 `IPlugin` 对象然后填写相关的信息和实现相关声明周期方法。
 
 ```c#
+using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using MSLX.Plugin.Stun.Hubs;
 using MSLX.Plugin.Stun.Managers;
 using MSLX.SDK;
+
+[assembly: ApplicationPart("MSLX.Plugin.Stun")]
 
 namespace MSLX.Plugin.Stun;
 
@@ -192,3 +195,17 @@ public void OnRegisterServices(IServiceCollection services)
 :::
 
 ::::
+
+## API 路由与 ApplicationPart 声明
+
+若插件内包含提供 Web API 接口的 Controller（控制器），必须在入口文件顶部（命名空间外）声明 `[assembly: ApplicationPart("程序集名称")]`：
+
+```c#
+using Microsoft.AspNetCore.Mvc.ApplicationParts;
+
+[assembly: ApplicationPart("MSLX.Plugin.Stun")]
+```
+
+::: tip 为什么需要 ApplicationPart？
+MSLX 宿主通过反射动态加载外部插件时，ASP.NET Core MVC 依赖 `ApplicationPart` 检索程序集内的 Controller 控制器。若未声明，会导致 Controller 路由无法被宿主注册。
+:::

@@ -19,21 +19,19 @@ icon: file-code
 
 如果您想简单一点直接使用插件模板进行二次开发，那么根据以下步骤修改插件信息即可。
 
-### 插件元数据
+### 插件元数据与 ApplicationPart
 
-在插件的入口文件`MSLXPluginEntry.cs`中，对`Id`等信息进行修改。
+在插件的入口文件 `MSLXPluginEntry.cs` 中，对 `Id` 等信息进行修改。
 
-Id是必须要改的，其他的可以根据自己的喜好进行填写，Id的规范为：`mslx-plugin-xxx`。
+Id 是必须要改的，规范为：`mslx-plugin-xxx`。起名前建议到 Github 查询是否存在同名插件，以防撞车。
 
-起名前建议到Github查询是否存在同名插件，以防撞车。
-
-然后`Version`必须是规范的版本号格式，例如`1.0`/`1.0.0`/`1.0.0.0`，如果需要添加beta/dev，可以使用`1.0-dev`此类。
+若您的插件包含 API 控制器（Controller），请同步将文件顶部的 `[assembly: ApplicationPart("MSLX.Plugin.Demo")]` 修改为您重命名后的程序集名称，确保宿主能够正确发现并注册路由。
 
 ![image-20260501上午123700416](./assets/image-20260501上午123700416.png)
 
 ### 前端项目名
 
-进入`Frontend/package.json`,修改`name`参数，和上述元数据的`Id`一致即可。
+进入 `Frontend/package.json`，修改 `name` 参数，和上述元数据的 `Id` 一致即可。
 
 ::: important 这里很重要，必须修改，否则可能造成CSS污染
 

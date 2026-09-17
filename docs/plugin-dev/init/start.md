@@ -35,6 +35,10 @@ MSLX 插件目前目前由后端插件+前端UI组件组成。（桌面客户端
 
 同样路由规范：`/api/hubs/plugins/{plugin-id}/具体路由`。
 
+::: tip 提示
+若插件包含 Controller，入口文件顶部需声明 `[assembly: ApplicationPart("程序集名称")]`。
+:::
+
 ## 前端UI开发规范
 
 前端UI目前支持在菜单上新增页面，原有页面插入组件仍在开发中。
