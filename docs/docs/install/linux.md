@@ -47,9 +47,9 @@ curl -sL "https://files.mslmc.cn/d/MSL/MSL%20Resources/MSLX/scripts/20260708/ins
 
 ::: tip 关于Linux的mslx管理命令
 
-开启mslx:systemctl start mslx
-关闭mslx:systemctl stop mslx
-重启mslx:systemctl restart mslx
+开启mslx:systemctl start mslx  
+关闭mslx:systemctl stop mslx  
+重启mslx:systemctl restart mslx  
 查看mslx日志:journalctl -u mslx -f
 
 :::
