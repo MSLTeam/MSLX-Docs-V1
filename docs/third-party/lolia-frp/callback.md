@@ -3,6 +3,16 @@ title: Lolia FRP 授权返回
 permalink: /third-party/lolia-frp/callback
 sidebar: false
 navbar: false
+aside: false
+outline: false
+changelog: false
+contributors: false
+lastUpdated: false
+copyright: false
+editLink: false
+comments: false
+prev: false
+next: false
 pageClass: custom-page
 ---
 
