@@ -1,9 +1,23 @@
 ---
 title: SDK 完整接口与核心服务
+badge:
+  text: v1.7 接口拆分
+  type: warning
 createTime: 2026/05/19 21:41:11
 permalink: /plugin-dev/backend/api/
 icon: link
 ---
+
+::: warning v1.7.0 核心接口重大变更通知
+原控制服务上帝接口 `IMCServerService` 已被正式废弃（标记为 `[Obsolete]`），并计划于 **v1.8.0** 彻底移除。
+
+为彻底解决上帝接口臃肿及命名不规范的问题，新版 SDK 已将其拆分为三个高度内聚的新接口：
+- **`IInstanceLifecycleService`**：负责实例生命周期（启/停/杀/查状态/EULA）。
+- **`IInstanceConsoleService`**：负责实例终端交互（发送指令/PTY控制/获取日志）。
+- **`IInstanceBackupService`**：负责实例备份触发。
+
+推荐所有新开发插件直接注入新接口，现有插件亦请尽快完成迁移适配！
+:::
 
 ## 概述
 
@@ -259,33 +273,35 @@ catch (Exception ex)
 
 宿主会将管理进程中的底层控制服务注册到依赖注入容器中。插件可以在 Controller、Hub 或自定义服务中通过**构造函数注入**直接使用。
 
-### 1. 服务端进程控制服务 (`IMCServerService`)
+### 1. 实例控制与交互服务 (`IInstanceLifecycleService` / `IInstanceConsoleService`)
 
-用于控制 Minecraft 实例的启动、停止、重启、发送命令及日志读取。
+旧版 `IMCServerService` 已废弃，现已拆分为职责更加单一的生命周期控制、终端交互与备份服务。
 
 ```c#
 using MSLX.SDK.IServices;
 
 public class MyPluginController : ControllerBase
 {
-    private readonly IMCServerService _mcServerService;
+    private readonly IInstanceLifecycleService _lifecycle;
+    private readonly IInstanceConsoleService _console;
 
-    public MyPluginController(IMCServerService mcServerService)
+    public MyPluginController(IInstanceLifecycleService lifecycle, IInstanceConsoleService console)
     {
-        _mcServerService = mcServerService;
+        _lifecycle = lifecycle;
+        _console = console;
     }
 
     [HttpPost("start/{instanceId}")]
     public IActionResult StartInstance(uint instanceId)
     {
         // 检查实例是否正在运行
-        if (_mcServerService.IsServerRunning(instanceId))
+        if (_lifecycle.IsServerRunning(instanceId))
         {
             return Ok("实例已在运行中");
         }
 
         // 启动服务器 (非阻塞)
-        var (success, message) = _mcServerService.StartServer(instanceId, isAutoRestart: false, skipEulaCheck: true);
+        var (success, message) = _lifecycle.StartServer(instanceId, isAutoRestart: false, skipEulaCheck: true);
         
         return Ok(new { success, message });
     }
@@ -294,7 +310,7 @@ public class MyPluginController : ControllerBase
     public IActionResult SendCmd(uint instanceId, [FromBody] string cmd)
     {
         // 向服务器控制台发送指令
-        bool sent = _mcServerService.SendCommand(instanceId, cmd, repeatCommandToLog: true);
+        bool sent = _console.SendCommand(instanceId, cmd, repeatCommandToLog: true);
         return Ok(new { success = sent });
     }
 
@@ -302,16 +318,16 @@ public class MyPluginController : ControllerBase
     public IActionResult GetLogs(uint instanceId)
     {
         // 获取实时日志与在线玩家
-        List<string> logs = _mcServerService.GetLogs(instanceId);
-        List<string> players = _mcServerService.GetOnlinePlayers(instanceId);
-        TimeSpan uptime = _mcServerService.GetServerUptime(instanceId);
+        List<string> logs = _console.GetLogs(instanceId);
+        List<string> players = _lifecycle.GetOnlinePlayers(instanceId);
+        TimeSpan uptime = _lifecycle.GetServerUptime(instanceId);
 
         return Ok(new { logs, players, uptimeSeconds = uptime.TotalSeconds });
     }
 }
 ```
 
-#### `IMCServerService` 常用方法速查表
+#### 常用实例服务方法速查表
 
 | 方法签名 | 说明 |
 | :--- | :--- |
