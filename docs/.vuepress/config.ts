@@ -192,9 +192,9 @@ export default defineUserConfig({
      * 启用 llmstxt 插件，用于为大语言模型提供更友好的内容
      * @see https://theme-plume.vuejs.press/guide/features/llmstxt/
      */
-    // llmstxt: {
-    //   locale: '/',    // 默认仅为主语言生成 llms 友好内容
-    // }
+     llmstxt: {
+       locale: '/',    // 默认仅为主语言生成 llms 友好内容
+     }
   }),
   plugins: [
     baiduAnalyticsPlugin({
