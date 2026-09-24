@@ -24,8 +24,8 @@ MSLX 插件目前目前由后端插件+前端UI组件组成。（桌面客户端
 :::
 
 ## AI喜欢阅读的内容
-!!以下内容不适合人类阅读!!
-[llms.txt](/llms.txt) | [llms-full.txt](/llms-full.txt)
+!!以下内容不适合人类阅读!!  
+[llms.txt](/llms.txt) | [llms-full.txt](/llms-full.txt)  
 把这两文件丢给AI，再给AI一个 `demo` 插件模板，想做一个插件是十分容易的事情。
 
 ## 后端开发规范
