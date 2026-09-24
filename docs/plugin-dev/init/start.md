@@ -38,7 +38,7 @@ MSLX 插件目前目前由后端插件+前端UI组件组成。（桌面客户端
 
 另外，如果需要较强的实时通讯，建议使用 ASP.NET 的 `SignalR` 通讯（底层是ws）。
 
-同样路由规范：`/api/hubs/plugins/{plugin-id}/具体路由`。
+同样路由规范：`/api/hubs/plugin/{plugin-id}/具体路由`。
 
 ::: tip 提示
 若插件包含 Controller，入口文件顶部需声明 `[assembly: ApplicationPart("程序集名称")]`。
