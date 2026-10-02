@@ -19,3 +19,11 @@ permalink: /community-resources/
 开发者：[@LotusGoddes](https://github.com/LotusGoddes)
 
 <RepoCard repo="LotusGoddes/astrbot_plugin_mslx" />
+
+## MSLX_APP-Android - MSLX 手机端控制台
+
+基于 Kotlin 与 Jetpack Compose 开发的 Android 端第三方客户端，可在手机上连接 MSLX 守护进程，实现实例管理、实时控制台（支持 ANSI 原色显示）、新建实例、文件管理、用户中心与软件自动更新等功能。
+
+开发者：[@WLudy1012](https://github.com/WLudy1012)
+
+<RepoCard repo="WLudy1012/MSLX_APP-Android" />
