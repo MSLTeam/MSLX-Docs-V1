@@ -82,7 +82,7 @@ const plugin_dev_doc = defineCollection({
   title: 'MSLX 插件开发文档',
   // 手动配置侧边栏结构
   sidebar: [
-    { text: '启程插件开发之旅', prefix: 'init', collapsed: false, icon: 'plug', items: ['start','template','publish'] },
+    { text: '启程插件开发之旅', prefix: 'init', collapsed: false, icon: 'plug', items: ['start', 'quick-start', 'template', 'publish'] },
     { text: '插件后端设计', prefix: 'backend', collapsed: false, icon: 'code', items: ['entry','configdata','functions','api','events'] },
     { text: '插件网页前端设计', prefix: 'frontend', collapsed: false, icon: 'b:vuejs', items: ['routes','components','host-api'] },
   ],

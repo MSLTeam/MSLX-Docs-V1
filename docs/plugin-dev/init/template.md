@@ -1,15 +1,23 @@
 ---
-title: 从示例模板创建插件项目
+title: 从示例克隆项目
 createTime: 2026/04/29 23:28:11
 permalink: /plugin-dev/init/template/
 icon: file-code
+badge:
+  text: 已过时
+  type: warning
 ---
 
-## 插件示例示例项目
+::: warning [已过时] 该方式已废弃
+通过手动克隆 Demo 仓库并逐个文件全局查找替换元数据的方式已过时，容易遗漏并造成路由 404 或样式隔离失效。
+
+现已推荐使用官方标准 .NET CLI 模板脚手架一键创建插件项目：
+👉 **[使用模板创建插件项目（推荐）](/plugin-dev/init/quick-start/)**
+:::
+
+## 插件示例项目
 
 插件的示例项目提供了简单的路由案例 + MSLX 内一些方法的调用示例 + MSLX 的配置读取示例。
-
-!!随便改改模板就是一个新的插件是吧QWQ。!!
 
 <RepoCard repo="MSLTeam/mslx-plugin-demo" />
 
@@ -17,7 +25,7 @@ icon: file-code
 
 ## 必须修改的地方
 
-如果您想简单一点直接使用插件模板进行二次开发，那么根据以下步骤修改插件信息即可。
+如果您依然选择直接克隆源码模板进行二次开发，那么必须根据以下步骤修改插件信息。
 
 ### 插件元数据与 ApplicationPart
 
