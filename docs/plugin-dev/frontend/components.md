@@ -10,8 +10,11 @@ badge:
 
 ## 概述
 
-::: important 使用插槽注入自定义组件时，请尽量让您的设计样式和原页面保持一致。
-
+::: important 视觉设计规范与原页面一致性要求
+使用插槽注入自定义组件时，请务必保证视觉风格与宿主原页面高度一致：
+1. **根卡片类名**：自定义卡片必须包含 `class="design-card ..."`，禁止使用 `bg-white` 硬编码纯白背景，以保证暗黑模式与用户自定义壁纸毛玻璃透明度的正常生效。
+2. **弹窗层级**：若注入包含 `<t-dialog>` 弹窗，必须声明 `attach="body"` 避免被父容器截断，并使用响应式宽度 `width="min(580px, 92vw)"`。
+3. **官方规范 Skill**：您可直接安装官方 AI 技能 `npx mslx-plugin-dev-skill install`（或 `npx skills add MSLTeam/MSLX-Docs-V1 --skill mslx-plugin-dev`），亦可运行 `npx mslx-plugin-dev-skill audit` 自动体检。
 :::
 
 MSLX 的插件系统允许您在原有页面的一些槽位新增组件/插入下拉菜单，效果如下：

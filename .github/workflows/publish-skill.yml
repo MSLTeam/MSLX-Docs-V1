@@ -1,0 +1,64 @@
+name: 发布 MSLX Plugin Dev Skill 至 npm
+
+on:
+  push:
+    branches:
+      - main
+      - master
+    paths:
+      - 'skills/mslx-plugin-dev/**'
+  workflow_dispatch:
+    inputs:
+      bump_type:
+        description: '版本递增方式 (patch / minor / major)'
+        required: false
+        default: 'patch'
+
+permissions:
+  contents: write
+  id-token: write
+
+jobs:
+  publish-npm:
+    runs-on: ubuntu-latest
+    name: 自动更新并发布到 npm
+    defaults:
+      run:
+        working-directory: skills/mslx-plugin-dev
+
+    steps:
+      - name: 签出代码
+        uses: actions/checkout@v4
+
+      - name: 设置 Node.js 20 环境
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: 自动递增版本号 (防止冲突并保证每次更新发布)
+        shell: bash
+        run: |
+          PACKAGE_NAME=$(node -p "require('./package.json').name")
+          LOCAL_VERSION=$(node -p "require('./package.json').version")
+          REMOTE_VERSION=$(npm view "$PACKAGE_NAME" version 2>/dev/null || echo "0.0.0")
+          echo "本地版本: $LOCAL_VERSION，线上版本: $REMOTE_VERSION"
+          
+          # 当触发分支为推送或线上已存在相同版本时，自动递增 patch 版本号
+          if [ "$LOCAL_VERSION" = "$REMOTE_VERSION" ] || [ "${{ github.event_name }}" = "push" ]; then
+            npm version patch --no-git-tag-version
+            NEW_VER=$(node -p "require('./package.json').version")
+            echo "版本已自动递增为: $NEW_VER"
+          fi
+
+      - name: 校验 CLI 语法与基础可用性
+        run: |
+          node ./bin/cli.js --help
+
+      # 使用 npm Trusted Publishing (OIDC) 进行免密安全发布，并附带可验证的 Provenance 溯源证书
+      - name: 发布至 npm 官方仓库 (Trusted Publishing OIDC)
+        run: |
+          npm publish --provenance --access public
+        env:
+          # 若配置了 npm Trusted Publishing，无需任何长期密钥；若未配置，可使用传统的 NPM_TOKEN 进行兜底
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

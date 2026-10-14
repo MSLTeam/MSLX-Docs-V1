@@ -14,6 +14,19 @@ badge:
 
 使用该模板可以一键生成规范的前后端全栈插件工程，自动完成 C# 命名空间、程序集名称、`ApplicationPart` 特性声明、Controller 路由前缀、前端包名及组件标识的替换，并内置了用于发布时自动合并依赖的 `ILRepack` 编译逻辑。
 
+::: tip 🤖 AI 辅助编程官方 Skill
+MSLX 官方为 AI Coding Agent（Google Antigravity、Claude Code、Cursor 等）定制了 **插件全栈开发规范与视觉设计系统 Skill**。
+支持直接走 npm（国内秒速拉取，无需连接 GitHub）：
+```bash
+# 一键安装技能至当前工程（支持 npmmirror 国内镜像）
+npx mslx-plugin-dev-skill install
+
+# 或在插件根目录下直接进行全方位代码合规与安全漏洞自检
+npx mslx-plugin-dev-skill audit
+```
+*（海外环境亦支持官方生态安装：`npx skills add MSLTeam/MSLX-Docs-V1 --skill mslx-plugin-dev`）*
+:::
+
 <RepoCard repo="MSLTeam/mslx-plugin-templates" />
 
 ## 1. 安装模板
