@@ -12,7 +12,7 @@ badge:
 
 为了降低插件开发门槛、避免手动克隆示例项目时因漏改元数据而导致路由 404 或前端 CSS 污染，MSLX 官方提供了标准的 **.NET CLI 插件脚手架模板**：`MSLX.Plugin.Templates`。
 
-使用该模板可以一键生成规范的前后端全栈插件工程，自动完成 C# 命名空间、程序集名称、`ApplicationPart` 特性声明、Controller 路由前缀、前端包名及组件标识的替换，并内置了用于发布时自动合并依赖的 `ILRepack` 编译逻辑。
+使用该模板可以快速生成规范的前后端全栈插件工程，自动完成 C# 命名空间、程序集名称、`ApplicationPart` 特性声明、Controller 路由前缀、前端包名及组件标识的替换，并内置了用于发布时自动合并依赖的 `ILRepack` 编译逻辑。
 
 ::: tip AI 辅助开发规范 (Agent Skill)
 MSLX 官方提供专用的 **插件全栈开发规范与视觉设计系统 Skill**，支持 Google Antigravity、Claude Code、Cursor、Windsurf 等 AI Agent 环境。
@@ -49,14 +49,14 @@ dotnet new install .
 
 安装成功后，在终端运行 `dotnet new list` 或 `dotnet new mslx-plugin -h` 即可看到名为 `mslx-plugin` 的模板。
 
-## 2. 一键创建插件项目
+## 2. 创建插件项目
 
 在终端进入您希望创建项目的父级目录，执行以下命令：
 
 ```bash
 dotnet new mslx-plugin -n MSLX.Plugin.MyAwesome \
   --plugin-id mslx-plugin-awesome \
-  --plugin-name "我的超棒插件" \
+  --plugin-name "示例插件" \
   --plugin-author "开发者名称"
 ```
 
@@ -136,7 +136,7 @@ dotnet build -c Release
 ```
 
 ::: tip ILRepack 自动化合并
-模板已在 `.csproj` 中内置了 `ILRepack` 任务。在执行 `Release` 构建时，MSBuild 会自动将插件所引用的第三方依赖库（DLL）完整合并并打包进插件主 DLL 文件中，生成独立可分发的单文件插件，免除手动合并的麻烦。
+模板已在 `.csproj` 中内置了 `ILRepack` 任务。在执行 `Release` 构建时，MSBuild 会自动将插件所引用的第三方依赖库（DLL）完整合并并打包进插件主 DLL 文件中，生成独立可分发的单文件插件。
 :::
 
 

@@ -11,7 +11,7 @@ icon: shop
 
 :::
 
-<LinkCard title="MSLX 官方插件市场" icon="shop" href="https://mslx-plugins.mslmc.net" description="MSLX 官方维护的插件市场，可以在MSLX内一键安装和更新插件~" />
+<LinkCard title="MSLX 官方插件市场" icon="shop" href="https://mslx-plugins.mslmc.net" description="MSLX 官方维护的插件市场，支持在 MSLX 内安装和更新插件。" />
 
 :::: steps
 

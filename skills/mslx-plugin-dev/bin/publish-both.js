@@ -2,7 +2,7 @@
 
 /**
  * MSLX Plugin Dev Skill - 双通道发布助手
- * 支持一键将当前 Skill 同时发布为：
+ * 支持将当前 Skill 同时发布为：
  * 1. 组织级包: @mslteam/mslx-plugin-dev-skill
  * 2. 个人/全局包: mslx-plugin-dev-skill
  * 支持 Token 自动写入临时 .npmrc，支持 2FA OTP 验证码传入。

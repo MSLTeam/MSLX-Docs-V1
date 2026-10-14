@@ -1,10 +1,10 @@
 # MSLX 插件脚手架与发布流程 (Scaffold & Publishing)
 
-> **核心目标**：指导开发者使用官方脚手架模板一键创建标准工程，理解 `ILRepack` 单文件打包机制，并顺利将插件发布到 MSLX 官方插件市场。
+> **核心目标**：指导开发者使用官方脚手架模板创建标准工程，掌握 `ILRepack` 单文件打包机制，并将插件发布到 MSLX 官方插件市场。
 
 ---
 
-## 1. 使用官方脚手架一键创建项目
+## 1. 使用官方脚手架创建项目
 
 为了避免手动创建时遗漏元数据、路由 404 或样式冲突，推荐使用官方 .NET CLI 模板：
 
@@ -17,7 +17,7 @@ dotnet new install MSLX.Plugin.Templates
 ```bash
 dotnet new mslx-plugin -n MSLX.Plugin.MyAwesome \
   --plugin-id mslx-plugin-awesome \
-  --plugin-name "我的超棒插件" \
+  --plugin-name "示例插件" \
   --plugin-author "开发者名称" \
   --description "插件简短描述"
 ```
@@ -80,7 +80,7 @@ dotnet build -c Release
 在 `Release` 模式下，项目内置的 MSBuild 任务会自动触发：
 1. **前端产物内嵌**：`Frontend/dist/**` 的静态 JS/CSS 产物被作为 `EmbeddedResource` 直接编译进 C# 程序集。
 2. **第三方依赖合并**：`ILRepack` 会将插件引用的第三方 NuGet DLL（例如七牛云、AWS SDK、SSH 库等）完整打包压入插件主 DLL 中。
-3. **分发产物**：输出目录 `bin/Release/net10.0/` 下只存在**唯一一个独立的 `.dll` 单文件**。用户或服主只需将这一个 DLL 放入 MSLX 插件目录即可，免除了缺失依赖的困扰。
+3. **分发产物**：输出目录 `bin/Release/net10.0/` 下生成独立的 `.dll` 文件，将其直接放入 MSLX 插件目录即可完成部署。
 
 ---
 
@@ -89,7 +89,7 @@ dotnet build -c Release
 官方插件市场站点：[https://mslx-plugins.mslmc.net](https://mslx-plugins.mslmc.net)
 
 ### 4.1 提交流程
-1. **登录授权**：访问市场首页，使用 MSL 用户中心账号一键登录。
+1. **登录授权**：访问市场首页，使用 MSL 用户中心账号登录。
 2. **填写基本信息**：
    - 进入“插件管理 -> 插件发布”。
    - 填写插件 ID（必须与 `MSLXPluginEntry.cs` 中的 `Id` 完全一致，且以 `mslx-plugin-` 开头）。
@@ -100,5 +100,5 @@ dotnet build -c Release
    - 提供下载直链（可从 GitHub Releases 资产复制文件下载链接，**严禁使用网盘**）。
    - 编写更新日志。
 4. **审核与上架**：
-   - 提交后等待官方审核。审核通过后，全网所有 MSLX 用户均可在客户端“插件市场”中一键安装与更新。
+   - 提交后等待官方审核。审核通过后，MSLX 用户可在客户端“插件市场”中安装与更新。
    - 迭代新版本时，直接在插件详情中“发布新版”即可。

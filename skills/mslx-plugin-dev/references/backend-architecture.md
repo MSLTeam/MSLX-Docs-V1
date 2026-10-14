@@ -23,7 +23,7 @@ public class MSLXPluginEntry : IPlugin
     public static MSLXPluginEntry Instance { get; private set; } = null!;
 
     public string Id => "mslx-plugin-my-awesome";
-    public string Name => "我的超棒插件";
+    public string Name => "示例插件";
     public string Description => "插件功能简介...";
     public string Version => "1.0.0";
     public string Icon => "icon.png";
