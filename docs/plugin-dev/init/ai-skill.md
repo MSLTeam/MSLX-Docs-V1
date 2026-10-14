@@ -2,7 +2,7 @@
 title: 插件开发 AI SKILL
 createTime: 2026/10/14 15:45:00
 permalink: /plugin-dev/init/ai-skill/
-icon: brain
+icon: robot
 badge:
   text: AI
   type: tip
@@ -15,8 +15,6 @@ badge:
 该 Skill 深度适配 **Codex、Google Antigravity、Cursor、Workbuddy、Trace** 等主流 AI Agent 环境。通过将 MSLX 的前后端架构规范、`.design-card` 视觉规则、双端自适应排版规律以及安全防线约束注入 Agent 上下文，可大幅提升 AI 生成插件代码的原生融入度与稳定性。
 
 <RepoCard repo="MSLTeam/mslx-plugin-dev-skill" />
-
----
 
 ## 快速安装与接入
 
@@ -37,8 +35,6 @@ npx skills add MSLTeam/mslx-plugin-dev-skill
 :::
 
 安装成功后，Agent 将在涉及 MSLX 插件开发、调试、样式编写或代码审查任务时自动激活对应的指令集与设计规范。
-
----
 
 ## 自动化工程合规审计 (Audit)
 
@@ -69,8 +65,6 @@ npx @mslteam/mslx-plugin-dev-skill audit
    - 校验文件读写是否限定在 `this.Config().GetDataPath()` 沙箱内，排查潜在的路径穿越（`../../`）风险。
    - 检查事件总线（`SDK.MSLX.Events`）监听是否异步化（`Task.Run`），防止耗时任务阻塞宿主主执行流。
 
----
-
 ## 核心规范体系与参考文档
 
 Skill 内部封装了完整的 MSLX 插件全栈开发规范知识库：
@@ -83,8 +77,6 @@ Skill 内部封装了完整的 MSLX 插件全栈开发规范知识库：
 | **后端架构与 SDK (`backend-architecture.md`)** | `IPlugin` 生命周期钩子、`ApplicationPart` 特性声明、异步事件总线订阅、全局任务进度条与跨插件配置联动。 |
 | **全方位自我审查指南 (`self-audit-guide.md`)** | 覆盖视觉、样式隔离、双端响应式、高危安全漏洞及生命周期的 5 维度人工复核清单与打分表。 |
 | **脚手架与发布流程 (`project-scaffold-publish.md`)** | 官方 .NET CLI 模板使用、`ILRepack` 单文件 DLL 依赖合并构建及官方插件市场发布流程。 |
-
----
 
 ## 生产级标杆示例代码
 
