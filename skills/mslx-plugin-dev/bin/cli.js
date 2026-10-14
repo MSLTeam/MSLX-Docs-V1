@@ -40,23 +40,23 @@ ${c.bold}用法:${c.reset}
   npx mslx-skill <command> [options]
 
 ${c.bold}常用命令:${c.reset}
+  ${c.green}install, add${c.reset}      安装 Skill（默认调用 skills 官方工具，网络受限时自动降级为本地直装）
   ${c.green}audit, check${c.reset}      扫描当前插件项目，全面检测是否符合 MSLX 宿主规范、样式隔离与安全准则
-  ${c.green}install, add${c.reset}      将该 Skill 安装至当前工程（支持通用公开目录与主流 AI Agent 技能目录）
   ${c.green}info, view${c.reset}        查看 Skill 包含的规范、核心参考文档与标杆示例代码清单
   ${c.green}help, --help${c.reset}      查看此帮助信息
 
 ${c.bold}选项 (Options):${c.reset}
-  ${c.cyan}--skills-cli${c.reset}      在执行 install 时，通过 skills.sh 官方工具 (npx skills add) 执行安装
+  ${c.cyan}--local, --offline${c.reset}  跳过远程工具，强制直接使用本地内置包部署至各 Agent 目录
 
 ${c.bold}示例:${c.reset}
-  # 在插件根目录下执行合规审计
-  npx @mslteam/mslx-plugin-dev-skill audit
-
-  # 将技能安装至当前工作区各大 AI Agent 目录
+  # 默认通过 skills.sh 官方工具交互式安装至目标 Agent
   npx @mslteam/mslx-plugin-dev-skill install
 
-  # 通过 skills.sh 官方生态工具安装
-  npx @mslteam/mslx-plugin-dev-skill install --skills-cli
+  # 离线或纯本地部署模式
+  npx @mslteam/mslx-plugin-dev-skill install --local
+
+  # 在插件根目录下执行合规审计
+  npx @mslteam/mslx-plugin-dev-skill audit
 `);
 }
 
@@ -102,24 +102,26 @@ function handleInstall(targetDir, flags = {}) {
   printBanner();
   const cwd = process.cwd();
 
-  // 如果指定了使用 skills.sh 官方工具 (--skills-cli 或 --skills)
-  if (flags.useSkillsCli) {
+  // 默认直接调用 skills.sh 官方生态工具 (npx skills add)
+  // 当未显式传入 --local 或 --offline 时，优先执行官方交互式 Agent 安装
+  if (!flags.useLocal) {
     console.log('[INFO] 正在调用 skills.sh 官方工具 (npx skills add)...');
     const { execSync } = require('child_process');
     try {
-      execSync('npx skills add MSLTeam/MSLX-Docs-V1 --skill mslx-plugin-dev', {
+      const extraArgsStr = flags.extraArgs && flags.extraArgs.length > 0 ? ' ' + flags.extraArgs.join(' ') : '';
+      execSync(`npx skills add MSLTeam/MSLX-Docs-V1 --skill mslx-plugin-dev${extraArgsStr}`, {
         stdio: 'inherit',
         cwd: cwd
       });
-      console.log(`\n[SUCCESS] 官方 skills 工具安装完成。\n`);
+      console.log(`\n${c.green}${c.bold}[SUCCESS] 官方 skills 工具安装完成。${c.reset}\n`);
       return;
     } catch (e) {
-      console.error(`\n[ERROR] 调用 npx skills add 失败: ${e.message}`);
-      console.log('[INFO] 自动降级为本地 npm 包直装模式...\n');
+      console.error(`\n${c.yellow}[WARN] 官方 skills 工具调用未完成或网络异常: ${e.message}${c.reset}`);
+      console.log('[INFO] 正在自动切换为本地内置包部署模式...\n');
     }
   }
 
-  console.log('[INFO] 正在部署 MSLX Plugin Dev Skill 到工作区...');
+  console.log('[INFO] 正在将内置 MSLX Plugin Dev Skill 部署至工作区...');
 
   try {
     let installedDirs = [];
@@ -395,8 +397,9 @@ function main() {
   const args = process.argv.slice(2);
   const command = args[0] || 'help';
 
-  const useSkillsCli = args.includes('--skills') || args.includes('--skills-cli');
+  const useLocal = args.includes('--local') || args.includes('--offline');
   const targetDir = args.slice(1).find(a => !a.startsWith('-'));
+  const extraArgs = args.slice(1).filter(a => a !== '--local' && a !== '--offline' && a !== targetDir);
 
   switch (command) {
     case 'audit':
@@ -405,7 +408,7 @@ function main() {
       break;
     case 'install':
     case 'add':
-      handleInstall(targetDir, { useSkillsCli });
+      handleInstall(targetDir, { useLocal, extraArgs });
       break;
     case 'info':
     case 'view':

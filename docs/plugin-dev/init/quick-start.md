@@ -17,7 +17,7 @@ badge:
 ::: tip AI 辅助开发规范 (Agent Skill)
 MSLX 官方提供专用的 **插件全栈开发规范与视觉设计系统 Skill**，支持 Google Antigravity、Claude Code、Cursor、Windsurf 等 AI Agent 环境。
 
-通过 npm 安装至当前插件工程（内置主流 Agent 目录支持）：
+直接交互式安装至目标 Agent（默认调用 skills 官方工具，网络受限时自动降级为本地直装）：
 ```bash
 npx @mslteam/mslx-plugin-dev-skill install
 ```
@@ -27,8 +27,12 @@ npx @mslteam/mslx-plugin-dev-skill install
 npx @mslteam/mslx-plugin-dev-skill audit
 ```
 
-如使用 skills.sh 标准生态工具，亦可通过以下命令安装：
+离线部署模式或直接使用 skills.sh 原生命令：
 ```bash
+# 本地免网络直装
+npx @mslteam/mslx-plugin-dev-skill install --local
+
+# skills.sh 原生命令
 npx skills add MSLTeam/MSLX-Docs-V1 --skill mslx-plugin-dev
 ```
 :::
