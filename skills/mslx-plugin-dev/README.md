@@ -7,33 +7,15 @@
 
 ## 安装与接入 (Installation)
 
-### 方式一：默认安装（联动 skills.sh 官方工具，推荐）
-
-运行 `install` 命令时，默认直接调用 [skills.sh](https://skills.sh/) 官方工具，支持交互式选择目标 Agent（Claude Code、Cursor、Antigravity、Windsurf 等）；若检测到网络受限或执行异常，将自动降级为本地包直接部署：
+### 安装 Skill 至 AI Agent
 
 ```bash
-# 默认交互式安装至目标 Agent（支持透传官方参数）
 npx @mslteam/mslx-plugin-dev-skill install
-
-# 亦可直接执行 skills.sh 原生命令
-npx skills add MSLTeam/MSLX-Docs-V1 --skill mslx-plugin-dev
 ```
 
-### 方式二：本地离线直装模式
+### 工程规范自检 (Audit)
 
-在无网络或 GitHub 连接受限的环境下，可通过 `--local` 选项直接将 npm 包内置的规范部署至工作区（同时同步至通用公开目录及主流 Agent 技能目录）：
-
-```bash
-# 本地免网络直接部署至各 Agent 目录
-npx @mslteam/mslx-plugin-dev-skill install --local
-
-# 或指定自定义安装路径
-npx @mslteam/mslx-plugin-dev-skill install ./my-agent/skills --local
-```
-
-### 方式三：直接执行工程规范自检 (Audit)
-
-无需在项目中部署技能目录，在任意 MSLX 插件工程根目录下直接运行：
+在插件工程根目录下执行自动化合规审计：
 
 ```bash
 npx @mslteam/mslx-plugin-dev-skill audit

@@ -7,6 +7,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const { spawnSync } = require('child_process');
 
 const SKILL_ROOT = path.resolve(__dirname, '..');
 
@@ -40,20 +41,14 @@ ${c.bold}用法:${c.reset}
   npx mslx-skill <command> [options]
 
 ${c.bold}常用命令:${c.reset}
-  ${c.green}install, add${c.reset}      安装 Skill（默认调用 skills 官方工具，网络受限时自动降级为本地直装）
+  ${c.green}install, add${c.reset}      安装 Skill 至目标 AI Agent
   ${c.green}audit, check${c.reset}      扫描当前插件项目，全面检测是否符合 MSLX 宿主规范、样式隔离与安全准则
   ${c.green}info, view${c.reset}        查看 Skill 包含的规范、核心参考文档与标杆示例代码清单
   ${c.green}help, --help${c.reset}      查看此帮助信息
 
-${c.bold}选项 (Options):${c.reset}
-  ${c.cyan}--local, --offline${c.reset}  跳过远程工具，强制直接使用本地内置包部署至各 Agent 目录
-
 ${c.bold}示例:${c.reset}
-  # 默认通过 skills.sh 官方工具交互式安装至目标 Agent
+  # 安装技能至目标 Agent
   npx @mslteam/mslx-plugin-dev-skill install
-
-  # 离线或纯本地部署模式
-  npx @mslteam/mslx-plugin-dev-skill install --local
 
   # 在插件根目录下执行合规审计
   npx @mslteam/mslx-plugin-dev-skill audit
@@ -81,86 +76,18 @@ ${c.bold}标杆模板代码:${c.reset}
 `);
 }
 
-// 递归复制文件夹
-function copyFolderSync(from, to) {
-  if (!fs.existsSync(to)) {
-    fs.mkdirSync(to, { recursive: true });
-  }
-  const entries = fs.readdirSync(from, { withFileTypes: true });
-  for (const entry of entries) {
-    const srcPath = path.join(from, entry.name);
-    const destPath = path.join(to, entry.name);
-    if (entry.isDirectory()) {
-      copyFolderSync(srcPath, destPath);
-    } else {
-      fs.copyFileSync(srcPath, destPath);
-    }
-  }
-}
-
-function handleInstall(targetDir, flags = {}) {
-  printBanner();
-  const cwd = process.cwd();
-
-  // 默认直接调用 skills.sh 官方生态工具 (npx skills add)
-  // 当未显式传入 --local 或 --offline 时，优先执行官方交互式 Agent 安装
-  if (!flags.useLocal) {
-    console.log('[INFO] 正在调用 skills.sh 官方工具 (npx skills add)...');
-    const { execSync } = require('child_process');
-    try {
-      const extraArgsStr = flags.extraArgs && flags.extraArgs.length > 0 ? ' ' + flags.extraArgs.join(' ') : '';
-      execSync(`npx skills add MSLTeam/MSLX-Docs-V1 --skill mslx-plugin-dev${extraArgsStr}`, {
-        stdio: 'inherit',
-        cwd: cwd
-      });
-      console.log(`\n${c.green}${c.bold}[SUCCESS] 官方 skills 工具安装完成。${c.reset}\n`);
-      return;
-    } catch (e) {
-      console.error(`\n${c.yellow}[WARN] 官方 skills 工具调用未完成或网络异常: ${e.message}${c.reset}`);
-      console.log('[INFO] 正在自动切换为本地内置包部署模式...\n');
-    }
-  }
-
-  console.log('[INFO] 正在将内置 MSLX Plugin Dev Skill 部署至工作区...');
-
-  try {
-    let installedDirs = [];
-
-    if (targetDir) {
-      const customDest = path.resolve(cwd, targetDir);
-      copyFolderSync(SKILL_ROOT, customDest);
-      installedDirs.push({ label: '自定义目标目录', path: customDest });
-    } else {
-      // 默认同时安装至公开目录与主流 Agent 目录
-      const targetConfigs = [
-        { label: '公开查阅目录', path: path.resolve(cwd, 'skills', 'mslx-plugin-dev') },
-        { label: '通用 Agent (Antigravity/Gemini)', path: path.resolve(cwd, '.agents', 'skills', 'mslx-plugin-dev') },
-        { label: 'Claude Code', path: path.resolve(cwd, '.claude', 'skills', 'mslx-plugin-dev') },
-        { label: 'Cursor', path: path.resolve(cwd, '.cursor', 'skills', 'mslx-plugin-dev') },
-        { label: 'Windsurf', path: path.resolve(cwd, '.windsurf', 'skills', 'mslx-plugin-dev') }
-      ];
-
-      for (const cfg of targetConfigs) {
-        copyFolderSync(SKILL_ROOT, cfg.path);
-        installedDirs.push(cfg);
-      }
-    }
-
-    console.log(`\n${c.green}${c.bold}[SUCCESS] Skill 安装完成。已同步至以下目录:${c.reset}`);
-    installedDirs.forEach(it => {
-      console.log(`  - ${it.label}: ${c.cyan}${it.path}${c.reset}`);
-    });
-
-    console.log(`
-${c.bold}使用说明:${c.reset}
-  - 规范文档与标杆工程已在本地部署就绪，各 AI Agent 会自动加载并应用 MSLX 规范。
-  - 在当前工作区执行合规性审计: ${c.cyan}npx @mslteam/mslx-plugin-dev-skill audit${c.reset}
-  - 亦可直接调用 skills.sh 官方工具拉取: ${c.cyan}npx skills add MSLTeam/MSLX-Docs-V1 --skill mslx-plugin-dev${c.reset}
-`);
-  } catch (err) {
-    console.error(`\n${c.red}[ERROR] 安装失败: ${err.message}${c.reset}`);
+function handleInstall() {
+  const extraArgs = process.argv.slice(3);
+  const installArgs = ['-y', 'skills', 'add', 'MSLTeam/MSLX-Docs-V1', '--skill', 'mslx-plugin-dev', ...extraArgs];
+  const result = spawnSync('npx', installArgs, {
+    stdio: 'inherit',
+    shell: process.platform === 'win32'
+  });
+  if (result.error) {
+    console.error('Install failed:', result.error);
     process.exit(1);
   }
+  process.exit(result.status ?? 0);
 }
 
 // 递归查找目标文件
@@ -397,10 +324,6 @@ function main() {
   const args = process.argv.slice(2);
   const command = args[0] || 'help';
 
-  const useLocal = args.includes('--local') || args.includes('--offline');
-  const targetDir = args.slice(1).find(a => !a.startsWith('-'));
-  const extraArgs = args.slice(1).filter(a => a !== '--local' && a !== '--offline' && a !== targetDir);
-
   switch (command) {
     case 'audit':
     case 'check':
@@ -408,7 +331,7 @@ function main() {
       break;
     case 'install':
     case 'add':
-      handleInstall(targetDir, { useLocal, extraArgs });
+      handleInstall();
       break;
     case 'info':
     case 'view':
