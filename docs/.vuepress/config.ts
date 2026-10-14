@@ -87,7 +87,7 @@ export default defineUserConfig({
       provider: 'algolia',
       appId: 'GYUSSIM3DT',
       apiKey: '6ddbddd4c1ddc5cf9debef73203835ac',
-      indexName: 'MSLX Docs',
+      indices: ['MSLX Docs'],
     },
 
     /**
