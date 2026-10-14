@@ -5,8 +5,8 @@
  * 支持一键将当前 Skill 同时发布为：
  * 1. 组织级包: @mslteam/mslx-plugin-dev-skill
  * 2. 个人/全局包: mslx-plugin-dev-skill
- * 支持交互式输入 2FA OTP 验证码或通过 --otp=123456 参数传入。
- * 发布完成后自动恢复 package.json，不影响 Git 仓库与文档状态。
+ * 支持 Token 自动写入临时 .npmrc，支持 2FA OTP 验证码传入。
+ * 发布完成后自动恢复 package.json 与 .npmrc，不影响 Git 仓库状态。
  */
 
 const fs = require('fs');
@@ -14,29 +14,28 @@ const path = require('path');
 const readline = require('readline');
 const { execSync } = require('child_process');
 
-const pkgPath = path.resolve(__dirname, '..', 'package.json');
+const skillDir = path.resolve(__dirname, '..');
+const pkgPath = path.join(skillDir, 'package.json');
+const npmrcPath = path.join(skillDir, '.npmrc');
+
 const originalPkgStr = fs.readFileSync(pkgPath, 'utf8');
 const originalPkg = JSON.parse(originalPkgStr);
+
+const hadNpmrc = fs.existsSync(npmrcPath);
+const originalNpmrc = hadNpmrc ? fs.readFileSync(npmrcPath, 'utf8') : null;
 
 const packagesToPublish = [
   '@mslteam/mslx-plugin-dev-skill',
   'mslx-plugin-dev-skill'
 ];
 
-function askOtp() {
+function askInput(promptText) {
   return new Promise((resolve) => {
-    // 检查命令行参数中是否已传入 --otp=xxxxxx
-    const otpArg = process.argv.find((a) => a.startsWith('--otp='));
-    if (otpArg) {
-      return resolve(otpArg.split('=')[1].trim());
-    }
-
     const rl = readline.createInterface({
       input: process.stdin,
       output: process.stdout
     });
-
-    rl.question('🔑 请输入 npm 账号的 6 位 2FA 动态验证码 (OTP) [若未开启直接按回车]: ', (answer) => {
+    rl.question(promptText, (answer) => {
       rl.close();
       resolve(answer.trim());
     });
@@ -46,7 +45,21 @@ function askOtp() {
 async function main() {
   console.log('🚀 正在启动双通道 npm 发布助手 (组织级 + 个人/全局级)...\n');
 
-  let otp = await askOtp();
+  // 1. 检索或询问 Token
+  let token = process.argv.find((a) => a.startsWith('--token='))?.split('=')[1]
+           || process.env.NPM_TOKEN
+           || process.env.npm_config__auth_token;
+
+  if (token) {
+    console.log('🔑 已检测到传入的 NPM Token，正在配置专属安全认证通道...');
+    fs.writeFileSync(npmrcPath, `//registry.npmjs.org/:_authToken=${token.trim()}\n`);
+  }
+
+  // 2. 检索或询问 2FA OTP
+  let otp = process.argv.find((a) => a.startsWith('--otp='))?.split('=')[1];
+  if (!otp && !token) {
+    otp = await askInput('🔑 若账号开启了 2FA，请输入 6 位动态验证码 (OTP) [若使用 Token 或未开启直接按回车]: ');
+  }
   console.log('');
 
   try {
@@ -61,12 +74,12 @@ async function main() {
 
       try {
         execSync(cmd, {
-          cwd: path.resolve(__dirname, '..'),
+          cwd: skillDir,
           stdio: 'inherit'
         });
         console.log(`✔ ${name} 发布成功！\n`);
       } catch (cmdErr) {
-        console.error(`\n⚠️ ${name} 发布失败。若提示 2FA 错误，请核对 Authenticator 验证码或重新运行。\n`);
+        console.error(`\n⚠️ ${name} 发布失败。\n`);
         throw cmdErr;
       }
     }
@@ -75,9 +88,20 @@ async function main() {
     console.error('\n✘ 发布中断:', err.message);
     process.exitCode = 1;
   } finally {
-    // 绝对保证恢复原始 package.json，避免工作区被污染
+    // 恢复原始 package.json
     fs.writeFileSync(pkgPath, originalPkgStr);
-    console.log('✨ package.json 已恢复为默认规范包名: @mslteam/mslx-plugin-dev-skill\n');
+    console.log('✨ package.json 已恢复为默认规范包名: @mslteam/mslx-plugin-dev-skill');
+
+    // 清理或恢复临时 .npmrc，避免 Token 泄露
+    if (token) {
+      if (hadNpmrc && originalNpmrc !== null) {
+        fs.writeFileSync(npmrcPath, originalNpmrc);
+      } else if (fs.existsSync(npmrcPath)) {
+        fs.unlinkSync(npmrcPath);
+      }
+      console.log('🔒 临时认证缓存已自动清除。');
+    }
+    console.log('');
   }
 }
 
