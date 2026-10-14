@@ -35,7 +35,8 @@
   },
   "scripts": {
     "audit": "node ./bin/cli.js audit",
-    "test": "node ./bin/cli.js --help"
+    "test": "node ./bin/cli.js --help",
+    "publish:both": "node ./bin/publish-both.js"
   },
   "engines": {
     "node": ">=18.0.0"

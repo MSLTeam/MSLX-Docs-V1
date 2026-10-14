@@ -55,10 +55,17 @@ jobs:
         run: |
           node ./bin/cli.js --help
 
-      # 使用 npm Trusted Publishing (OIDC) 进行免密安全发布，并附带可验证的 Provenance 溯源证书
-      - name: 发布至 npm 官方仓库 (Trusted Publishing OIDC)
+      # 1. 发布组织级官方包: @mslteam/mslx-plugin-dev-skill (文档与官方对外推荐)
+      - name: 发布组织级包 @mslteam/mslx-plugin-dev-skill (Trusted Publishing OIDC)
         run: |
           npm publish --provenance --access public
         env:
-          # 若配置了 npm Trusted Publishing，无需任何长期密钥；若未配置，可使用传统的 NPM_TOKEN 进行兜底
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      # 2. 发布全局/个人别名包: mslx-plugin-dev-skill (占位防护与无 Scope 容错)
+      - name: 发布全局别名包 mslx-plugin-dev-skill (Trusted Publishing OIDC)
+        run: |
+          node -e "const fs = require('fs'); const p = JSON.parse(fs.readFileSync('package.json', 'utf8')); p.name = 'mslx-plugin-dev-skill'; fs.writeFileSync('package.json', JSON.stringify(p, null, 2) + '\n');"
+          npm publish --provenance --access public || echo "mslx-plugin-dev-skill 发布略过或需配置发布权限"
+        env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
