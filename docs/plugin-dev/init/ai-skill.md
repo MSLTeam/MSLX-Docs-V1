@@ -2,7 +2,7 @@
 title: 插件开发 AI SKILL
 createTime: 2026/10/14 15:45:00
 permalink: /plugin-dev/init/ai-skill/
-icon: robot
+icon: wand-magic-sparkles
 badge:
   text: AI
   type: tip
