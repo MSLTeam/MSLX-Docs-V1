@@ -36,21 +36,21 @@ function printHelp() {
   printBanner();
   console.log(`
 ${c.bold}用法:${c.reset}
-  npx mslx-plugin-dev-skill <command> [options]
+  npx @mslteam/mslx-plugin-dev-skill <command> [options]
   npx mslx-skill <command> [options]
 
 ${c.bold}常用命令:${c.reset}
   ${c.green}audit, check${c.reset}      扫描当前插件项目，全面检测是否符合 MSLX 宿主规范、样式隔离与安全防线
-  ${c.green}install, add${c.reset}      将该 Skill 安装/复制到当前工程的 Agent 目录 (.agents/skills)
+  ${c.green}install, add${c.reset}      将该 Skill 安装/复制到当前工程的公开与 Agent 目录
   ${c.green}info, view${c.reset}        查看 Skill 包含的规范、核心参考文档与标杆示例代码清单
   ${c.green}help, --help${c.reset}      查看此帮助信息
 
 ${c.bold}示例:${c.reset}
   ${c.dim}# 在你的插件根目录下执行全方位体检诊断${c.reset}
-  npx mslx-plugin-dev-skill audit
+  npx @mslteam/mslx-plugin-dev-skill audit
 
-  ${c.dim}# 将技能一键安装至当前工作区的 .agents 目录供 AI Agent 读取${c.reset}
-  npx mslx-plugin-dev-skill install
+  ${c.dim}# 将技能一键安装至当前工作区供 AI Agent 读取${c.reset}
+  npx @mslteam/mslx-plugin-dev-skill install
 `);
 }
 
@@ -116,7 +116,7 @@ function handleInstall(targetDir) {
     console.log(`
 💡 ${c.bold}国内高速生态支持:${c.reset}
   - 本次安装完全基于 ${c.green}npm / npmmirror 国内镜像源${c.reset}，无需经由 GitHub，速度秒级！
-  - 以后在任意 MSLX 插件工程下，可直接运行 ${c.cyan}npx mslx-plugin-dev-skill audit${c.reset} 进行合规体检。
+  - 以后在任意 MSLX 插件工程下，可直接运行 ${c.cyan}npx @mslteam/mslx-plugin-dev-skill audit${c.reset} 进行合规体检。
   - AI 编码助手在检测到工作区技能后，将自动为您遵循双端自适应与 design-card 视觉规范。
 `);
   } catch (err) {

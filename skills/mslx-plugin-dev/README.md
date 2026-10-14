@@ -1,4 +1,4 @@
-# MSLX Plugin Dev Skill (`mslx-plugin-dev-skill`)
+# MSLX Plugin Dev Skill (`@mslteam/mslx-plugin-dev-skill`)
 
 > **MSLX 官方全栈插件开发规范与视觉设计系统 Skill**  
 > 专为 AI Agent（Google Antigravity、Claude Code、Cursor、OpenCode 等）与开发者打造，深度沉淀 MSLX 宿主交互契合度、双端自适应响应式布局、`.design-card` 视觉体系复用及自动化工程自检。
@@ -7,36 +7,32 @@
 
 ## 🚀 快速接入 (Installation)
 
-你可以通过以下任一方式接入此技能：
+### 方式 1：通过 npm 高速安装（国内推荐，秒速完成）
 
-### 方式 1：通过 `npx skills` 一键安装（推荐）
-
-符合 [skills.sh](https://skills.sh/) 官方规范，直接从 GitHub 仓库安装到你的 AI Agent：
+完全基于 npm 国内镜像源（如 npmmirror），免除 GitHub 网络阻断困扰：
 
 ```bash
-# 安装至当前项目
-npx skills add MSLTeam/MSLX-Docs-V1 --skill mslx-plugin-dev
-
-# 或全局安装至用户目录
-npx skills add MSLTeam/MSLX-Docs-V1 --skill mslx-plugin-dev -g
-```
-
-### 方式 2：通过 npm / npx 运行与安装
-
-```bash
-# 将 Skill 安装到当前插件项目的 .agents/skills 目录
-npx mslx-plugin-dev-skill install
+# 将 Skill 一键安装至当前插件工程（同时生成可见目录与 Agent 识别目录）
+npx @mslteam/mslx-plugin-dev-skill install
 
 # 或指定自定义安装路径
-npx mslx-plugin-dev-skill install ./my-agent/skills
+npx @mslteam/mslx-plugin-dev-skill install ./my-agent/skills
 ```
 
-### 方式 3：直接在插件工程中执行自动化体检审计 (Audit)
+### 方式 2：直接在插件工程中执行自动化体检审计 (Audit)
 
-无需安装，直接在任意 MSLX 插件工程根目录下运行，即刻扫描代码规范、样式隔离与安全漏洞：
+无需安装，在任意 MSLX 插件工程根目录下直接运行：
 
 ```bash
-npx mslx-plugin-dev-skill audit
+npx @mslteam/mslx-plugin-dev-skill audit
+```
+
+### 方式 3：通过 GitHub 官方生态一键安装 (海外环境)
+
+符合 [skills.sh](https://skills.sh/) 规范：
+
+```bash
+npx skills add MSLTeam/MSLX-Docs-V1 --skill mslx-plugin-dev
 ```
 
 ---

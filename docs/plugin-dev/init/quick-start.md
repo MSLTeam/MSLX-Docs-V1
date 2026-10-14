@@ -19,10 +19,10 @@ MSLX 官方为 AI Coding Agent（Google Antigravity、Claude Code、Cursor 等�
 支持直接走 npm（国内秒速拉取，无需连接 GitHub）：
 ```bash
 # 一键安装技能至当前工程（支持 npmmirror 国内镜像）
-npx mslx-plugin-dev-skill install
+npx @mslteam/mslx-plugin-dev-skill install
 
 # 或在插件根目录下直接进行全方位代码合规与安全漏洞自检
-npx mslx-plugin-dev-skill audit
+npx @mslteam/mslx-plugin-dev-skill audit
 ```
 *（海外环境亦支持官方生态安装：`npx skills add MSLTeam/MSLX-Docs-V1 --skill mslx-plugin-dev`）*
 :::

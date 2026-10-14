@@ -70,7 +70,7 @@ dotnet build -c Release
 ### 3. 自动化体检审计 (Pre-flight Audit)
 ```bash
 # 在插件工程根目录下运行自动化体检（检测未加 scoped、白底硬编码、路径穿越等）
-npx mslx-plugin-dev-skill audit
+npx @mslteam/mslx-plugin-dev-skill audit
 ```
 
 ---

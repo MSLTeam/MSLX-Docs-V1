@@ -1,5 +1,5 @@
 {
-  "name": "mslx-plugin-dev-skill",
+  "name": "@mslteam/mslx-plugin-dev-skill",
   "version": "1.0.0",
   "description": "MSLX 官方全栈插件开发规范与视觉设计系统 Skill（支持双端响应式、design-card 复用与自动化工程体检审计）",
   "main": "bin/cli.js",
