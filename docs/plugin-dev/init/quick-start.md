@@ -15,7 +15,7 @@ badge:
 使用该模板可以快速生成规范的前后端全栈插件工程，自动完成 C# 命名空间、程序集名称、`ApplicationPart` 特性声明、Controller 路由前缀、前端包名及组件标识的替换，并内置了用于发布时自动合并依赖的 `ILRepack` 编译逻辑。
 
 ::: tip AI 辅助开发规范 (Agent Skill)
-MSLX 官方提供专用的 **插件全栈开发规范与视觉设计系统 Skill**，支持 Codex、Google Antigravity、Cursor、Workbuddy、Trace 等 AI Agent 环境。通过安装该 Skill，可实现工程开发规范注入与静态代码合规性自动审查。
+MSLX 官方提供专用的 **插件全栈开发规范与视觉设计系统 Skill**，支持 Codex、Google Antigravity、Cursor、Workbuddy、Trae 等 AI Agent 环境。通过安装该 Skill，可实现工程开发规范注入与静态代码合规性自动审查。
 
 [>>> 查阅接入指南与安装说明 **插件开发 AI SKILL**](/plugin-dev/init/ai-skill/){.read-more}
 :::

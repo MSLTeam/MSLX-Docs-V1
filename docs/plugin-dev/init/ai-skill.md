@@ -12,7 +12,7 @@ badge:
 
 为了让智能编程助手（AI Agent）在编写、修改、重构或审计 MSLX 插件时严格遵循官方技术标准，MSLX 官方提供了专用的 **插件全栈开发规范与视觉设计系统 Skill**（npm 包：`@mslteam/mslx-plugin-dev-skill`）。
 
-该 Skill 深度适配 **Codex、Google Antigravity、Cursor、Workbuddy、Trace** 等主流 AI Agent 环境。通过将 MSLX 的前后端架构规范、`.design-card` 视觉规则、双端自适应排版规律以及安全防线约束注入 Agent 上下文，可大幅提升 AI 生成插件代码的原生融入度与稳定性。
+该 Skill 深度适配 **Codex、Google Antigravity、Cursor、Workbuddy、Trae** 等主流 AI Agent 环境。通过将 MSLX 的前后端架构规范、`.design-card` 视觉规则、双端自适应排版规律以及安全防线约束注入 Agent 上下文，可大幅提升 AI 生成插件代码的原生融入度与稳定性。
 
 <RepoCard repo="MSLTeam/mslx-plugin-dev-skill" />
 

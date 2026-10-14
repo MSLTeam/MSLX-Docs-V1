@@ -24,7 +24,7 @@ MSLX 插件目前目前由后端插件+前端UI组件组成。（桌面客户端
 :::
 
 ## AI 辅助开发
-除了直接投喂 [llms.txt](/llms.txt) 与 [llms-full.txt](/llms-full.txt) 外，推荐直接接入官方 **插件开发 AI SKILL**，支持 Codex、Google Antigravity、Cursor、Workbuddy、Trace 等智能编程环境。
+除了直接投喂 [llms.txt](/llms.txt) 与 [llms-full.txt](/llms-full.txt) 外，推荐直接接入官方 **插件开发 AI SKILL**，支持 Codex、Google Antigravity、Cursor、Workbuddy、Trae 等智能编程环境。
 
 [>>> 查阅接入指南与安装说明 **插件开发 AI SKILL**](/plugin-dev/init/ai-skill/){.read-more}
 
