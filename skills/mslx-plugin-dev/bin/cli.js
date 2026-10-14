@@ -27,7 +27,7 @@ const c = {
 function printBanner() {
   console.log(`
 ${c.cyan}${c.bold}======================================================
-  🧩 MSLX Plugin Dev Skill - 官方插件开发与审查引擎
+  MSLX Plugin Dev Skill - 插件开发与审查引擎
 ======================================================${c.reset}
 `);
 }
@@ -40,17 +40,23 @@ ${c.bold}用法:${c.reset}
   npx mslx-skill <command> [options]
 
 ${c.bold}常用命令:${c.reset}
-  ${c.green}audit, check${c.reset}      扫描当前插件项目，全面检测是否符合 MSLX 宿主规范、样式隔离与安全防线
-  ${c.green}install, add${c.reset}      将该 Skill 安装/复制到当前工程的公开与 Agent 目录
+  ${c.green}audit, check${c.reset}      扫描当前插件项目，全面检测是否符合 MSLX 宿主规范、样式隔离与安全准则
+  ${c.green}install, add${c.reset}      将该 Skill 安装至当前工程（支持通用公开目录与主流 AI Agent 技能目录）
   ${c.green}info, view${c.reset}        查看 Skill 包含的规范、核心参考文档与标杆示例代码清单
   ${c.green}help, --help${c.reset}      查看此帮助信息
 
+${c.bold}选项 (Options):${c.reset}
+  ${c.cyan}--skills-cli${c.reset}      在执行 install 时，通过 skills.sh 官方工具 (npx skills add) 执行安装
+
 ${c.bold}示例:${c.reset}
-  ${c.dim}# 在你的插件根目录下执行全方位体检诊断${c.reset}
+  # 在插件根目录下执行合规审计
   npx @mslteam/mslx-plugin-dev-skill audit
 
-  ${c.dim}# 将技能一键安装至当前工作区供 AI Agent 读取${c.reset}
+  # 将技能安装至当前工作区各大 AI Agent 目录
   npx @mslteam/mslx-plugin-dev-skill install
+
+  # 通过 skills.sh 官方生态工具安装
+  npx @mslteam/mslx-plugin-dev-skill install --skills-cli
 `);
 }
 
@@ -92,35 +98,65 @@ function copyFolderSync(from, to) {
   }
 }
 
-function handleInstall(targetDir) {
+function handleInstall(targetDir, flags = {}) {
   printBanner();
   const cwd = process.cwd();
 
-  // 1. 计算安装目标路径
-  let primaryDest = targetDir ? path.resolve(cwd, targetDir) : path.resolve(cwd, 'skills', 'mslx-plugin-dev');
-  let agentDest = path.resolve(cwd, '.agents', 'skills', 'mslx-plugin-dev');
+  // 如果指定了使用 skills.sh 官方工具 (--skills-cli 或 --skills)
+  if (flags.useSkillsCli) {
+    console.log('[INFO] 正在调用 skills.sh 官方工具 (npx skills add)...');
+    const { execSync } = require('child_process');
+    try {
+      execSync('npx skills add MSLTeam/MSLX-Docs-V1 --skill mslx-plugin-dev', {
+        stdio: 'inherit',
+        cwd: cwd
+      });
+      console.log(`\n[SUCCESS] 官方 skills 工具安装完成。\n`);
+      return;
+    } catch (e) {
+      console.error(`\n[ERROR] 调用 npx skills add 失败: ${e.message}`);
+      console.log('[INFO] 自动降级为本地 npm 包直装模式...\n');
+    }
+  }
 
-  console.log(`📦 正在通过 npm 安装 MSLX Plugin Dev Skill...`);
-  console.log(`   - 公开可见目录: ${c.cyan}${primaryDest}${c.reset}`);
-  console.log(`   - AI Agent 目录: ${c.cyan}${agentDest}${c.reset}\n`);
+  console.log('[INFO] 正在部署 MSLX Plugin Dev Skill 到工作区...');
 
   try {
-    // 拷贝至公开可见目录（便于在 macOS Finder / 文件树中直接查阅）
-    copyFolderSync(SKILL_ROOT, primaryDest);
-    // 同时同步至 .agents/skills 目录（确保 Google Antigravity、Claude Code、Cursor 等原生即开即用）
-    if (primaryDest !== agentDest) {
-      copyFolderSync(SKILL_ROOT, agentDest);
+    let installedDirs = [];
+
+    if (targetDir) {
+      const customDest = path.resolve(cwd, targetDir);
+      copyFolderSync(SKILL_ROOT, customDest);
+      installedDirs.push({ label: '自定义目标目录', path: customDest });
+    } else {
+      // 默认同时安装至公开目录与主流 Agent 目录
+      const targetConfigs = [
+        { label: '公开查阅目录', path: path.resolve(cwd, 'skills', 'mslx-plugin-dev') },
+        { label: '通用 Agent (Antigravity/Gemini)', path: path.resolve(cwd, '.agents', 'skills', 'mslx-plugin-dev') },
+        { label: 'Claude Code', path: path.resolve(cwd, '.claude', 'skills', 'mslx-plugin-dev') },
+        { label: 'Cursor', path: path.resolve(cwd, '.cursor', 'skills', 'mslx-plugin-dev') },
+        { label: 'Windsurf', path: path.resolve(cwd, '.windsurf', 'skills', 'mslx-plugin-dev') }
+      ];
+
+      for (const cfg of targetConfigs) {
+        copyFolderSync(SKILL_ROOT, cfg.path);
+        installedDirs.push(cfg);
+      }
     }
 
-    console.log(`${c.green}${c.bold}✔ 安装成功！${c.reset}`);
+    console.log(`\n${c.green}${c.bold}[SUCCESS] Skill 安装完成。已同步至以下目录:${c.reset}`);
+    installedDirs.forEach(it => {
+      console.log(`  - ${it.label}: ${c.cyan}${it.path}${c.reset}`);
+    });
+
     console.log(`
-💡 ${c.bold}国内高速生态支持:${c.reset}
-  - 本次安装完全基于 ${c.green}npm / npmmirror 国内镜像源${c.reset}，无需经由 GitHub，速度秒级！
-  - 以后在任意 MSLX 插件工程下，可直接运行 ${c.cyan}npx @mslteam/mslx-plugin-dev-skill audit${c.reset} 进行合规体检。
-  - AI 编码助手在检测到工作区技能后，将自动为您遵循双端自适应与 design-card 视觉规范。
+${c.bold}使用说明:${c.reset}
+  - 规范文档与标杆工程已在本地部署就绪，各 AI Agent 会自动加载并应用 MSLX 规范。
+  - 在当前工作区执行合规性审计: ${c.cyan}npx @mslteam/mslx-plugin-dev-skill audit${c.reset}
+  - 亦可直接调用 skills.sh 官方工具拉取: ${c.cyan}npx skills add MSLTeam/MSLX-Docs-V1 --skill mslx-plugin-dev${c.reset}
 `);
   } catch (err) {
-    console.error(`${c.red}✘ 安装失败: ${err.message}${c.reset}`);
+    console.error(`\n${c.red}[ERROR] 安装失败: ${err.message}${c.reset}`);
     process.exit(1);
   }
 }
@@ -146,7 +182,7 @@ function findFiles(dir, extensions, ignoreDirs = ['node_modules', '.git', 'bin',
 
 function handleAudit() {
   printBanner();
-  console.log(`🔍 正在扫描当前工作区插件工程合规性: ${c.cyan}${process.cwd()}${c.reset}\n`);
+  console.log(`[INFO] 正在扫描当前工作区插件工程合规性: ${c.cyan}${process.cwd()}${c.reset}\n`);
 
   const cwd = process.cwd();
   const vueFiles = findFiles(cwd, ['.vue']);
@@ -320,15 +356,15 @@ function handleAudit() {
 
   // 4. 汇总与输出报告
   console.log(`${c.bold}------------------- 审查报告 -------------------${c.reset}`);
-  console.log(`📁 扫描文件: ${vueFiles.length} 个 Vue 组件, ${csFiles.length} 个 C# 源文件\n`);
+  console.log(`扫描文件清单: ${vueFiles.length} 个 Vue 组件, ${csFiles.length} 个 C# 源文件\n`);
 
   if (issues.length === 0 && warnings.length === 0) {
-    console.log(`${c.bgGreen}${c.bold} PASS ${c.reset} ${c.green}${c.bold}完美！您的插件完全符合 MSLX 宿主设计与安全规范！${c.reset}\n`);
+    console.log(`${c.bgGreen}${c.bold} PASS ${c.reset} ${c.green}${c.bold}所有检查项均已通过，插件完全符合 MSLX 宿主设计与安全规范。${c.reset}\n`);
     return;
   }
 
   if (issues.length > 0) {
-    console.log(`${c.bgRed}${c.bold} 严重问题 (${issues.length}) ${c.reset} ${c.red}必须修复后方可发布：${c.reset}`);
+    console.log(`${c.bgRed}${c.bold} 严重违规 (${issues.length}) ${c.reset} ${c.red}必须修复后方可发布：${c.reset}`);
     issues.forEach((it, i) => {
       console.log(`  ${c.red}${i + 1}. [${it.title}]${c.reset} ${c.dim}${it.file}${c.reset}`);
       console.log(`     说明: ${it.desc}`);
@@ -337,7 +373,7 @@ function handleAudit() {
   }
 
   if (warnings.length > 0) {
-    console.log(`${c.yellow}${c.bold} 优化建议 (${warnings.length}) ${c.reset} ${c.dim}建议优化以获得最佳双端体验与宿主融合度：${c.reset}`);
+    console.log(`${c.yellow}${c.bold} 建议改进 (${warnings.length}) ${c.reset} ${c.dim}建议优化以获得更佳的双端响应式体验与宿主融入度：${c.reset}`);
     warnings.forEach((it, i) => {
       console.log(`  ${c.yellow}${i + 1}. [${it.title}]${c.reset} ${c.dim}${it.file}${c.reset}`);
       console.log(`     说明: ${it.desc}`);
@@ -347,10 +383,10 @@ function handleAudit() {
 
   console.log(`${c.bold}------------------------------------------------${c.reset}`);
   if (issues.length > 0) {
-    console.log(`${c.red}✘ 审计未通过，存在 ${issues.length} 个阻断性问题。${c.reset}\n`);
+    console.log(`${c.red}[FAIL] 审计未通过，存在 ${issues.length} 个阻断性问题。${c.reset}\n`);
     process.exit(1);
   } else {
-    console.log(`${c.green}✔ 基础合规性校验通过，但有 ${warnings.length} 项体验建议可优化。${c.reset}\n`);
+    console.log(`${c.green}[PASS] 基础合规性校验通过，检测到 ${warnings.length} 项体验优化建议。${c.reset}\n`);
   }
 }
 
@@ -359,6 +395,9 @@ function main() {
   const args = process.argv.slice(2);
   const command = args[0] || 'help';
 
+  const useSkillsCli = args.includes('--skills') || args.includes('--skills-cli');
+  const targetDir = args.slice(1).find(a => !a.startsWith('-'));
+
   switch (command) {
     case 'audit':
     case 'check':
@@ -366,7 +405,7 @@ function main() {
       break;
     case 'install':
     case 'add':
-      handleInstall(args[1]);
+      handleInstall(targetDir, { useSkillsCli });
       break;
     case 'info':
     case 'view':
@@ -378,7 +417,7 @@ function main() {
       printHelp();
       break;
     default:
-      console.error(`${c.red}未知命令: ${command}${c.reset}\n`);
+      console.error(`${c.red}[ERROR] 未知命令: ${command}${c.reset}\n`);
       printHelp();
       process.exit(1);
   }

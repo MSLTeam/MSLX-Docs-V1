@@ -13,7 +13,7 @@ description: >-
 
 ---
 
-## ⚡ 开发五大铁律 (Golden Rules)
+## 核心开发准则 (Golden Rules)
 
 ### 1. 宿主视觉融入：强制复用 `design-card` 与 TDesign 变量
 * **卡片顶层类名**：所有卡片容器**必须**声明 `class="design-card ..."`。宿主 WebPanel 布局引擎通过 `:deep(.design-card)` 为亮色模式动态注入透明度 `--comp-op-light`、暗色模式注入 `--comp-op-dark`。
@@ -46,15 +46,15 @@ description: >-
 
 ---
 
-## 🛠️ 快速开发常用命令
+## 常用开发命令
 
 ### 1. 脚手架与环境初始化
 ```bash
 # 1. 安装官方 .NET 插件脚手架模板
 dotnet new install MSLX.Plugin.Templates
 
-# 2. 一键创建全新插件工程
-dotnet new mslx-plugin -n MSLX.Plugin.MyAwesome --plugin-id mslx-plugin-awesome --plugin-name "我的超棒插件" --plugin-author "开发者ID"
+# 2. 创建插件工程
+dotnet new mslx-plugin -n MSLX.Plugin.MyDemo --plugin-id mslx-plugin-demo --plugin-name "示例插件" --plugin-author "开发者名称"
 
 # 3. 前端热重载调试 (在插件 Frontend 目录下)
 pnpm install
@@ -67,17 +67,17 @@ pnpm dev:plugin
 dotnet build -c Release
 ```
 
-### 3. 自动化体检审计 (Pre-flight Audit)
+### 3. 自动化工程合规审计 (Pre-flight Audit)
 ```bash
-# 在插件工程根目录下运行自动化体检（检测未加 scoped、白底硬编码、路径穿越等）
+# 在插件工程根目录下运行自动化审计
 npx @mslteam/mslx-plugin-dev-skill audit
 ```
 
 ---
 
-## 📚 详细设计与接入规范速查
+## 规范文档索引
 
-根据具体开发任务，深入查阅对应的参考规范：
+根据具体开发任务，查阅对应的参考规范：
 
 * **视觉规范与 design-card 深度解析**：查阅 [frontend-design-system.md](./references/frontend-design-system.md)
 * **前端路由、9 大扩展插槽与 Host API**：查阅 [frontend-integration.md](./references/frontend-integration.md)
@@ -87,7 +87,7 @@ npx @mslteam/mslx-plugin-dev-skill audit
 
 ---
 
-## 🧩 生产级标杆示例代码
+## 生产级标杆示例代码
 
 * **前端标杆 Vue 3 组件**：[examples/DesignCardExample.vue](./examples/DesignCardExample.vue)
   * 内置完整 `design-card`、自适应头部（PC 横排 / 手机纵折叠）、2/4 列统计磁贴、过滤工具栏、数据卡片流与暗黑模式适配。
@@ -98,10 +98,10 @@ npx @mslteam/mslx-plugin-dev-skill audit
 
 ---
 
-## 🎯 发布前自检行动清单 (Checklist)
+## 发布前自检清单 (Checklist)
 
-在提交插件或声称开发完成前，逐项核对：
-- [ ] 运行 `npx mslx-plugin-dev-skill audit` 并确保 **0 个严重问题**。
+在提交插件或完成开发前，逐项核对：
+- [ ] 运行 `npx @mslteam/mslx-plugin-dev-skill audit` 并确保 **0 个严重违规**。
 - [ ] 根容器是否使用了 `design-card`，并在暗黑模式和白昼模式下分别验证过。
 - [ ] 在 375px（手机宽度）与 1440px（PC 桌面）视口下分别检查了界面折叠与排版。
 - [ ] 表格外部包裹了 `overflow-x-auto`，弹窗添加了 `attach="body"`。

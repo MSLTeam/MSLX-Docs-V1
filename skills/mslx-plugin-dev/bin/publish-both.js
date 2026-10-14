@@ -43,7 +43,7 @@ function askInput(promptText) {
 }
 
 async function main() {
-  console.log('🚀 正在启动双通道 npm 发布助手 (组织级 + 个人/全局级)...\n');
+  console.log('[INFO] 正在启动双通道 npm 发布助手 (组织级 + 个人/全局级)...\n');
 
   // 1. 检索或询问 Token
   let token = process.argv.find((a) => a.startsWith('--token='))?.split('=')[1]
@@ -51,20 +51,20 @@ async function main() {
            || process.env.npm_config__auth_token;
 
   if (token) {
-    console.log('🔑 已检测到传入的 NPM Token，正在配置专属安全认证通道...');
+    console.log('[INFO] 检测到传入的 NPM Token，正在配置临时认证配置...');
     fs.writeFileSync(npmrcPath, `//registry.npmjs.org/:_authToken=${token.trim()}\n`);
   }
 
   // 2. 检索或询问 2FA OTP
   let otp = process.argv.find((a) => a.startsWith('--otp='))?.split('=')[1];
   if (!otp && !token) {
-    otp = await askInput('🔑 若账号开启了 2FA，请输入 6 位动态验证码 (OTP) [若使用 Token 或未开启直接按回车]: ');
+    otp = await askInput('若账号开启了 2FA，请输入 6 位动态验证码 (OTP) [若使用 Token 或未开启直接按回车]: ');
   }
   console.log('');
 
   try {
     for (const name of packagesToPublish) {
-      console.log(`📦 [${packagesToPublish.indexOf(name) + 1}/${packagesToPublish.length}] 正在发布 ${name} ...`);
+      console.log(`[INFO] [${packagesToPublish.indexOf(name) + 1}/${packagesToPublish.length}] 正在发布 ${name} ...`);
       const currentPkg = JSON.parse(JSON.stringify(originalPkg));
       currentPkg.name = name;
       fs.writeFileSync(pkgPath, JSON.stringify(currentPkg, null, 2) + '\n');
@@ -77,20 +77,20 @@ async function main() {
           cwd: skillDir,
           stdio: 'inherit'
         });
-        console.log(`✔ ${name} 发布成功！\n`);
+        console.log(`[SUCCESS] ${name} 发布成功。\n`);
       } catch (cmdErr) {
-        console.error(`\n⚠️ ${name} 发布失败。\n`);
+        console.error(`\n[ERROR] ${name} 发布失败。\n`);
         throw cmdErr;
       }
     }
-    console.log('🎉 双通道发布全部顺利完成！');
+    console.log('[SUCCESS] 双通道发布全部完成。');
   } catch (err) {
-    console.error('\n✘ 发布中断:', err.message);
+    console.error('\n[ERROR] 发布中断:', err.message);
     process.exitCode = 1;
   } finally {
     // 恢复原始 package.json
     fs.writeFileSync(pkgPath, originalPkgStr);
-    console.log('✨ package.json 已恢复为默认规范包名: @mslteam/mslx-plugin-dev-skill');
+    console.log('[INFO] package.json 已恢复为默认规范包名: @mslteam/mslx-plugin-dev-skill');
 
     // 清理或恢复临时 .npmrc，避免 Token 泄露
     if (token) {
@@ -99,7 +99,7 @@ async function main() {
       } else if (fs.existsSync(npmrcPath)) {
         fs.unlinkSync(npmrcPath);
       }
-      console.log('🔒 临时认证缓存已自动清除。');
+      console.log('[INFO] 临时认证配置已自动清除。');
     }
     console.log('');
   }
