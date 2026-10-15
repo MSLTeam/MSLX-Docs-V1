@@ -34,7 +34,7 @@ MSLX 宿主项目在全局 `window` 对象上暴露了底层核心依赖库、�
 
 | Store 名称 | 导出的 Hook / 函数 | 作用与内部常用状态/方法 |
 | :--- | :--- | :--- |
-| **user** | `useUserStore()`, `getUserStore()` | **用户与系统状态**：`userInfo`（包含用户名 `name`、头像 `avatar`、角色 `roles`、操作系统 `systemInfo`）、`token`、`baseUrl`、`isAdmin`、`getUserInfo()`、`logout()` 等。 |
+| **user** | `useUserStore()`, `getUserStore()` | **用户与系统状态**：`userInfo`（包含用户名 `name`、头像 `avatar`、角色 `roles`、操作系统 `systemInfo`）、`token`、`baseUrl`、`isAdmin`、`getUserInfo()`、`logout()`；媒体与下载降权凭据 <Badge type="tip" text="1.7.3" />：`getMediaToken()`、`getSyncMediaToken()`、`getMediaTokenParam()`、`getDownloadToken()`、`getSyncDownloadToken()`。 |
 | **setting** | `useSettingStore()`, `getSettingStore()` | **外观与主题**：`mode` ('dark' \| 'light' \| 'auto')、`displayMode`、`brandTheme` (主色调)、`changeMode()`、`updateConfig()` 等。 |
 | **permission** | `usePermissionStore()`, `getPermissionStore()` | **路由权限管理**：`routers` (已授权路由列表)、`whiteListRouters`、`initRoutes()`、`clearRoutes()` 等。 |
 | **webpanel** | `useWebpanelStore()` | **面板样式与文件上传**：`settings` (背景透明度、毛玻璃模糊度等)、`uploadImage(file)` 文件上传等。 |
@@ -73,6 +73,25 @@ await instanceStore?.refreshInstanceList();
 
 console.log('总实例数:', instanceStore?.totalInstanceCount);
 console.log('在线实例列表:', instanceStore?.instanceList);
+```
+
+### 代码示例：获取媒体资源凭据 (Media Token) <Badge type="tip" text="1.7.3" />
+
+在插件中展示实例世界地图切片、皮肤/头像等受保护媒体资源时，推荐通过 `userStore` 获取降权媒体凭据（Media Token），避免直接暴露管理员主凭据：
+
+```ts
+const stores = (window as any).MSLX_Stores;
+const userStore = stores?.getUserStore?.() || stores?.useUserStore?.();
+
+// 方式 1：一键获取查询参数字符串（优先使用 ?media_token=xxx，无则回退 ?x-user-token=yyy）
+const tokenParam = userStore?.getMediaTokenParam?.() || '';
+const tileUrl = `${userStore?.baseUrl}/api/plugin/mslx-plugin-map-render/map/1/0/0${tokenParam}`;
+
+// 方式 2：异步获取最新有效的媒体凭据（支持自动过期刷新与防并发）
+const mediaToken = await userStore?.getMediaToken?.();
+
+// 方式 3：同步读取当前缓存的媒体凭据
+const cachedMediaToken = userStore?.getSyncMediaToken?.();
 ```
 
 ---
