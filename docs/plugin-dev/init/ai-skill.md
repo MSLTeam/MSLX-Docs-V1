@@ -49,7 +49,7 @@ npx @mslteam/mslx-plugin-dev-skill audit
 命令行将递归扫描工程内的 Vue 组件与 C# 源码，基于 5 大核心维度执行合规性体检：
 
 1. **宿主视觉契合度**
-   - 检查卡片根容器是否声明 `design-card` 类（确保宿主动态注入 `--comp-op-light` 与 `--comp-op-dark` 透明度）。
+   - 检查卡片根容器是否声明 `design-card` 类（宿主自动注入 `--comp-op-light` 与 `--comp-op-dark` 半透明底色与边框，卡片无需手写任何背景色）。
    - 拦截硬编码纯白背景（`bg-white`、`#ffffff`），防止暗黑模式与毛玻璃壁纸下产生视觉断层。
 2. **UnoCSS 语法合规性**
    - 严格拦截在 CSS 变量后追加斜杠透明度（如 `bg-[var(...)]/80`、`border-[var(...)]/60`）的语法错误，防止 UnoCSS 样式解析失败。
