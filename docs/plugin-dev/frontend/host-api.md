@@ -166,7 +166,7 @@ const fetchDemoData = async () => {
   try {
     // 宿主拦截器已自动解包解出 data，res 直接为接口数据本体
     const res = await request.get<DemoData>({
-      url: '/api/plugins/mslx-plugin-demo/demo'
+      url: '/api/plugin/mslx-plugin-demo/demo'
     });
     
     // 直接使用 res，不需要写 res.data
@@ -185,7 +185,7 @@ import request from 'mslx-request';
 const submitPluginConfig = async (data: Record<string, any>) => {
   try {
     const res = await request.post({
-      url: '/api/plugins/mslx-plugin-demo/config',
+      url: '/api/plugin/mslx-plugin-demo/config',
       data,
     }, {
       // requestToSlaveNode 默认为 'auto'；若需强制请求主节点可设为 false

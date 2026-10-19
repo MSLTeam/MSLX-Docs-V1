@@ -61,7 +61,7 @@ npx @mslteam/mslx-plugin-dev-skill audit
    - 检查数据表格（`<t-table>`）外层是否包裹 `overflow-x-auto`，防止在手机屏幕上产生全页横向滚动。
    - 检查 `<t-dialog>` 是否配置 `attach="body"`（防止被父级卡片截断）以及响应式宽度 `min(580px, 92vw)`。
 5. **安全防线排查**
-   - 校验 C# 控制器路由前缀是否符合 `/api/plugins/{plugin-id}/...` 规范。
+   - 校验 C# 控制器路由前缀是否符合 `/api/plugin/{plugin-id}/...` 规范（单数 `plugin`）。
    - 校验文件读写是否限定在 `this.Config().GetDataPath()` 沙箱内，排查潜在的路径穿越（`../../`）风险。
    - 检查事件总线（`SDK.MSLX.Events`）监听是否异步化（`Task.Run`），防止耗时任务阻塞宿主主执行流。
 

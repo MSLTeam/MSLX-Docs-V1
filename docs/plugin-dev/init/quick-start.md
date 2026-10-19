@@ -74,9 +74,9 @@ dotnet new mslx-plugin -n MSLX.Plugin.MyAwesome \
 ### 后端 API 与路由规范
 - **标准 HTTP 通讯**：路由必须遵循统一前缀：
   ```
-  /api/plugins/{plugin-id}/[controller]/具体操作
+  /api/plugin/{plugin-id}/[controller]/具体操作
   ```
-  其中 `/api/plugins/{plugin-id}/` 前缀受宿主路由网关保护，**严禁变更**。
+  其中 `/api/plugin/{plugin-id}/` 前缀受宿主路由网关保护，**严禁变更**（注意为单数 `plugin`，严禁带 `s`）。
 - **SignalR 实时通讯**：路由规范为：
   ```
   /api/hubs/plugin/{plugin-id}/具体路由

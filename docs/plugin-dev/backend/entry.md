@@ -55,7 +55,7 @@ public class MSLXPluginEntry : IPlugin
 
     public void OnRegisterEndpoints(IEndpointRouteBuilder endpoints)
     {
-        endpoints.MapHub<StunHub>("/api/hubs/plugins/mslx-plugin-stun/stun");
+        endpoints.MapHub<StunHub>("/api/hubs/plugin/mslx-plugin-stun/stun");
     }
 
     public void OnRegisterServices(IServiceCollection services)
@@ -172,9 +172,9 @@ public class MSLXPluginEntry : IPlugin
 
 插件向宿主注册高级路由的生命周期
 
-约定：如果需要注册 `SignalR` 路由，前缀请注册为：`/api/hubs/plugins/mslx-plugin-xxx/xxx`
+约定：如果需要注册 `SignalR` 路由，前缀请注册为：`/api/hubs/plugin/mslx-plugin-xxx/xxx`
 
-即  `/api/hubs/plugins/{插件ID}` 前缀是不变的
+即  `/api/hubs/plugin/{插件ID}` 前缀是不变的（单数 `plugin`，严禁带 `s`）
 
 :::
 

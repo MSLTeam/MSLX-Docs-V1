@@ -214,3 +214,49 @@ MSLX 的插件系统允许您在网页控制台的前端新增菜单路由，效
         }
 ```
 
+---
+
+## 新增免登录全屏独立页面 <Badge type="tip" text="1.7.3" />
+
+适用于向外部普通玩家公开展示的**全屏单页**（如网页世界地图、对外服务器大屏看板、状态大屏等）。此类页面**不包含**宿主顶部 Header 导航栏与侧边 SideNav 菜单，且**允许未登录访客直接访问**。
+
+### 1. 后端声明公开能力契约
+插件 C# 入口类（`MSLXPluginEntry.cs`）中覆写 `HasPublicPages` 声明拥有公开页面：
+
+```csharp
+public class MSLXPluginEntry : IPlugin
+{
+    // ... 原有元数据 ...
+    public bool HasPublicPages => true; // 声明包含免登录公开页面
+}
+```
+
+### 2. 前端路由配置 (`pluginEntry.ts`)
+直接以全屏 Vue 组件作为根 `component`（**不要**声明 `component: 'HOST_LAYOUT'`），并在 `meta` 中声明 `anonymous: true` 与 `hidden: true`：
+
+```ts
+import PublicMapPage from './views/PublicMapPage.vue';
+
+export const pluginConfig: PluginConfig = {
+    name: 'MSLX.Plugin.MapRender',
+    version: '1.0.0',
+    routes: [
+        {
+            path: '/mslx-plugin-map-render/public',
+            name: 'MslxPluginMapRenderPublic',
+            component: PublicMapPage, // 全屏 Vue 独立组件，不包 HOST_LAYOUT
+            meta: {
+                title: '服务器世界地图',
+                anonymous: true, // 核心：声明支持免登录公开访问
+                hidden: true,    // 隐藏在后台侧边菜单之外
+            },
+        },
+    ],
+};
+```
+
+::: tip 宿主管理员可配置开关
+为保障服务器安全，只有在宿主管理员于「插件管理」界面开启该插件的 **“公开页面”** 开关后，外部未登录玩家方可访问该页面。管理员可随时在后台一键切断或放行外部访问。
+:::
+
+
