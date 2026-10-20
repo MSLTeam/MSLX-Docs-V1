@@ -18,6 +18,7 @@ import Testimonials from './components/Testimonials.vue'
 import ModernFAQ from './components/ModernFAQ.vue'
 import CommunityGroups from './components/CommunityGroups.vue'
 import Contributors from './components/Contributors.vue'
+import Sponsors from './components/Sponsors.vue'
 
 // import './theme/styles/custom.css'
 
@@ -34,6 +35,7 @@ export default defineClientConfig({
     app.component('modern-faq', ModernFAQ)
     app.component('community-groups', CommunityGroups)
     app.component('contributors', Contributors)
+    app.component('sponsors', Sponsors)
     // built-in components
     // app.component('RepoCard', RepoCard)
     // app.component('NpmBadge', NpmBadge)

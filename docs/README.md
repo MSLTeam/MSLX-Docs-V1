@@ -193,4 +193,10 @@ config:
   - 
     type: github-stars
     repo: MSLTeam/MSLX
+  - 
+    type: sponsors
+    title: 特别赞助与鸣谢
+    description: 感谢所有支持 MSLX 开源项目发展的赞助者，每一份支持都是我们持续前行的动力。
+    sponsorLink: https://afdian.com/a/mslteam
+    sponsorText: 前往爱发电赞助
 ---
