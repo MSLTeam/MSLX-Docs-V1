@@ -232,28 +232,52 @@ public class MSLXPluginEntry : IPlugin
 ```
 
 ### 2. 前端路由配置 (`pluginEntry.ts`)
-直接以全屏 Vue 组件作为根 `component`（**不要**声明 `component: 'HOST_LAYOUT'`），并在 `meta` 中声明 `anonymous: true` 与 `hidden: true`：
+
+为了让公开页面享受 MSLX 的背景壁纸、右上角明暗模式切换按钮以及 `.design-card` 高质感磨砂半透明卡片样式，推荐在顶层使用 ==PLUGINS_PUBLIC_LAYOUT== 专属公共布局：
 
 ```ts
-import PublicMapPage from './views/PublicMapPage.vue';
+import PublicWhitelistPage from './views/PublicWhitelistPage.vue';
 
 export const pluginConfig: PluginConfig = {
-    name: 'MSLX.Plugin.MapRender',
+    name: 'MSLX.Plugin.QqWhitelist',
     version: '1.0.0',
     routes: [
         {
-            path: '/mslx-plugin-map-render/public',
-            name: 'MslxPluginMapRenderPublic',
-            component: PublicMapPage, // 全屏 Vue 独立组件，不包 HOST_LAYOUT
-            meta: {
-                title: '服务器世界地图',
-                anonymous: true, // 核心：声明支持免登录公开访问
-                hidden: true,    // 隐藏在后台侧边菜单之外
-            },
+            path: '/public/whitelist',
+            component: 'PLUGINS_PUBLIC_LAYOUT', // 核心：使用公共页面专属布局，自动继承 design-card 与壁纸
+            children: [
+                {
+                    path: '',
+                    name: 'PublicWhitelist',
+                    component: PublicWhitelistPage,
+                    meta: {
+                        title: '自助申请白名单',
+                        anonymous: true, // 核心：声明支持免登录公开访问
+                        hidden: true,    // 隐藏在后台侧边菜单之外
+                    },
+                },
+            ],
         },
     ],
 };
 ```
+
+在 `PublicWhitelistPage.vue` 中，直接使用 `.design-card` 类名即可自动获得磨砂半透明背景、发光边框以及明暗色模式的自动联动：
+
+```vue
+<template>
+  <div class="flex items-center justify-center p-6 min-h-screen">
+    <div class="design-card max-w-md w-full p-8 rounded-3xl">
+      <h2>玩家白名单自助申请</h2>
+      <t-input placeholder="请输入游戏角色名" />
+    </div>
+  </div>
+</template>
+```
+
+::: tip 纯原生全屏页面（不包任何布局）
+若您的公开页面是完全自绘的独立大屏（如三维地图 WebGL Canvas 或嵌入式 Iframe），不需要 MSLX 的背景壁纸与卡片样式，也可以直接以 Vue 组件作为根 `component`（不包 `PLUGINS_PUBLIC_LAYOUT`）或使用 `HOST_BLANK_LAYOUT`。
+:::
 
 ::: tip 宿主管理员可配置开关
 为保障服务器安全，只有在宿主管理员于「插件管理」界面开启该插件的 **“公开页面”** 开关后，外部未登录玩家方可访问该页面。管理员可随时在后台一键切断或放行外部访问。
