@@ -20,5 +20,9 @@ list:
     link: #
     avatar: https://bbs-static.miyoushe.com/static/2024/12/05/0e139c6c04de1a23ea1400819574b59c_3322869863064933822.gif
     desc: 小匿叶龙有什么坏心思呢~
+  -
+    name: 华阳互联
+    link: https://www.zxynb.com.cn
+    avatar: https://www.zxynb.com.cn/logo.svg
+    desc: 学生团队，做域名注册、DNS 解析和底层系统软件。自研 RV32I CPU 与存储子系统。
 ---
-
