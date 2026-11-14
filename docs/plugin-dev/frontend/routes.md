@@ -233,7 +233,7 @@ public class MSLXPluginEntry : IPlugin
 
 ### 2. 前端路由配置 (`pluginEntry.ts`)
 
-为了让公开页面享受 MSLX 的背景壁纸、右上角明暗模式切换按钮以及 `.design-card` 高质感磨砂半透明卡片样式，推荐在顶层使用 ==PLUGINS_PUBLIC_LAYOUT== 专属公共布局：
+为了让公开页面享受 MSLX 的背景壁纸、右上角明暗模式切换按钮以及 `.design-card` 高质感磨砂半透明卡片样式，推荐在顶层使用 ==PLUGINS_PUBLIC_LAYOUT== 专属公共布局。**注意：必须在顶层父路由中声明 `meta: { hidden: true }`，以防宿主后台侧边菜单栏将其渲染为空白菜单项**：
 
 ```ts
 import PublicWhitelistPage from './views/PublicWhitelistPage.vue';
@@ -245,6 +245,9 @@ export const pluginConfig: PluginConfig = {
         {
             path: '/public/whitelist',
             component: 'PLUGINS_PUBLIC_LAYOUT', // 核心：使用公共页面专属布局，自动继承 design-card 与壁纸
+            meta: {
+                hidden: true, // 核心：父路由必须声明 hidden，防止在后台侧边菜单渲染空白项
+            },
             children: [
                 {
                     path: '',
