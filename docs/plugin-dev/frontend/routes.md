@@ -19,51 +19,74 @@ MSLX 的插件系统允许您在网页控制台的前端新增菜单路由，效
 
 :::: field-group
 
-::: field name="path" type="string" required
+::: field path
+@type string
+@required
 新增的路由地址
 :::
 
-::: field name="name" type="string" required
+::: field name
+@type string
+@required
 路由名字（建议带上插件名字，以防和其他插件或宿主冲突）
 :::
 
-::: field name="component" type="string" required default="HOST_LAYOUT"
+::: field component
+@type string
+@required
+@default HOST_LAYOUT
 新增一级菜单请填写 ==HOST_LAYOUT== 即可
 :::
 
-::: field name="meta.title" type="string" required
+::: field meta.title
+@type string
+@required
 新增的菜单标题
 :::
 
-::: field name="meta.icon" type="string" required
+::: field meta.icon
+@type string
+@required
 新增菜单的icon （仅支持使用tdesign的icon组件哦）
 :::
 
-::: field name="meta.roleCode" type="array"
+::: field meta.roleCode
+@type array
 新增菜单的可见范围，默认是所有用户可见
 :::
 
-::: field name="children[0].path" type="string" required
+::: field children[0].path
+@type string
+@required
 新增的路由地址（因为是新增一级菜单，这里一般留空即可）
 :::
 
-::: field name="children[0].name" type="string" required
+::: field children[0].name
+@type string
+@required
 子路由名字（建议带上插件名字，以防和其他插件或宿主冲突）
 :::
 
-::: field name="children[0].component" type="string" required
+::: field children[0].component
+@type string
+@required
 插入的组件（需要在插件入口顶部Import相应组件）
 :::
 
-::: field name="children[0].meta.title" type="string" required
+::: field children[0].meta.title
+@type string
+@required
 新增的菜单标题
 :::
 
-::: field name="children[0].meta.hidden" type="boolean" required
+::: field children[0].meta.hidden
+@type boolean
+@required
 由于是只有一级菜单，这里直接填 `true`。（注：将子路由设为 hidden 是为了在侧边栏仅显示一级菜单项，而点击时渲染该子路由组件。）
 :::
 
-::: field name="children[0].meta.roleCode" type="array"
+::: field children[0].meta.roleCode
+@type array
 新增菜单的可见范围，默认是所有用户可见
 :::
 
@@ -90,51 +113,73 @@ MSLX 的插件系统允许您在网页控制台的前端新增菜单路由，效
 
 :::: field-group
 
-::: field name="path" type="string" required
+::: field path
+@type string
+@required
 新增的一级路由前缀地址
 :::
 
-::: field name="name" type="string" required
+::: field name
+@type string
+@required
 一级路由名字（建议带上插件名字，以防和其他插件或宿主冲突）
 :::
 
-::: field name="component" type="string" required default="HOST_LAYOUT"
+::: field component
+@type string
+@required
+@default HOST_LAYOUT
 新增一级菜单请填写 ==HOST_LAYOUT== 即可
 :::
 
-::: field name="meta.title" type="string" required
+::: field meta.title
+@type string
+@required
 新增的一级菜单标题
 :::
 
-::: field name="meta.icon" type="string" required
+::: field meta.icon
+@type string
+@required
 新增一级菜单的icon （仅支持使用tdesign的icon组件哦）
 :::
 
-::: field name="meta.roleCode" type="array"
+::: field meta.roleCode
+@type array
 新增一级菜单的可见范围，默认是所有用户可见
 :::
 
-::: field name="children[i].path" type="string" required
+::: field children[i].path
+@type string
+@required
 新增的二级菜单路由地址
 :::
 
-::: field name="children[i].name" type="string" required
+::: field children[i].name
+@type string
+@required
 二级菜单路由名字（建议带上插件名字，以防和其他插件或宿主冲突）
 :::
 
-::: field name="children[i].component" type="string" required
+::: field children[i].component
+@type string
+@required
 插入的组件（需要在插件入口顶部Import相应组件）
 :::
 
-::: field name="children[i].meta.title" type="string" required
+::: field children[i].meta.title
+@type string
+@required
 新增的二级菜单标题
 :::
 
-::: field name="children[i].meta.icon" type="string"
+::: field children[i].meta.icon
+@type string
 新增二级菜单的icon （仅支持使用tdesign的icon组件哦）
 :::
 
-::: field name="children[i].meta.roleCode" type="array"
+::: field children[i].meta.roleCode
+@type array
 新增菜单的可见范围，默认是所有用户可见
 :::
 
@@ -167,7 +212,9 @@ MSLX 的插件系统允许您在网页控制台的前端新增菜单路由，效
 
 :::: field-group
 
-::: field name="parentName" type="string" required
+::: field parentName
+@type string
+@required
 需要插入的一级菜单的名字，可以在这里查询可选值，下面也列出来常见的三个一级菜单：
 
 [MSLX/MSLX.WebPanel/src/router/modules at dev · MSLTeam/MSLX](https://github.com/MSLTeam/MSLX/tree/dev/MSLX.WebPanel/src/router/modules)
@@ -178,27 +225,38 @@ MSLX 的插件系统允许您在网页控制台的前端新增菜单路由，效
 
 :::
 
-::: field name="path" type="string" required
+::: field path
+@type string
+@required
 插入的二级菜单路由地址
 :::
 
-::: field name="name" type="string" required
+::: field name
+@type string
+@required
 路由名字（建议带上插件名字，以防和其他插件或宿主冲突）
 :::
 
-::: field name="component" type="string" required
+::: field component
+@type string
+@required
 导入组件（记得import哦）
 :::
 
-::: field name="meta.title" type="string" required
+::: field meta.title
+@type string
+@required
 新增的二级路由菜单标题
 :::
 
-::: field name="meta.icon" type="string" required
+::: field meta.icon
+@type string
+@required
 新增二级菜单的icon （仅支持使用tdesign的icon组件哦）
 :::
 
-::: field name="meta.roleCode" type="array"
+::: field meta.roleCode
+@type array
 新增菜单的可见范围，默认是所有用户可见
 :::
 

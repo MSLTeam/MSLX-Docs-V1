@@ -2,6 +2,8 @@
 
 The Site is generated using [vuepress](https://vuepress.vuejs.org/) and [vuepress-theme-plume](https://github.com/pengzhanbo/vuepress-theme-plume)
 
+Requires Node.js 22.18.0 or newer.
+
 ## Install
 
 ```sh

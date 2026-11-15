@@ -2,6 +2,8 @@
 
 网站使用 [vuepress](https://vuepress.vuejs.org/) 和 [vuepress-theme-plume](https://github.com/pengzhanbo/vuepress-theme-plume) 构建生成。
 
+开发及构建环境需要 Node.js 22.18.0 或以上版本。
+
 ## Install
 
 ```sh

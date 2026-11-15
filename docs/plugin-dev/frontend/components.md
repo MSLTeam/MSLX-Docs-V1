@@ -33,11 +33,15 @@ MSLX 的插件系统允许您在原有页面的一些槽位新增组件/插入�
 
 :::: field-group
 
-::: field name="extensions[i].slot" type="string" required
+::: field extensions[i].slot
+@type string
+@required
 插槽名字（见本文档）
 :::
 
-::: field name="extensions[i].component" type="string" required
+::: field extensions[i].component
+@type string
+@required
 嵌入的组件（需要在上方import）
 :::
 
@@ -72,11 +76,15 @@ MSLX 的插件系统允许您在原有页面的一些槽位新增组件/插入�
 
 :::: field-group
 
-::: field name="extensions[i].label" type="string" required
+::: field extensions[i].label
+@type string
+@required
 新增的下拉菜单的名字
 :::
 
-::: field name="extensions[i].icon" type="component" required
+::: field extensions[i].icon
+@type component
+@required
 嵌入的图标组件（需要是TDesign的图标组件）
 :::
 
@@ -167,11 +175,15 @@ const props = defineProps({
 
 :::: field-group
 
-::: field name="extensions[i].label" type="string" required
+::: field extensions[i].label
+@type string
+@required
 新增选项卡的名称（显示在左侧菜单栏）
 :::
 
-::: field name="extensions[i].icon" type="component | string" required
+::: field extensions[i].icon
+@type component | string
+@required
 选项卡的图标，支持传入 TDesign 的图标组件（如 `SettingIcon`）或 Emoji / 文本字符串（如 `'🧩'`）
 :::
 
@@ -245,7 +257,9 @@ const props = defineProps({
 
 :::: field-group
 
-::: field name="extensions[i].label" type="string" required
+::: field extensions[i].label
+@type string
+@required
 新增的隧道服务商名字（会显示在切换按钮）
 :::
 

@@ -1,4 +1,5 @@
 ---
+createTime: 2026/11/15 17:29:26
 title: Lolia FRP 授权返回
 permalink: /third-party/lolia-frp/callback
 sidebar: false

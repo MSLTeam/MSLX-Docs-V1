@@ -176,7 +176,9 @@ MSL-API-V4 通用返回格式:
 <Badge type="tip" text="方法: GET"  />
 :::: field-group
 
-::: field name="server" type="String" required 
+::: field server
+@type String
+@required
 服务端名字（从上一步获取到的）
 :::
 
@@ -214,11 +216,15 @@ MSL-API-V4 通用返回格式:
 
 :::: field-group
 
-::: field name="server" type="String" required 
+::: field server
+@type String
+@required
 服务端名字
 :::
 
-::: field name="version" type="String" required 
+::: field version
+@type String
+@required
 MC版本号
 :::
 

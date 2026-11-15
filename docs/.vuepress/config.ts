@@ -25,7 +25,14 @@ export default defineUserConfig({
     ['link', { rel: 'icon', type: 'image/png', href: '/logo.png' }],
   ],
 
-  bundler: viteBundler(),
+  bundler: viteBundler({
+    viteOptions: {
+      resolve: {
+        // pnpm 的 peer 依赖可能生成多个实例，客户端必须共享注入上下文。
+        dedupe: ['vue', 'vue-router', '@vuepress/client'],
+      },
+    },
+  }),
   shouldPrefetch: false, // 站点较大，页面数量较多时，不建议启用
 
   theme: plumeTheme({

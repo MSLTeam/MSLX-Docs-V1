@@ -1,4 +1,5 @@
 ---
+title: MSLX 开服器
 pageLayout: home
 externalLinkIcon: false
 config:

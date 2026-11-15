@@ -72,18 +72,27 @@ MSL统一身份验证基于OAuth2的授权码模式规范设计
 
    <Card>
 
-   ::: field name="client_id" type="String" required  default="NeQ5v7T72vm4Yi6ADyYAW6m4eVK"
+   ::: field client_id
+   @type String
+   @required
+   @default NeQ5v7T72vm4Yi6ADyYAW6m4eVK
    客户端ID（第一步申请得到的）。
    :::
 
-   ::: field name="state" type="String" optional default="SiGEWINNEQWQ"
+   ::: field state
+   @type String
+   @optional
+   @default SiGEWINNEQWQ
    随机字符串，防止CSRF，请求方应当生成并记录此字符串，用于后续验证。
 
    <Badge type="warning" text="非必须，但强烈建议。"  />
 
    :::
 
-   ::: field name="redirect_uri" type="String" optional default="https://api.mslmc.cn/api/callback"
+   ::: field redirect_uri
+   @type String
+   @optional
+   @default https://api.mslmc.cn/api/callback
    登录成功后重新向的地址（一般是编码的地址），若不传此参数则读取App设置的URI地址。
 
    <Badge type="warning" text="非必须，但强烈建议。"  />
@@ -136,16 +145,25 @@ MSL统一身份验证基于OAuth2的授权码模式规范设计
 
    :::: field-group
 
-   ::: field name="code" type="String" required  default="y94vzbhskzcizEDmJMbWt775tbI"
+   ::: field code
+   @type String
+   @required
+   @default y94vzbhskzcizEDmJMbWt775tbI
    回调拿到的授权码
    :::
 
-   ::: field name="client_id" type="String" required default="NeQ5v7T72vm4Yi6ADyYAW6m4eVK"
+   ::: field client_id
+   @type String
+   @required
+   @default NeQ5v7T72vm4Yi6ADyYAW6m4eVK
    您在第一步申请的客户端ID
 
    :::
 
-   ::: field name="client_secret" type="String" required default="FAOFoGDPtTK8Yudlerv..."
+   ::: field client_secret
+   @type String
+   @required
+   @default FAOFoGDPtTK8Yudlerv...
    您在第一步申请的客户端密钥
 
    :::
