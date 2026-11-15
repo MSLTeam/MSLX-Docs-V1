@@ -6,8 +6,8 @@ config:
     type: modern-hero
     full: true
     backgroundImage:
-      light: /bg_light_new.jpg
-      dark: /bg_night.jpg
+      light: /bg-263/2026-11-15_13.26.51.jpg
+      dark: /bg-263/2026-11-15_13.26.59.jpg
     hero:
       name: MSLX 开服器
       tagline: Minecraft Server Launcher X
