@@ -64,8 +64,8 @@
   --nav-glass-tint: rgba(27, 27, 31, 0.6);
 }
 
-/* 复用主题的 top 状态；滚动或展开移动端菜单后恢复主题原样。 */
-.vp-nav .vp-navbar {
+/* 仅首页启用玻璃菜单；复用主题的 home / top 状态。 */
+.vp-nav .vp-navbar.home {
   /* 两种状态都保留过渡，确保下滑和回到顶部时双向平滑切换。 */
   transition:
     background-color 320ms ease,
@@ -75,22 +75,22 @@
     backdrop-filter 320ms ease;
 }
 
-.vp-nav .vp-navbar.top:not(.screen-open) {
+.vp-nav .vp-navbar.home.top:not(.screen-open) {
   background-color: var(--vp-nav-bg-color);
   box-shadow: none;
 }
 
-.vp-nav .vp-navbar.top:not(.screen-open) .content-body {
+.vp-nav .vp-navbar.home.top:not(.screen-open) .content-body {
   background-color: transparent;
 }
 
-/* 顶部和滚动状态都隐藏主题分隔线，避免切换时突然出现一条边缘。 */
-.vp-nav .vp-navbar .divider {
+/* 首页顶部和滚动状态都隐藏分隔线，避免切换时突然出现一条边缘。 */
+.vp-nav .vp-navbar.home .divider {
   opacity: 0;
 }
 
 @supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-  .vp-nav .vp-navbar.top:not(.screen-open) {
+  .vp-nav .vp-navbar.home.top:not(.screen-open) {
     background-color: var(--nav-glass-tint);
     -webkit-backdrop-filter: blur(20px) saturate(160%);
     backdrop-filter: blur(20px) saturate(160%);
@@ -98,7 +98,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .vp-nav .vp-navbar {
+  .vp-nav .vp-navbar.home {
     transition: none;
   }
 }
