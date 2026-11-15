@@ -248,20 +248,20 @@ onMounted(() => {
   gap: 0.6rem;
   padding: 0.75rem 1.6rem;
   border-radius: 50px;
-  background-color: var(--vp-c-brand-1);
-  color: #fff !important;
+  background-color: var(--vp-button-brand-bg);
+  color: var(--vp-button-brand-text) !important;
   font-weight: 600;
   font-size: 0.95rem;
   text-decoration: none !important;
-  box-shadow: 0 4px 14px rgba(59, 130, 246, 0.25);
+  box-shadow: 0 4px 14px rgba(var(--vp-c-brand-rgb), 0.25);
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   border: 1px solid transparent;
 }
 
 .sponsor-btn:hover {
-  background-color: var(--vp-c-brand-2);
+  background-color: var(--vp-button-brand-hover-bg);
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.35);
+  box-shadow: 0 6px 20px rgba(var(--vp-c-brand-rgb), 0.35);
 }
 
 .btn-icon {

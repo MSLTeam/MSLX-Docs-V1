@@ -207,8 +207,8 @@ onMounted(async () => {
 }
 
 .modern-star-btn:hover .btn-left {
-  background-color: var(--vp-c-brand-1);
-  color: #fff !important;
+  background-color: var(--vp-button-brand-hover-bg);
+  color: var(--vp-button-brand-text) !important;
 }
 
 @media (max-width: 800px) {

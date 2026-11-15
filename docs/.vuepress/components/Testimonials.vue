@@ -336,8 +336,8 @@ const handleSwipe = () => {
   transition: all 0.3s ease;
 }
 .control-btn:hover {
-  background-color: var(--vp-c-brand-1);
-  color: #fff;
+  background-color: var(--vp-button-brand-hover-bg);
+  color: var(--vp-button-brand-text);
   border-color: var(--vp-c-brand-1);
   transform: scale(1.1);
 }

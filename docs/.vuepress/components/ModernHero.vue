@@ -211,7 +211,7 @@ function getIconClass(name: string): string {
   text-transform: uppercase;
   padding: 0.35rem 1rem;
   border-radius: 9999px;
-  color: #be185d;
+  color: #c83b7e;
   background: rgba(255, 245, 248, 0.76);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -220,8 +220,8 @@ function getIconClass(name: string): string {
 }
 
 @keyframes pulse {
-  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4); }
-  50% { opacity: 0.6; box-shadow: 0 0 0 4px rgba(59, 130, 246, 0); }
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(var(--vp-c-brand-rgb), 0.4); }
+  50% { opacity: 0.6; box-shadow: 0 0 0 4px rgba(var(--vp-c-brand-rgb), 0); }
 }
 
 .hero-name {
@@ -280,17 +280,17 @@ function getIconClass(name: string): string {
 }
 
 .btn-brand {
-  background: var(--vp-c-brand-1, #3b82f6);
-  color: #ffffff !important;
-  border: 1px solid var(--vp-c-brand-1, #3b82f6);
-  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+  background: var(--vp-button-brand-bg);
+  color: var(--vp-button-brand-text) !important;
+  border: 1px solid transparent;
+  box-shadow: 0 4px 12px rgba(var(--vp-c-brand-rgb), 0.2);
 }
 
 .btn-brand:hover {
-  background: var(--vp-c-brand-2, #2563eb);
-  border-color: var(--vp-c-brand-2, #2563eb);
+  background: var(--vp-button-brand-hover-bg);
+  border-color: transparent;
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
+  box-shadow: 0 8px 20px rgba(var(--vp-c-brand-rgb), 0.3);
 }
 
 .btn-alt {
@@ -334,7 +334,7 @@ function getIconClass(name: string): string {
   transition: color 0.3s ease;
 }
 
-.platform-icon:hover { color: var(--vp-c-brand-1, #3b82f6); }
+.platform-icon:hover { color: var(--vp-c-brand-1, #c83b7e); }
 
 .hero-visual {
   position: relative;
@@ -376,7 +376,7 @@ function getIconClass(name: string): string {
 .glow-primary {
   width: 280px;
   height: 280px;
-  background: radial-gradient(circle, #ffcc33 0%, transparent 70%);
+  background: radial-gradient(circle, #f9a8d4 0%, transparent 70%);
   top: 10%;
   left: 10%;
 }
@@ -384,7 +384,7 @@ function getIconClass(name: string): string {
 .glow-secondary {
   width: 240px;
   height: 240px;
-  background: radial-gradient(circle, #ff6600 0%, transparent 70%);
+  background: radial-gradient(circle, #c4b5fd 0%, transparent 70%);
   bottom: 15%;
   right: 15%;
   animation-delay: -5s;
@@ -397,7 +397,7 @@ html.dark .glow-primary {
 
 html[data-theme="dark"] .glow-secondary,
 html.dark .glow-secondary {
-  background: radial-gradient(circle, rgba(251, 146, 60, 0.8) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(192, 132, 252, 0.6) 0%, transparent 70%);
 }
 
 @keyframes floatBackground {
@@ -410,7 +410,7 @@ html.dark .glow-secondary {
   width: 360px;
   height: 360px;
   border-radius: 50%;
-  border: 1px solid rgba(255, 204, 51, 0.15);
+  border: 1px solid rgba(244, 114, 182, 0.15);
   animation: spin 40s linear infinite;
 }
 
@@ -471,7 +471,7 @@ html.dark .orbit-ring {
 }
 
 .cloud-tag i {
-  color: var(--vp-c-brand-1, #3b82f6);
+  color: var(--vp-c-brand-1, #c83b7e);
   font-size: 1.1em;
   transition: transform 0.3s ease;
 }
@@ -483,9 +483,9 @@ html.dark .orbit-ring {
 .tag-wrapper:hover .cloud-tag {
   transform: scale(1.08);
   background: rgba(255, 255, 255, 0.95);
-  border-color: rgba(59, 130, 246, 0.4);
+  border-color: rgba(var(--vp-c-brand-rgb), 0.4);
   box-shadow: 
-    0 16px 32px -4px rgba(59, 130, 246, 0.15),
+    0 16px 32px -4px rgba(var(--vp-c-brand-rgb), 0.15),
     0 4px 8px -2px rgba(0, 0, 0, 0.05);
 }
 
@@ -503,9 +503,9 @@ html.dark .split-hero-wrapper {
 
 html[data-theme="dark"] .hero-tagline,
 html.dark .hero-tagline {
-  color: #93c5fd !important;
-  background: rgba(15, 23, 42, 0.65) !important;
-  border-color: rgba(147, 197, 253, 0.3) !important;
+  color: #f9a8d4 !important;
+  background: rgba(40, 20, 34, 0.65) !important;
+  border-color: rgba(249, 168, 212, 0.3) !important;
 }
 
 html[data-theme="dark"] .hero-name,
@@ -513,26 +513,26 @@ html.dark .hero-name {
   background: none !important;
   -webkit-background-clip: border-box !important;
   background-clip: border-box !important;
-  color: #f8fafc !important;
+  color: #fff5f9 !important;
   filter: none !important;
   text-shadow: 0 2px 16px rgba(0, 0, 0, 0.65);
 }
 
 html[data-theme="dark"] .hero-desc,
 html.dark .hero-desc {
-  color: rgba(241, 245, 249, 0.9) !important;
+  color: rgba(255, 241, 247, 0.9) !important;
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.65);
 }
 
 html[data-theme="dark"] .platform-label,
 html.dark .platform-label {
-  color: rgba(226, 232, 240, 0.85);
+  color: rgba(252, 231, 243, 0.85);
   text-shadow: 0 1px 6px rgba(0, 0, 0, 0.65);
 }
 
 html[data-theme="dark"] .platform-icon,
 html.dark .platform-icon {
-  color: rgba(226, 232, 240, 0.85);
+  color: rgba(252, 231, 243, 0.85);
   filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.65));
 }
 
@@ -573,7 +573,7 @@ html.dark .tag-wrapper:hover .cloud-tag {
 }
 
 html[data-theme="dark"] .cloud-tag i,
-html.dark .cloud-tag i { color: #7aa2f7 !important; }
+html.dark .cloud-tag i { color: #f9a8d4 !important; }
 
 @media (max-width: 900px) {
   .hero-inner {
