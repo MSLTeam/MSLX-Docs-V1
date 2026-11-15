@@ -27,6 +27,8 @@
   --vp-local-nav-bg-color: #fff;                      /* 页面内导航栏 */
   --vp-sidebar-bg-color: #f6f6f7;                     /* 侧边栏背景 */
   --vp-code-block-bg: #f6f8fa;                        /* 代码块背景 */
+
+  --nav-glass-tint: rgba(255, 255, 255, 0.6);
 }
 
 [data-theme="dark"] {
@@ -58,4 +60,45 @@
   --vp-local-nav-bg-color: #1b1b1f;                   /* 页面内导航栏 */
   --vp-sidebar-bg-color: #161618;                     /* 侧边栏背景 */
   --vp-code-block-bg: #202127;                        /* 代码块背景 */
+
+  --nav-glass-tint: rgba(27, 27, 31, 0.6);
+}
+
+/* 复用主题的 top 状态；滚动或展开移动端菜单后恢复主题原样。 */
+.vp-nav .vp-navbar {
+  /* 两种状态都保留过渡，确保下滑和回到顶部时双向平滑切换。 */
+  transition:
+    background-color 320ms ease,
+    color var(--vp-t-color),
+    border-bottom-color 320ms ease,
+    -webkit-backdrop-filter 320ms ease,
+    backdrop-filter 320ms ease;
+}
+
+.vp-nav .vp-navbar.top:not(.screen-open) {
+  background-color: var(--vp-nav-bg-color);
+  box-shadow: none;
+}
+
+.vp-nav .vp-navbar.top:not(.screen-open) .content-body {
+  background-color: transparent;
+}
+
+/* 顶部和滚动状态都隐藏主题分隔线，避免切换时突然出现一条边缘。 */
+.vp-nav .vp-navbar .divider {
+  opacity: 0;
+}
+
+@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .vp-nav .vp-navbar.top:not(.screen-open) {
+    background-color: var(--nav-glass-tint);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    backdrop-filter: blur(20px) saturate(160%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vp-nav .vp-navbar {
+    transition: none;
+  }
 }

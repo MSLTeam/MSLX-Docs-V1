@@ -133,12 +133,27 @@ function getIconClass(name: string): string {
 <style scoped>
 .split-hero-wrapper {
   position: relative;
+  /* 将首屏背景延伸到导航栏下方，并保留原有内容位置。 */
+  margin-top: calc(-1 * var(--vp-nav-height, 64px));
+  padding-top: calc(24px + var(--vp-nav-height, 64px));
   min-height: calc(100vh - var(--vp-nav-height, 64px));
   background-image: var(--hero-bg-light);
   background-size: cover;
   background-position: center;
   background-attachment: inherit;
   overflow: hidden;
+}
+
+@media (min-width: 640px) {
+  .split-hero-wrapper {
+    padding-top: calc(32px + var(--vp-nav-height, 64px));
+  }
+}
+
+@media (min-width: 960px) {
+  .split-hero-wrapper {
+    padding-top: calc(48px + var(--vp-nav-height, 64px));
+  }
 }
 
 .split-hero-wrapper :deep(.container) {
