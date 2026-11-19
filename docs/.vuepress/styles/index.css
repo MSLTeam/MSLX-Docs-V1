@@ -111,8 +111,30 @@
   }
 }
 
+/* 浅色首页顶端的搜索入口使用淡粉色玻璃底。 */
+[data-theme="light"] .vp-navbar.home .DocSearch-Button {
+  transition: background-color 320ms ease, border-color 320ms ease, box-shadow 320ms ease;
+}
+
+[data-theme="light"] .vp-navbar.home.top:not(.screen-open) .DocSearch-Button {
+  background-color: rgba(255, 245, 249, 0.22);
+  border-color: transparent;
+  box-shadow: none;
+}
+
+[data-theme="light"] .vp-navbar.home.top:not(.screen-open) .DocSearch-Button:hover {
+  background-color: rgba(255, 245, 249, 0.42);
+}
+
+[data-theme="light"] .vp-navbar.home.top:not(.screen-open) .DocSearch-Button-Key {
+  background: transparent;
+  border-color: rgba(var(--vp-c-brand-rgb), 0.16);
+  box-shadow: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .vp-nav .vp-navbar.home {
+  .vp-nav .vp-navbar.home,
+  [data-theme="light"] .vp-navbar.home .DocSearch-Button {
     transition: none;
   }
 }
