@@ -42,7 +42,7 @@ MSLX 宿主项目在全局 `window` 对象上暴露了底层核心依赖库、�
 | **instance** | `useInstanceListStore()` | **实例列表**：`instanceList` (全量实例数组)、`totalInstanceCount`、`onlineInstanceCount`、`refreshInstanceList()` 等。 |
 | **frp** | `useTunnelsStore()` | **FRP 隧道列表**：`frpList` (隧道列表数组)、`getTunnels()` 刷新数据等。 |
 | **node** | `useNodeStore()` | **子节点管理**：`slaveNodes` (节点列表)、`activeNodeId` (当前激活节点)、`setActiveNode()`、`fetchNodes()` 等。 |
-| **pluginUI** | `usePluginUIStore()` | **插件 UI 扩展槽**：`extensions` 插槽注册表、`registerExtension()` 等。 |
+| **pluginUI** | `usePluginUIStore()` | **插件 UI 扩展槽**：`extensions` 插槽注册表、`registerExtension()` 等（管理页面插槽与 `header-action` 顶部快捷操作插槽）。 |
 | **update** | `useUpdateStore()` | **主程序更新**：`updateInfo` (最新版本信息)、`checkAppUpdate()` 等。 |
 
 ### 代码示例：获取当前登录用户信息
@@ -236,8 +236,8 @@ const { use, create } = (window as any).MSLX_NodeContext;
 
 | 方法 | 调用时机与环境 | 生命周期与清理机制 | 推荐场景 |
 | :--- | :--- | :--- | :--- |
-| **`use()`** | 在插件 Vue 组件的 `setup()`（或 `<script setup>`）顶层调用 | **宿主全自动清理**：组件销毁（`onBeforeUnmount`）时，宿主自动终止该上下文中正在发起的 HTTP 请求（AbortController），并自动停止所有由此创建的 SignalR Hub 连接 | **99% 的插件组件开发场景（强烈推荐）** |
-| **`create(nodeId?, pluginId?)`** | 在组件之外、独立 SDK 工具函数或特定多节点交互逻辑中手动调用 | **必须自行手动调用 `dispose()` 释放**。如果不主动 `dispose()`，可能导致请求和连接持续驻留 | 跨节点批量拉取数据、后台独立轮询等高级场景 |
+| **`use()`** | 在插件 Vue 组件的 `setup()`（或 `<script setup>`）顶层调用 | **宿主全自动清理**：组件销毁（`onBeforeUnmount`）时，宿主自动终止该上下文中正在发起的 HTTP 请求（AbortController），并自动停止所有由此创建的 SignalR Hub 连接 | **99% 的插件组件开发场景（强烈推荐，含 `header-action` 抽屉与悬浮窗组件）** |
+| **`create(nodeId?, pluginId?)`** | 在组件之外、独立 SDK 工具函数或特定多节点交互逻辑中手动调用 | **必须自行手动调用 `dispose()` 释放**。如果不主动 `dispose()`，可能导致请求和连接持续驻留（注：`header-action` 的 `action` 回调函数的入参 `context` 已由宿主内部自动托管并在回调结束或切节点时释放） | 跨节点批量拉取数据、后台独立轮询等高级场景 |
 
 ---
 
